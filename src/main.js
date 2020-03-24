@@ -1,7 +1,13 @@
+//importing axios
+import axios from 'axios';
+window.axios = axios;
+axios.defaults.baseURL = 'http://localhost/Taskme/public/';
+
+
 import Vue from "vue";
 import VueRouter from "vue-router";
 import App from "./App";
-import VModal from 'vue-js-modal'
+import VModal from 'vue-js-modal';
 import rate from 'vue-rate';
 import DateDropdown from 'vue-date-dropdown';
 import VueTelInput from 'vue-tel-input';
@@ -26,6 +32,8 @@ import Notifications from "./components/NotificationPlugin";
 import MaterialDashboard from "./material-dashboard";
 
 import Chartist from "chartist";
+
+
 
 
 

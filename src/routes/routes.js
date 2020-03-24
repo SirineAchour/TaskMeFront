@@ -8,12 +8,18 @@ import Notifications from "@/pages/Notifications.vue";
 import NewTask from "@/pages/client/NewTask.vue";
 import PostAdd from "@/pages/client/PostAdd.vue";
 import Homepage from "@/pages/Homepage.vue";
+import playground from "@/pages/playground.vue";
 
 const routes = [
+  {
+    path: "/test",
+    component: playground,
+  },
   {
     path: "/",
     component: Homepage,
   },
+
   {
     path: "/client",
     component: DashboardLayout,
@@ -58,7 +64,8 @@ const routes = [
         component: Notifications
       }
     ]
-  }/*,
+  }
+  /*,
   {
     path: "/worker",
     component: DashboardLayout,
