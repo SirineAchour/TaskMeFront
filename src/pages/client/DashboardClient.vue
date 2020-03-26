@@ -16,7 +16,7 @@
           
           <template slot="content">
             <center class="title">
-              <h3><md-icon> directions_run </md-icon> {{task.name}}</h3>
+              <h3><md-icon> directions_run </md-icon> {{task["subject"]}}</h3>
             </center>
             <center class="category"><h4>category</h4>
 
@@ -94,26 +94,7 @@ export default {
   },
   data() {
     return {
-      tasks: [
-        {
-          id : "1",
-          name : "task 1",
-          price : "1 $",
-          date : "1/1/1",
-          place : "location 1",
-          creation_date : " 1 day",
-          worker_found : true,
-        },
-        {
-          id : "2",
-          name : "task 2",
-          price : "2 $",
-          date : "2/2/2",
-          place : "location 2",
-          creation_date : " 2 weeks",
-          worker_found : false,
-        }
-      ],
+      tasks : null,
       ads : [
         {
           id : "1",
@@ -123,24 +104,13 @@ export default {
           creation_date : " 1 day",
           worker_found : false,
         },
-        {
-          id : "2",
-          name : "ad 1",
-          price : "1 $",
-          deets : "deeeeeeeeeeeeetaaaaaaaaaaillllllls",
-          creation_date : " 1 day",
-          worker_found : true,
-        },
-        {
-          id : "3",
-          name : "ad 2",
-          price : "2 $",
-          deets : "deeeeeeeeeeeeeeeeeeeeettttttttts",
-          creation_date : " 2 weeks",
-          worker_found : true,
-        }
       ]
     }
+  },
+  mounted(){
+    axios
+          .get('http://localhost/Taskme/public/api/tasks')
+          .then(response => (this.tasks = response["data"]["data"]))
   }
 };
 </script>

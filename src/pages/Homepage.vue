@@ -19,7 +19,7 @@ export default {
     About
   },
   created () {
-            var test=true;
+            var test=false;
       //check session stuff 
       if(test) {
       this.$router.push("/client");

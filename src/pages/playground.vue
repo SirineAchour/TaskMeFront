@@ -1,5 +1,12 @@
+<template>
+<div >
+    {{ info }}
+    blah blah
+</div>
+</template>
+
 <script>
-    export default({
+    export default{
         name: "playground",
         data () {
             console.log("in data");
@@ -13,8 +20,8 @@
                 .get('http://localhost/Taskme/public/api/tasks')
                 .then(response => (this.info = response))
         }
-    })
- /*   export default({
+    }
+     /*   export default({
 
         data () {
             return {
@@ -28,10 +35,5 @@
         }
     })*/
 </script>
-<template>
-<div id="app">
-    {{ info }}
-    blah blah
-</div>
-</template>
+
 
