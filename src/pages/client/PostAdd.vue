@@ -1,7 +1,7 @@
 <template>
   <div class="wrapper">
     <md-card>
-      <md-card-header data-background-color="orange">
+      <md-card-header data-background-color="green">
         <h4 class="title">Post Add</h4>
         <p class="category">
           Please provide as many details as possible as to avoid
@@ -53,7 +53,7 @@
           <div class="md-layout-item md-size-100 text-right">
             <md-button
               class="md-raised"
-              data-background-color="orange"
+              data-background-color="green"
               @click="post"
               >Post</md-button
             >

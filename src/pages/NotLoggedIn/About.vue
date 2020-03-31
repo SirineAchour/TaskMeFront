@@ -1,8 +1,9 @@
 <template>
   <div>
-      <p id="first-p"> about about about </p>
-      <p> about about about about about about </p>
-      <p> about about about about about about about about about about about about </p>
+      <h3 id="first-p"> Odd jobs for everyone</h3>
+      <p> An easy to use plateforme for odd job workers and seekers  </p>
+      <p> Get tasks done, Post ads, Make money performing easy jobs no competence needed </p>
+      <p> idk what to write f description </p>
   </div>
 </template>
 
@@ -14,15 +15,16 @@ export default {
 
 <style scoped>
 *{
-  font-size: 17px;
+  
   text-align: center;
-  color: #2c3e50;
+  color: #414141;
   
 }
     #first-p{
         font-weight: bold ;
     }
     p{
+      font-size: 19px;
         margin-left: 150px;
         margin-right: 150px;
 

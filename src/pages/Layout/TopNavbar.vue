@@ -16,7 +16,7 @@
         </md-button>
 
         <div class="md-collapse">
-          <div class="search">
+ <!--         <div class="search">
             <md-autocomplete
               
               :md-options="options"
@@ -24,8 +24,8 @@
             >
               <label>Search...</label>
             </md-autocomplete>
-          </div>
-          <md-list>
+          </div> -->
+          <md-list> <!-- IM NOT SURE HOW NOTIFICATIONS ARE GONNA WORK -->
             <li class="md-list-item">
               <div class="md-list-item-content">
                 <drop-down>
@@ -58,13 +58,13 @@
                     <div
                       class="dropdown-menu dropdown-menu-right center-main-container" 
                       style="text-align:center;"
-                    >
-                          <img class="img" :src="cardUserImage" width="80px" height="80px"/>
+                    > <!-- idk kifech im gonna get l pic-->
+                          <img class="img" :src="user.cardUserImage" width="80px" height="80px"/>
 
-                          <h6 class="category text-gray">{{ verified }}</h6>
-                          <h4 class="card-title">{{ nom }} {{ prenom }}</h4>
-                          <h6 class="category text-gray">{{ cin }}</h6>
-                          <rate :length="5" :value="rating" :readonly="true"/>
+                          <h6 class="category text-gray">{{ user.verified }}</h6>
+                          <h4 class="card-title">{{ user.firstName }} {{ user.LastName }}</h4>
+                          <h6 class="category text-gray">{{ user.cin }}</h6>
+                          <rate :length="5" :value="user.rating" :readonly="true"/>
                   </div>
                 </drop-down>
               </div>
@@ -81,14 +81,16 @@ export default {
   components: {},
   data() {
     return {
-    rating: "3",
+      user : 
+    {rating: "3",
     prenom: "Name",
     nom: "Lastname",
     verified: "Verified",
     cin: "12556321",
     cardUserImage: require("@/assets/img/faces/marc.jpg"),
     options : [],
-    value : "",
+    value : ""},
+    
     notifications : [
       "found worker for task 1",
       "found worker for ad 1",
@@ -101,6 +103,17 @@ export default {
     toggleSidebar() {
       this.$sidebar.displaySidebar(!this.$sidebar.showSidebar);
     }
+  },
+  mounted(){
+    /*
+    var id=""
+    axios
+          .get('http://localhost/Taskme/public/api/notifcations'+id) // mafammech l route
+          .then(response => (this.notifications = response["data"]["data"]))
+    this.notifications_size=this.notifications.size
+    axios
+          .get('http://localhost/Taskme/public/api/user'+id) // mafammech l route
+          .then(response => (this.user = response["data"]["data"]))*/
   }
 };
 </script>

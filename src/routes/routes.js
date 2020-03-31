@@ -3,12 +3,15 @@ import DashboardLayout from "@/pages/Layout/DashboardLayout.vue";
 import DashboardClient from "@/pages/client/DashboardClient.vue";
 import UserProfile from "@/pages/UserProfile.vue";
 import History from "@/pages/history/History.vue";
-import Maps from "@/pages/Maps.vue";
-import Notifications from "@/pages/Notifications.vue";
+//import Maps from "@/pages/Maps.vue";
+//import Notifications from "@/pages/Notifications.vue";
 import NewTask from "@/pages/client/NewTask.vue";
 import PostAdd from "@/pages/client/PostAdd.vue";
 import Homepage from "@/pages/Homepage.vue";
 import playground from "@/pages/playground.vue";
+import DashboardWorker from "@/pages/worker/DashboardWorker.vue";
+import OngoingTasks from "@/pages/worker/OngoingTasks.vue";
+import OngoingAds from "@/pages/worker/OngoingAds.vue";
 
 const routes = [
   {
@@ -23,6 +26,7 @@ const routes = [
   {
     path: "/client",
     component: DashboardLayout,
+    props: { client: true },
     redirect: "/client/dashboard-client",
     children: [
       {
@@ -49,7 +53,7 @@ const routes = [
         path: "/client/history",
         name: "History",
         component: History
-      },
+      },/*
       {
         path: "maps",
         name: "Maps",
@@ -62,13 +66,13 @@ const routes = [
         path: "notifications",
         name: "Notifications",
         component: Notifications
-      }
+      }*/
     ]
-  }
-  /*,
+  },
   {
     path: "/worker",
     component: DashboardLayout,
+    props: { client: false },
     redirect: "/worker/dashboard-worker",
     children: [
       {
@@ -77,30 +81,27 @@ const routes = [
         component: DashboardWorker
       },
       {
+        path: "/worker/tasks",
+        name: "OngoingTasks",
+        component: OngoingTasks
+      },
+      {
+        path: "/worker/ads",
+        name: "OngoingAds",
+        component: OngoingAds
+      },
+      {
         path: "/worker/user",
         name: "User Profile",
         component: UserProfile
       },
       {
-        path: "/client/history",
+        path: "/worker/history",
         name: "History",
         component: History
       },
-      {
-        path: "maps",
-        name: "Maps",
-        meta: {
-          hideFooter: true
-        },
-        component: Maps
-      }, 
-      {
-        path: "notifications",
-        name: "Notifications",
-        component: Notifications
-      }
     ]
-  }*/
+  }
 ];
 
 export default routes;

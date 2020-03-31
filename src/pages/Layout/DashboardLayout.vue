@@ -4,34 +4,47 @@
 
     <side-bar class="sidebar-nav">
       
-      <sidebar-link to="/client/dashboard-client">
+      <sidebar-link :to="dashboard">
         <div class="items item1">
           <i class="fas fa-hashtag"></i>
           <p>Dashboard</p>
         </div>
       </sidebar-link>
-      <sidebar-link to="/client/user">
+      <sidebar-link v-if="client" to="/client/newtask">
         <div class="items item2">
-          <i class="fas fa-user fa-xs "></i>
-          <p>User Profile</p>
-        </div>
-      </sidebar-link>
-      <sidebar-link to="/client/newtask">
-        <div class="items item3">
           <i class="fas fa-plus"></i>
           <p>New Task</p>
         </div>
       </sidebar-link>
-      <sidebar-link to="/client/postadd">
-        <div class="items item4">
+      <sidebar-link v-else to="/worker/tasks">
+        <div class="items item2">
+          <i class="fas fa-thumbtack"></i>
+          <p>Current Tasks</p>
+        </div>
+      </sidebar-link>
+      <sidebar-link v-if="client" to="/client/postadd">
+        <div class="items item3">
           <i class="fas fa-audio-description"></i>
           <p>Post Ad</p>
         </div>
       </sidebar-link>
-      <sidebar-link to="/client/history">
-        <div class="items item5">
+      <sidebar-link v-else to="/worker/ads">
+        <div class="items item3">
+          <i class="fas fa-audio-description"></i>
+          <p>Current Ads</p>
+        </div>
+      </sidebar-link>
+      <sidebar-link :to="history">
+        <div class="items item4">
           <i class="fas fa-history"></i>
           <p>History</p>
+        </div>
+      </sidebar-link>
+
+            <sidebar-link :to="user_update">
+        <div class="items item5">
+          <i class="fas fa-user fa-xs "></i>
+          <p>User Profile</p>
         </div>
       </sidebar-link>
     </side-bar>
@@ -60,6 +73,37 @@ export default {
     DashboardContent,
    // ContentFooter,
   //  FixedPlugin
+  },
+  props :{
+    client: {
+      type : Boolean
+    },
+  },
+  data(){
+    return{
+      dashboard:"",
+      history:"",
+      user_update:""
+    }
+  },
+  updated(){
+    var type=""
+    if(this.client){
+      type="client"
+    }
+    else{
+      type="worker"
+      }
+    this.dashboard="/"+type+"/dashboard-"+type
+    this.history="/"+type+"/history"
+    this.user_update="/"+type+"/user"
+
+    console.log(" type :"+type);
+    console.log(" dashboard link : "+this.dashboard)
+    console.log(" history link : "+this.history)
+    console.log(" user update link : "+this.user_update)
+
+    console.log("client prop : "+this.client)
   }
 };
 </script>
@@ -116,6 +160,10 @@ export default {
 }
 
 .items:hover {
+  color: white;
+}
+
+p:hover{
   color: white;
 }
 </style>

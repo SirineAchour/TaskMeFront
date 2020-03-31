@@ -2,7 +2,7 @@
   <div class="content md-layout">
     <div class="md-layout-item md-medium-size-70 md-xsmall-size-100 md-size-70">
         <md-card>
-          <md-card-header data-background-color="blue">
+          <md-card-header data-background-color="purple">
             <h4 class="title">Edit Profile</h4>
             <!--<p class="category">Complete your profile</p>-->
           </md-card-header>
@@ -11,26 +11,26 @@
             <div class="md-layout">
               <div class="md-layout-item md-small-size-100 md-size-33">
                 <md-field>
-                  <label>ID: {{cin}}</label>
+                  <label>ID: {{user.cin}}</label>
                   <md-input disabled></md-input>
                 </md-field>
               </div>
               <div class="md-layout-item md-small-size-100 md-size-33">
                 <md-field>
-                  <label>First Name: {{prenom}}</label>
+                  <label>First Name: {{user.firstName}}</label>
                   <md-input type="text" disabled></md-input>
                 </md-field>
               </div>
               <div class="md-layout-item md-small-size-100 md-size-33">
                 <md-field>
-                  <label>Last Name: {{nom}}</label>
+                  <label>Last Name: {{user.LastName}}</label>
                   <md-input type="text" disabled></md-input>
                 </md-field>
               </div>
               <div class="md-layout-item md-small-size-100 md-size-50">
                 <md-field>
                   <label>Email Address</label>
-                  <md-input v-model="email_update" type="email" :placeholder="email"></md-input>
+                  <md-input v-model="email_update" type="email" :placeholder="user.email"></md-input>
                 </md-field>
               </div>
 
@@ -48,7 +48,7 @@
                 Phone :
               </div>
               <div class="md-layout-item md-small-size-80 md-size-80 stuff">
-                <vue-tel-input :placeholder="phone" v-model="tel_update"> </vue-tel-input>
+                <vue-tel-input :placeholder="user.phone" v-model="tel_update"> </vue-tel-input>
               </div>
               <div class="md-layout-item md-small-size-100 md-size-100 stuff">
                 <label
@@ -57,7 +57,7 @@
                   style="margin-right:35px;"
                   >Birth date :</label
                 >
-                <input id="dob_client" type="date" :value="birthday"/>
+                <input id="dob_client" type="date" :value="user.birthday"/>
               </div>
               <div class="md-layout-item md-small-size-100 md-size-67">
                 <span style="margin-right:20px;" class="padd">Gender : </span>
@@ -104,7 +104,7 @@
               </div>
 
               <div class="md-layout-item md-size-100 text-right">
-                <md-button class="md-raised" data-background-color="blue" @click="update"
+                <md-button class="md-raised" data-background-color="purple" @click="update"
                   >Update Profile</md-button
                 >
               </div>
@@ -116,15 +116,15 @@
       <br>
       <md-card class="md-card-profile">
         <div class="md-card-avatar">
-          <img class="img" :src="cardUserImage" />
+          <img class="img" :src="user.cardUserImage" />
         </div>
 
         <md-card-content>
-          <h6 v-if="verified" class="category text-gray">verified</h6>
+          <h6 v-if="user.verified" class="category text-gray">verified</h6>
           <h6 v-else class="category text-gray">not verified</h6>
           <h4 class="card-title">{{ nom }} {{ prenom }}</h4>
           <h6 class="category text-gray">{{ cin }}</h6>
-          <rate :length="5" :value="rating" :readonly="true" />
+          <rate :length="5" :value="user.rating" :readonly="true" />
         </md-card-content>
       </md-card>
     </div>
@@ -141,19 +141,21 @@ export default {
   },
   data() {
     return {
-    cardUserImage: require("@/assets/img/faces/marc.jpg"),
-    rating: "3",
-    prenom: "Name",
-    nom: "Lastname",
-    verified: true,
-    cin: "12556321",
-    email:"",
-    phone : "12345678",
-    birthday : "1998-12-03"
+      user : 
+    {    cardUserImage: require("@/assets/img/faces/marc.jpg"),
+        rating: "3",
+        prenom: "Name",
+        nom: "Lastname",
+        verified: true,
+        cin: "12556321",
+        email:"",
+        phone : "12345678",
+        birthday : "1998-12-03"}
     }
   },
   created() {
     // fill e stuff here
+    
     this.nom="Lastname";
     this.prenom="Firstname";
     this.verified="true";
@@ -166,8 +168,12 @@ export default {
   },
   mounted(){
       //gender !!!!!!!all dom stuff must be fl mounted
-      var gender="male";
-    document.getElementById(gender+"_client_edit").checked = true;
+  /*  var id=""
+    axios
+          .get('http://localhost/Taskme/public/api/user'+id)
+          .then(response => (this.user = response["data"]["data"]))
+    var gender="male";
+    document.getElementById(gender+"_client_edit").checked = true;*/
   },
   methods :{
     update(){

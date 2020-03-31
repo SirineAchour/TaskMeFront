@@ -1,7 +1,7 @@
 <template>
   <div class="wrapper">
     <md-card>
-      <md-card-header data-background-color="green">
+      <md-card-header data-background-color="blue">
         <h4 class="title">New Task</h4>
       </md-card-header>
 
@@ -77,7 +77,7 @@
           </div>
 
           <div class="md-layout-item md-size-100 text-right">
-            <md-button class="md-raised" data-background-color="green"
+            <md-button class="md-raised" data-background-color="blue"
               >New Task</md-button
             >
           </div>

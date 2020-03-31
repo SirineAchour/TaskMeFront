@@ -13,7 +13,7 @@ export default {
 
 <style >
 *{
-  font-family: Avenir, Helvetica, Arial, sans-serif;
+  font-family: Cabin, Avenir, Helvetica, Arial, sans-serif;
 }
 </style>
 

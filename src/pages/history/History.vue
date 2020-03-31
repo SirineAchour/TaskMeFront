@@ -12,7 +12,7 @@
           width="110"
           v-model="toggleSwitch"
           @change="switchHandler"
-          :color="{checked: '#973fad', unchecked: '#973fada6'}"
+          :color="{checked: '#f8542b9f', unchecked: '#f8542b9f'}"
           :sync="true"
           :labels="{ checked: 'Tasks', unchecked: 'Ads' }"
           font-size="17"
@@ -56,4 +56,6 @@ export default {
 };
 </script>
 
-<style scoped></style>
+<style scoped>
+
+</style>

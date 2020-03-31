@@ -2,7 +2,7 @@
   <div class="sidebar">
     <div class="logo">
       <div class="logo-img simple-text logo-mini">
-        <img :src="imgLogo" alt="" />
+        <img :src="imgLogo" alt="" height="30" width="30" />
       </div>
       <span class="simple-text logo-normal">
         {{ title }}
@@ -39,7 +39,7 @@ export default {
     },
     imgLogo: {
       type: String,
-      default: require("@/assets/img/vue-logo.png")
+      default: require("@/assets/img/mini-logo.png")
     },
     sidebarLinks: {
       type: Array,

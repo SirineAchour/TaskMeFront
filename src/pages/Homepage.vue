@@ -1,7 +1,9 @@
 <template>
   <div>
-    <br><br><br>
-    <img alt="logo" src="C:/Users/HP/Downloads/vue-material-dashboard-master/vue-material-dashboard-master/src/assets/img/vue-logo.png" />
+    <br>
+    <img :src="imgLogo" alt="logo" height="300" width="300" />
+    <br>
+    <br>
     <About />
     <NotLoggedIn/>
   </div>
@@ -18,10 +20,16 @@ export default {
     NotLoggedIn,
     About
   },
+  data(){
+    return {
+      imgLogo: require("@/assets/img/logo-2.png")
+    }
+  },
   created () {
-            var test=false;
+      var test=false;
       //check session stuff 
       if(test) {
+      $emit.
       this.$router.push("/client");
       }
   }
