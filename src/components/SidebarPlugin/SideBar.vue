@@ -1,5 +1,5 @@
 <template>
-  <div class="sidebar">
+  <div class="sidebar bgg" >
     <div class="logo">
       <div class="logo-img simple-text logo-mini">
         <img :src="imgLogo" alt="" height="30" width="30" />
@@ -63,4 +63,17 @@ export default {
     display: none;
   }
 }
+
+/*
+.bgg {
+  background-image: url("D:/GL3/GL3/Semestre 2/Processus Unifiés/TaskMeFront/src/assets/img/b6.jpg");
+
+  /* Full height */
+ /* height: 100%; */
+
+  /* Center and scale the image nicely */
+/*  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}*/
 </style>

@@ -1,20 +1,14 @@
 <template>
 <!--  recommeneded tasks and ads -->
-  <div class="content">
-    <!-- TASKS -->
-    <div class="md-layout md-gutter md-alignment-center">
-      <h3 class="md-layout-item">Worker Tasks :</h3>
-    </div>
+  <div class="content" style="padding-top:0px;margin-top:2px;">
+    <h3 style="margin-top:0px;">Suggested Tasks :</h3>
     <div class="md-layout md-gutter">
-      <div
-        class="md-layout-item md-medium-size-50 md-xsmall-size-100 md-size-30"
-        v-for="task in tasks" :key="task.id"
-      >
+      <div class="md-layout-item md-medium-size-50 md-xsmall-size-100 md-size-30"
+        v-for="task in tasks" :key="task.id">
         <chart-card
           :chart-type="'Line'"
           icon="person"
         >
-          
           <template slot="content">
             <center class="title">
               <h3><md-icon> directions_run </md-icon> {{task["subject"]}}</h3>
@@ -24,16 +18,26 @@
               {{task.date}} <br />
               {{task.place}} <br />
               {{task.price}} <br /><br>
-              <div  v-if="task.worker_found" class="worker_found"><i class=" fas fa-exclamation-circle fa-sm"></i> worker found</div>
-              <div v-else class="worker_not_found"><i class=" fas fa-exclamation-circle fa-sm"></i> worker not found yet</div>
             </center>
             <div>
             </div>
             <center>
-              <br>
-              <button data-background-color="red" class="btn btn-sm">done</button> <!-- done -->
-              <button data-background-color="red" class="btn btn-sm">delete</button> <!-- cancel -->
-              <button data-background-color="red" class="btn btn-sm">report</button> <!-- report -->
+              <br />
+              <button
+                data-background-color="red"
+                class="btn btn-sm"
+                @click="doit(task.id, task.client,'task')"
+              >
+                do it!
+              </button>
+
+              <button
+                data-background-color="red"
+                class="btn btn-sm"
+                @click="remove(task.id, 'task')"
+              >
+                remove
+              </button>
             </center>
           </template>
 
@@ -43,7 +47,6 @@
               created {{task.creation_date}} ago
             </span>
           </template>
-          
         </chart-card>
       </div>
     </div>
@@ -69,8 +72,22 @@
               <div  v-if="ad.worker_found" class="worker_found"><i class=" fas fa-exclamation-circle fa-sm"></i> worker found</div>
               <div v-else class="worker_not_found"><i class=" fas fa-exclamation-circle fa-sm"></i> worker not found yet</div>
               <br>
-              <button data-background-color="red" class="btn btn-sm">done</button> <!-- done -->
-              <button data-background-color="red" class="btn btn-sm">delete</button> <!-- cancel -->
+            <center>
+              <button
+                data-background-color="red"
+                class="btn btn-sm"
+                @click="cancel(ad.id, 'ad')"
+              >
+                do it!
+              </button>
+              <button
+                data-background-color="red"
+                class="btn btn-sm"
+                @click="report(ad.id, 'ad')"
+              >
+                remove
+              </button>
+            </center>
             </center>
           </template>
 
@@ -95,15 +112,28 @@ export default {
   },
   data() {
     return {
-      tasks : null,
+      client :"",
+      worker :"",
+      creation_date:"",
+      tasks: [
+        {
+          id: "1",
+          name: "task 1",
+          category: "task category",
+          date : "task date",
+          place: "task place",
+          price: "2 $",
+          deets: "deeeeeeeeeeeeetaaaaaaaaaaillllllls",
+          creation_date: " 2 minutes",
+        }
+      ],
       ads : [
         {
           id : "1",
           name : "ad 1",
           price : "1 $",
-          deets : "deeeeeeeeeeeeetaaaaaaaaaaillllllls",
+          details : "deeeeeeeeeeeeetaaaaaaaaaaillllllls",
           creation_date : " 1 day",
-          worker_found : false,
         },
       ]
     }
@@ -138,4 +168,10 @@ i{
 .worker_found{
   color : #45bd81;
 }
+
+button{
+  width: 66px;
+  margin-left: 7px;
+}
+
 </style>

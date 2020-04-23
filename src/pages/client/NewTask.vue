@@ -54,13 +54,13 @@
           <div class="md-layout-item md-small-size-50 md-size-50">
             <md-field>
               <label>Date</label>
-              <md-input type="text" class="padd"></md-input>
+              <md-input type="text" class="padd" :v-bind="date"></md-input>
               <span class="md-helper-text">dd-mm-yyyy</span>
             </md-field>
           </div>
           <div class="md-layout-item md-small-size-50 md-size-50">
             <md-field>
-              <label>Place</label>
+              <label v-bind="place">Place</label>
               <md-input type="text" class="padd"></md-input>
             </md-field>
           </div>
@@ -77,7 +77,7 @@
           </div>
 
           <div class="md-layout-item md-size-100 text-right">
-            <md-button class="md-raised" data-background-color="blue"
+            <md-button class="md-raised" data-background-color="blue" @click="send"
               >New Task</md-button
             >
           </div>
@@ -91,6 +91,8 @@
 export default {
   data() {
     return {
+      date :"",
+      place: "",
       prix: "",
       catAndActs: {
         Care: [
@@ -175,7 +177,32 @@ export default {
     };
   },
   methods: {
-      taskPrice() {
+    send(){
+      this.user_id="1500;"
+      var date=this.date.trim();
+      var place=this.place.trim();
+      console.log("user id : "+this.user_id);
+      if(place=="" || date==""){
+        console.log("nope");
+        return;
+      }
+      axios
+        .post('http://localhost/Taskme/public/api/task/',JSON.stringify({
+          task_id : "",
+          'client_id' : this.user_id,
+          'worker_id' : "",
+          'date' : date,
+          'description' : "",
+          'address_id' : place,
+          'issues' : "",
+          'state' : ""
+        }))
+        .catch(function (error) {
+          console.log(error);
+      })
+      console.log(this.id+" is deleted normalement")
+    },
+    taskPrice() {
       var sel = document.getElementById("validationCustom04");
       var opt = sel.options[sel.selectedIndex];
       this.prix = opt.text;
@@ -198,7 +225,11 @@ export default {
       this.taskPrice();
     },
   
-  }
+  },
+  created() {
+    // check session stuff
+    
+  },
 };
 </script>
 <style scoped>

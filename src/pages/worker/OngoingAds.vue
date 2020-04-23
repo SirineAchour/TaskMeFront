@@ -1,7 +1,7 @@
 <!-- Ongoing ads -->
 <template>
-    <div class="wrapper">
-            <div class="md-layout md-gutter md-alignment-center">
+    <div class="wrapper" style="padding-top:0px;margin-top:2px;">
+            <div class="md-layout md-gutter md-alignment-center" style="margin-top:0px;">
       <h3 class="md-layout-item">Ads :</h3>
     </div>
     <div class="md-layout md-gutter scrolling-wrapper">

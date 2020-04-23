@@ -15,5 +15,7 @@ export default {
 *{
   font-family: Cabin, Avenir, Helvetica, Arial, sans-serif;
 }
+
+
 </style>
 

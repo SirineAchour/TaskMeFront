@@ -3,28 +3,8 @@
     <h2>Report</h2>
     <div>
       <center>
-        <br />
-        <input class="form-check-input" type="checkbox" id="issue1" />
-        <label class="form-check-label" for="issue1">
-          Worker never showed up
-        </label>
-<br>
-        <input class="form-check-input" type="checkbox" id="issue2"  />
-        <label class="form-check-label" for="issue2">
-          Issue 2
-        </label>
-<br>
-        <input class="form-check-input" type="checkbox" id="issue3"  />
-        <label class="form-check-label" for="issue3">
-          Issue 3
-        </label>
-<br>
-        <input class="form-check-input" type="checkbox" id="other" @change="other" />
-        <label class="form-check-label" for="other">
-          Other ?
-        </label>
-<br><br>
-        <textarea v-if="otherr" cols="50" placeholder=">> Other issues">
+        <br>
+        <textarea cols="50" placeholder=">>Issues" id="report_t">
         </textarea>
       </center>
     </div>
@@ -49,41 +29,36 @@ export default {
     },
     id: {
       type: String
-    }
+    },
+    client:{
+            type : String,
+        },
+    worker:{
+       type : String,
+    },
+        creation_date:{
+            type : String,
+        },
   },
   data(){
       return{
-          otherr : false,
-      }
+     }
   },
   methods: {
     report() {
-        var issues = document.getElementsByClassName("form-check-input")
-      console.log(
-        "report this " +
-          this.type +
-          " (" +
-          this.id +
-          ") for : ");
-        issues.forEach(function(issue){
-            if (issue.checked){
-                if(issue.id=="other"){
-                    console.log(document.getElementsByTagName("textarea")[0].value)
-                }
-                console.log(issue.id)
+      var info={
+                "id" : this.id,
+                "client" : this.client,
+                "worker" : this.worker,
+                "creation_date" : this.creation_date,
+                "report" : document.getElementById("report_t").textContent,
             }
-        })
+            axios.get('http://localhost/Taskme/public/api/'+this.type+'/report',JSON.stringify(info));
       this.hide();
     },
     hide() {
       this.$emit("hide");
     },
-    other(){
-        if(this.otherr)
-            this.otherr=false;
-        else
-            this.otherr=true
-    }
   }
 };
 </script>

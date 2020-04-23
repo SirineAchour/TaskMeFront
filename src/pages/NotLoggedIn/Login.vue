@@ -5,17 +5,17 @@
     <modal name="Login" height="auto" :scrollable="true" :draggable="true" width="550px" :adaptive="true">
       <div id="login">
         
-        <h1 class="h3 mb-3 font-weight-normal">Login</h1>
+        <h2>Login</h2>
         
-        <form @submit.prevent="login">
+        <span>
           <label class="sr-only" for="userr">
-            Username : 
+            Id : 
             </label>
             <input
               id="userr"
               type="text"
               name="username"
-              v-model="input.username"
+              v-model="input.id"
               placeholder="Username"
               class="form-control"
             />
@@ -31,9 +31,15 @@
               placeholder="Password"
               class="form-control"
             />
-            <br /><br />
-            <button type="submit" class="btn btn-lg btn-block">Log In</button>
-        </form>
+            <br />
+            <div class="wrong_login">Wrong password or username</div>
+            <div class="wrong_login">Please provide your username and password</div>
+            <br />
+             
+            <div>
+            <button class="btn ll" @click="login">Log In</button>
+            </div>
+        </span>
       </div>
     </modal>
   </span>
@@ -47,7 +53,7 @@ export default {
   data(){
       return{
         input : {
-          username : '' ,
+          id : '' ,
           password : '' 
         }
       };
@@ -59,8 +65,30 @@ export default {
     hide () {
       this.$modal.hide('Login');
     },
-    login() { //token stuff
-    }
+    login(){
+        this.input.id=this.input.id.trim();
+        if((this.input.id=="") || (this.input.password="")){
+          document.getElementsByClassName("wrong_login")[1].style.display="block";
+          return;
+        }
+        var user={
+          "user_id" : this.input.id, 
+          "password": this.input.password}
+        axios
+          .get('http://localhost/Taskme/public/api/user',JSON.stringify(user))
+          .then(response => { 
+            if (response["data"]["data"]==""){
+              document.getElementsByClassName("wrong_login")[0].style.display="block";
+              return;
+            }
+            localStorage.id=this.input.id;
+            localStorage.type=response["data"]["data"]["type"]; //assuming li trajja3li info
+            $emit.this.$router.push("/"+localStorage.type);
+          })
+          .catch(function (error) {
+            console.log(error);
+      });
+    },
 }
 
 }
@@ -88,5 +116,14 @@ button:hover{
         margin-top: 20px;
         margin-bottom: 20px;
         padding: 20px;
+}
+
+.ll{
+  width: 150px;
     }
+
+.wrong_login{
+  display: none;
+  color: red;
+}
 </style>

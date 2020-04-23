@@ -54,7 +54,7 @@
 
    <!--   <fixed-plugin :color.sync="sidebarBackground"> </fixed-plugin>-->
 
-      <dashboard-content style="padding-top:0px;"> </dashboard-content>
+      <dashboard-content :user_id="1234"> </dashboard-content>
 
      <!-- <content-footer v-if="!$route.meta.hideFooter"></content-footer>-->
     </div>
@@ -83,7 +83,7 @@ export default {
     return{
       dashboard:"",
       history:"",
-      user_update:""
+      user_update:"",
     }
   },
   updated(){

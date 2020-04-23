@@ -1,11 +1,12 @@
 <template>
-  <div>
+  <div class="bg">
     <br>
     <img :src="imgLogo" alt="logo" height="300" width="300" />
     <br>
     <br>
     <About />
     <NotLoggedIn/>
+  
   </div>
 </template>
 
@@ -26,11 +27,8 @@ export default {
     }
   },
   created () {
-      var test=false;
-      //check session stuff 
-      if(test) {
-      $emit.
-      this.$router.push("/client");
+      if(localStorage.id!="") {
+      this.$emit.this.$router.push("/"+localStorage.type);
       }
   }
 };
@@ -40,6 +38,23 @@ export default {
 * {
   text-align: center;
   color: #2c3e50; 
+}
+div{
+  height: 100%;
+  width: 100%;
+}
+
+
+.bg {
+  background-image: url("D:/GL3/GL3/Semestre 2/Processus Unifiés/TaskMeFront/src/assets/img/b7.jpg");
+
+  /* Full height */
+  height: 100%; 
+
+  /* Center and scale the image nicely */
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
 }
 
 </style>

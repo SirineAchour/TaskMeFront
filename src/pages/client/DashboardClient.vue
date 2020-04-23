@@ -1,5 +1,5 @@
 <template>
-  <div class="content">
+  <div class="content" style="padding-top:0px;margin-top:2px;">
     <!-- TASKS -->
     <div class="md-layout md-gutter md-alignment-center">
       <h3 class="md-layout-item">Tasks :</h3>
@@ -13,10 +13,10 @@
         <chart-card :chart-type="'Line'" icon="person">
           <template slot="content">
             <center class="title">
-              <h3><md-icon> directions_run </md-icon> {{ task.name}}</h3>
+              <h3><md-icon> directions_run </md-icon> {{ task.name }}</h3>
             </center>
             <center class="category">
-              <h4>{{task.category}}</h4>
+              <h4>{{ task.category }}</h4>
 
               {{ task.date }} <br />
               {{ task.place }} <br />
@@ -35,21 +35,21 @@
               <button
                 data-background-color="red"
                 class="btn btn-sm"
-                @click="cancel(task.id,'task')"
+                @click="cancel(task.id, 'task')"
               >
                 delete
               </button>
               <button
                 data-background-color="red"
                 class="btn btn-sm"
-                @click="report(task.id,'task')"
+                @click="report(task.id, 'task')"
               >
                 report
               </button>
               <button
                 data-background-color="red"
                 class="btn btn-sm"
-                @click="done(task.id,'task')"
+                @click="done(task.id, task.client, task.worker, task.creation_date, 'task')"
               >
                 done
               </button>
@@ -79,11 +79,11 @@
         <chart-card>
           <template slot="content">
             <center class="title">
-              <h3><md-icon> local_play </md-icon> {{ ad.name }}</h3>
+              <h3><md-icon> local_play </md-icon> {{ ad.title }}</h3>
             </center>
             <center class="category">
               <h4>{{ ad.price }}</h4>
-              {{ ad.deets }}
+              {{ ad.details }}
               <br /><br />
               <div v-if="ad.worker_found" class="worker_found">
                 <i class=" fas fa-exclamation-circle fa-sm"></i> worker found
@@ -97,21 +97,21 @@
               <button
                 data-background-color="red"
                 class="btn btn-sm"
-                @click="cancel(ad.id,'ad')"
+                @click="cancel(ad.id, 'ad')"
               >
                 delete
               </button>
               <button
                 data-background-color="red"
                 class="btn btn-sm"
-                @click="report(ad.id,'ad')"
+                @click="report(ad.id, 'ad')"
               >
                 report
               </button>
               <button
                 data-background-color="red"
                 class="btn btn-sm"
-                @click="done(ad.id,'ad')"
+                @click="done(ad.id,ad.client,ad.worker,ad.creation_date, 'ad')"
               >
                 done
               </button>
@@ -136,8 +136,7 @@
       width="400px"
       :adaptive="true"
     >
-
-      <done v-on:hide="hide_done" :id="id" :type="post_type"> </done>
+      <done v-on:hide="hide_done" :id="id" :type="post_type" :client="client" :worker="worker" :creation_date="creation_date"> </done>
     </modal>
 
     <modal
@@ -148,7 +147,14 @@
       width="400px"
       :adaptive="true"
     >
-      <cancel :post="post_type" @hide="hide_cancel" :id="id" client_worker="client"> </cancel>
+      <cancel
+        :post="post_type"
+        @hide="hide_cancel"
+        :id="id"
+        :client="client" :worker="worker" :creation_date="creation_date"
+        client_worker="client"
+      >
+      </cancel>
     </modal>
 
     <modal
@@ -159,7 +165,7 @@
       width="400px"
       :adaptive="true"
     >
-      <report v-on:hide="hide_report" :id="id" :type="post_type" > </report>
+      <report v-on:hide="hide_report" :id="id" :type="post_type" :client="client" :worker="worker" :creation_date="creation_date"> </report>
     </modal>
   </div>
 </template>
@@ -177,10 +183,14 @@ export default {
     Cancel,
     Report,
   },
+
   data() {
     return {
-      post_type : "",
-      id: "",
+      id:"",
+      post_type: "",
+      client :"",
+      worker :"",
+      creation_date:"",
       tasks: [
         {
           id: "1",
@@ -203,58 +213,60 @@ export default {
           creation_date: " 1 day",
           worker_found: false
         }
-      ]
+      ],
     };
   },
-  mounted() {
-    /* var id=""   // idk how this is gonna work yet 
+  created() { 
     axios
-          .get('http://localhost/Taskme/public/api/tasks'+id)
+          .get('http://localhost/Taskme/public/api/tasks/client'+localStorage.id)
           .then(response => (this.tasks = response["data"]["data"]))
     axios
-          .get('http://localhost/Taskme/public/api/ads'+id) //mafammech l route
-          .then(response => (this.ads = response["data"]["data"]))*/
-  },
-  created() {
-    // check session stuff
+          .get('http://localhost/Taskme/public/api/ads/client'+localStorage.id) //mafammech l route
+          .then(response => (this.ads = response["data"]["data"]))
   },
   methods: {
-    done(id,type) {
-      this.id=id;
-      this.post_type=type;
+    done(id,client,worker,creation_date, type) {
+      this.id = id;
+      this.post_type = type;
+      this.client=client;
+      this.worker=worker;
+      this.creation_date=creation_date;
       this.$modal.show("Done");
-      
     },
     hide_done() {
-
       this.$modal.hide("Done");
     },
 
-
-    cancel(id,type) {
+    cancel(id, client,worker,creation_date, type) {
       //popup
-      this.id=id;
-      this.post_type=type;
+      this.id = id;
+      this.post_type = type;
+      this.client=client;
+      this.worker=worker;
+      this.creation_date=creation_date;
       this.$modal.show("Cancel");
       // cant cancel if worker started the job
       //
     },
-    hide_cancel(){
+    hide_cancel() {
       this.$modal.hide("Cancel");
     },
-    report(id,type) {
+    report(id, client,worker,creation_date, type) {
       // pop up
-      this.id=id;
-      this.post_type=type;
+      this.id = id;
+      this.post_type = type;
+      this.client=client;
+      this.worker=worker;
+      this.creation_date=creation_date;
       this.$modal.show("Report");
       // worker didnt get the job done
       // worker is late
       // worker didnt show up ?
     },
-    hide_report(){
+    hide_report() {
       this.$modal.hide("Report");
-    }
-  }
+    },
+  },
 };
 </script>
 
@@ -283,9 +295,7 @@ i {
 
 button {
   margin: 7px;
-  width:59px;
-  height:31px;
+  width: 59px;
+  height: 31px;
 }
-
-
 </style>

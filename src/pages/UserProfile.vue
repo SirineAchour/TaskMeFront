@@ -1,6 +1,6 @@
 <template>
-  <div class="content md-layout">
-    <div class="md-layout-item md-medium-size-70 md-xsmall-size-100 md-size-70">
+  <div class="content md-layout" style="padding-top:0px;margin-top:2px;">
+    <div class="md-layout-item md-medium-size-70 md-xsmall-size-100 md-size-70" style="margin-top:0px;"> 
         <md-card>
           <md-card-header data-background-color="purple">
             <h4 class="title">Edit Profile</h4>
@@ -177,6 +177,7 @@ export default {
   },
   methods :{
     update(){
+      
       console.log("it works yay");
       console.log("email_update : "+ this.email_update);
       console.log("password_update : "+ this.password_update);

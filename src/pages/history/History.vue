@@ -1,12 +1,11 @@
 <template>
-  <div class="content">
+  <div class="content" style="padding-top:0px;margin-top:2px;">
     <div class="md-layout">
       <div
-        class="md-layout-item md-medium-size-40 md-xsmall-size-40 md-size-40"
-      ></div>
-      <div
-        class="md-layout-item md-medium-size-50 md-xsmall-size-50 md-size-50"
+      style="margin-top:0px;"
+        class="md-layout-item md-medium-size-100 md-xsmall-size-100 md-size-100"
       >
+      <center>
         <toggle-button
           height="50"
           width="110"
@@ -17,11 +16,10 @@
           :labels="{ checked: 'Tasks', unchecked: 'Ads' }"
           font-size="17"
         />
+      </center>
       </div>
       
-      <div
-        class="md-layout-item md-medium-size-100 md-xsmall-size-100 md-size-100"
-      >
+      <div class="md-layout-item md-medium-size-100 md-xsmall-size-100 md-size-100">
       
       <component :is='dynamic_comp'>   </component>
 

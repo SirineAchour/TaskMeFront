@@ -47,11 +47,27 @@ export default {
         client_worker:{
             type: String,
             default: "client"
-        }
+        },
+        client:{
+            type : String,
+        },
+        worker:{
+            type : String,
+        },
+        creation_date:{
+            type : String,
+        },
     },
     methods : {
         yes(){
             console.log("delete this "+this.post+" :"+this.id)
+            var info={
+                "id" : this.id,
+                "client" : this.client,
+                "worker" : this.worker,
+                "creation_date" : this.creation_date,
+            }
+            axios.get('http://localhost/Taskme/public/api/'+this.type+'/delete',JSON.stringify(info));
             this.hide();
         }
         ,

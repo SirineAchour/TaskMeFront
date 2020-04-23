@@ -42,11 +42,27 @@ export default {
         client_worker:{
             type: String,
             default : "worker"
-        }
+        },
+        client:{
+            type : String,
+        },
+        worker:{
+            type : String,
+        },
+        creation_date:{
+            type : String,
+        },
     },
     methods:{
         done(){
-            console.log("this "+this.type+" ("+this.id+") is done with a rating : "+this.rating);
+            var info={
+                "id" : this.id,
+                "client" : this.client,
+                "worker" : this.worker,
+                "creation_date" : this.creation_date,
+                "rating" : this.rating,
+            }
+            axios.get('http://localhost/Taskme/public/api/'+this.type+'/done',JSON.stringify(info));
             this.hide();
         },
         hide(){

@@ -37,7 +37,8 @@ const routes = [
       {
         path: "/client/user",
         name: "User Profile",
-        component: UserProfile
+        component: UserProfile,
+        props : true,
       },
       {
         path: "/client/newtask",
