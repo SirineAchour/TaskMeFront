@@ -6,7 +6,7 @@
         
         <div>
             <span>
-            Are you sure you want to {{delete_cancel}} this {{post}} ?
+            uAre you sure you want to {{delete_cancel}} this {{post}} ?
             </span>
             <br>
             <div>
@@ -19,7 +19,7 @@
             </button>
             <button
               class="btn btn-sm"
-              @click="yes"
+              @click="yess"
               style="float: right;"
             >
               Yes
@@ -56,25 +56,18 @@ export default {
         },
         creation_date:{
             type : String,
-        },
-        table :{
-            type : Array,
         }
     },
     methods : {
-        yes(){
-            console.log("delete this "+this.post+" :"+this.id)
+        yess(){
             var info={
                 "id" : this.id,
                 "client" : this.client,
                 "worker" : this.worker,
                 "creation_date" : this.creation_date,
             }
-            console.log("heyy "+info)
-            this.$emit("delete_thing",this.id,this.type);
-            console.log("emitted")
+            this.$emit("delete_thing",this.id,this.post);
             axios.delete('http://localhost/Taskme/public/api/'+this.type+'/'+this.id,JSON.stringify(info));
-            
             this.hide();
         }
         ,

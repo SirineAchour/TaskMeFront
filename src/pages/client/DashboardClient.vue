@@ -157,6 +157,7 @@
         :client="client"
         :worker="worker"
         :creation_date="creation_date"
+        @done_thing="donee"
       >
       </done>
     </modal>
@@ -168,17 +169,16 @@
       :draggable="false"
       width="400px"
       :adaptive="true"
-      
     >
       <cancel
         :post="post_type"
-        @hide="hide_cancel"
         :id="id"
         :client="client"
         :worker="worker"
         :creation_date="creation_date"
         client_worker="client"
-        v-on:delete_thing="deletee"
+        @hide="hide_cancel"
+        @delete_thing="deletee"
       >
       </cancel>
     </modal>
@@ -206,9 +206,9 @@
 
 <script>
 import { ChartCard } from "@/components";
-import Done from "C:/Users/HP/Downloads/vue-material-dashboard-master/vue-material-dashboard-master/src/components/Done.vue";
-import Cancel from "C:/Users/HP/Downloads/vue-material-dashboard-master/vue-material-dashboard-master/src/components/Cancel.vue";
-import Report from "C:/Users/HP/Downloads/vue-material-dashboard-master/vue-material-dashboard-master/src/components/Report.vue";
+import Done from "D:/GL3/GL3/Semestre 2/Processus Unifiés/TaskMeFront/src/components/Done.vue";
+import Cancel from "D:/GL3/GL3/Semestre 2/Processus Unifiés/TaskMeFront/src/components/Cancel.vue";
+import Report from "D:/GL3/GL3/Semestre 2/Processus Unifiés/TaskMeFront/src/components/Report.vue";
 
 export default {
   components: {
@@ -251,17 +251,17 @@ export default {
     };
   },
   created() {
-    axios
+  /*  axios
       .get("http://localhost/Taskme/public/api/tasks/client" + localStorage.id)
       .then((response) => (this.tasks = response["data"]["data"]));
     axios
       .get("http://localhost/Taskme/public/api/ads/client" + localStorage.id) //mafammech l route
-      .then((response) => (this.ads = response["data"]["data"]));
+      .then((response) => (this.ads = response["data"]["data"]));*/
   },
   methods: {
-    done(id, client, worker, creation_date, type) {
+    done(id, client, worker, creation_date, post_type) {
       this.id = id;
-      this.post_type = type;
+      this.post_type = post_type;
       this.client = client;
       this.worker = worker;
       this.creation_date = creation_date;
@@ -271,22 +271,23 @@ export default {
       this.$modal.hide("Done");
     },
 
-    cancel(id, client, worker, creation_date, type) {
+    cancel(id, client, worker, creation_date, post_type) {
       //popup
       this.id = id;
-      this.post_type = type;
+      this.post_type = post_type;
       this.client = client;
       this.worker = worker;
       this.creation_date = creation_date;
+      console.log("show cancel");
       this.$modal.show("Cancel");
     },
     hide_cancel() {
       this.$modal.hide("Cancel");
     },
-    report(id, client, worker, creation_date, type) {
+    report(id, client, worker, creation_date, post_type) {
       // pop up
       this.id = id;
-      this.post_type = type;
+      this.post_type = post_type;
       this.client = client;
       this.worker = worker;
       this.creation_date = creation_date;
@@ -296,10 +297,21 @@ export default {
       this.$modal.hide("Report");
     },
     deletee(id,type){
-      console.log("in deletee");
-      for( var i = 0; i < this[type+'s'].length; i++){ 
-        if ( this[type+'s'][i].id === id) { console.log("delete this object : "+this[type+'s'][i]);this[type+'s'].splice(i, 1); }}
-    }
+      var tt=type+'s';
+      for( var i = 0; i < this[tt].length; i++){ 
+        if ( this[tt][i].id === id) {
+          this[tt].splice(i, 1); 
+        }
+      }
+    },
+    donee(id,type){
+      var tt=type+'s';
+      for( var i = 0; i < this[tt].length; i++){ 
+        if ( this[tt][i].id === id) {
+          this[tt].splice(i, 1); 
+        }
+      }
+    },
   },
 };
 </script>

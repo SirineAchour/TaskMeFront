@@ -1,6 +1,6 @@
 <template>
   <div class="wrapper" :class="{ 'nav-open': $sidebar.showSidebar }">
-    <notifications></notifications>
+ <!--   <notifications></notifications>-->
 
     <side-bar class="sidebar-nav">
       
@@ -50,7 +50,8 @@
     </side-bar>
 
     <div class="main-panel" >
-      <top-navbar></top-navbar>
+      <!--<top-navbar></top-navbar>-->
+      <br>
 
    <!--   <fixed-plugin :color.sync="sidebarBackground"> </fixed-plugin>-->
 
@@ -62,14 +63,14 @@
 </template>
 
 <script>
-import TopNavbar from "./TopNavbar.vue";
+//import TopNavbar from "./TopNavbar.vue";
 //import ContentFooter from "./ContentFooter.vue";
 import DashboardContent from "./Content.vue";
 //import FixedPlugin from "./Extra/FixedPlugin.vue";
 
 export default {
   components: {
-    TopNavbar,
+ //   TopNavbar,
     DashboardContent,
    // ContentFooter,
   //  FixedPlugin
