@@ -65,25 +65,33 @@ export default {
     hide () {
       this.$modal.hide('Login');
     },
-    login(){
+    login(e){
+      e.preventDefault();
         this.input.id=this.input.id.trim();
-        if((this.input.id=="") || (this.input.password="")){
-          document.getElementsByClassName("wrong_login")[1].style.display="block";
+        if( (this.input.id=="") || (this.input.password.trim()=="") ){
+         document.getElementsByClassName("wrong_login")[1].style.display="block";
           return;
+        }
+        else{
+          document.getElementsByClassName("wrong_login")[1].style.display="none";
         }
         var user={
           "user_id" : this.input.id, 
-          "password": this.input.password}
+          "password": this.input.password
+          }
+
         axios
-          .get('http://localhost/Taskme/public/api/user',JSON.stringify(user))
+          .get('http://localhost/Taskme/public/api/login',JSON.stringify(user))
           .then(response => { 
+            console.log(response["data"]["data"]);
             if (response["data"]["data"]==""){
               document.getElementsByClassName("wrong_login")[0].style.display="block";
-              return;
             }
-            localStorage.id=this.input.id;
-            localStorage.type=response["data"]["data"]["type"]; //assuming li trajja3li info
-            $emit.this.$router.push("/"+localStorage.type);
+            else{
+              localStorage.id=this.input.id;
+              localStorage.type=response["data"]["data"]["type"]; //assuming li trajja3li info
+              this.$router.push("/"+localStorage.type);
+            }
           })
           .catch(function (error) {
             console.log(error);
@@ -102,11 +110,13 @@ export default {
 button {
   margin-left: 10px;
   margin-right: 10px;
-  color: #FFFFFF;
+  width: 90px;
+  height: auto;
+  color: #ffffff;
   background-color: #337ab7;
 }
-button:hover{
-  color: #FFFFFF;
+button:hover {
+  color: #ffffff;
 }
 #login {
         width: 500px;

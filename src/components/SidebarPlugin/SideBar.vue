@@ -4,7 +4,7 @@
       <div class="logo-img simple-text logo-mini">
         <img :src="imgLogo" alt="" height="30" width="30" />
       </div>
-      <span class="simple-text logo-normal">
+      <span class="simple-text logo-normal" style="text-align : left;">
         {{ title }}
       </span>
     </div>
@@ -64,16 +64,15 @@ export default {
   }
 }
 
-/*
 .bgg {
-  background-image: url("D:/GL3/GL3/Semestre 2/Processus Unifiés/TaskMeFront/src/assets/img/b6.jpg");
+  background-image: url("D:/GL3/GL3/Semestre 2/Processus Unifiés/TaskMeFront/src/assets/img/b2.jpg");
 
   /* Full height */
- /* height: 100%; */
+  height: 100%; 
 
   /* Center and scale the image nicely */
-/*  background-position: center;
+  background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
-}*/
+}
 </style>

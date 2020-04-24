@@ -1,12 +1,15 @@
 <template>
-  <div class="content" style="padding-top:0px;margin-top:2px;">
+  <div class="content" style="padding-top:2px;">
     <!-- TASKS -->
-    <div class="md-layout md-gutter md-alignment-center">
-      <h3 class="md-layout-item">Tasks :</h3>
-    </div>
-    <div class="md-layout md-gutter">
+    <div class="md-layout">
+      <h3
+        class="md-layout-item md-medium-size-100 md-xsmall-size-100 md-size-100"
+        style="text-align: left;margin-bottom:0px;"
+      >
+        Tasks :
+      </h3>
       <div
-        class="md-layout-item md-medium-size-50 md-xsmall-size-100 md-size-30"
+        class="md-layout-item md-medium-size-50 md-xsmall-size-100 md-size-30 "
         v-for="task in tasks"
         :key="task.id"
       >
@@ -22,10 +25,10 @@
               {{ task.place }} <br />
               {{ task.price }} <br /><br />
               <div v-if="task.worker_found" class="worker_found">
-                <i class=" fas fa-exclamation-circle fa-sm"></i> worker found
+                <i class=" fas fa-exclamation-circle fa-sm worker_found"></i> worker found
               </div>
               <div v-else class="worker_not_found">
-                <i class=" fas fa-exclamation-circle fa-sm"></i> worker not
+                <i class=" fas fa-exclamation-circle fa-sm worker_not_found"></i> worker not
                 found yet
               </div>
             </center>
@@ -35,21 +38,29 @@
               <button
                 data-background-color="red"
                 class="btn btn-sm"
-                @click="cancel(task.id, 'task')"
+                @click="cancel(task.id, task.client, task.worker, task.creation_date, 'task')"
               >
                 delete
               </button>
               <button
                 data-background-color="red"
                 class="btn btn-sm"
-                @click="report(task.id, 'task')"
+                @click="report(task.id, task.client, task.worker, task.creation_date, 'task')"
               >
                 report
               </button>
               <button
                 data-background-color="red"
                 class="btn btn-sm"
-                @click="done(task.id, task.client, task.worker, task.creation_date, 'task')"
+                @click="
+                  done(
+                    task.id,
+                    task.client,
+                    task.worker,
+                    task.creation_date,
+                    'task'
+                  )
+                "
               >
                 done
               </button>
@@ -67,10 +78,13 @@
     </div>
     <hr class="dashed" />
     <!-- ADS -->
-    <div class="md-layout md-gutter md-alignment-center">
-      <h3 class="md-layout-item">Ads :</h3>
-    </div>
-    <div class="md-layout md-gutter scrolling-wrapper">
+    <div class="md-layout scrolling-wrapper">
+      <h3
+        class="md-layout-item md-layout-item md-medium-size-100 md-xsmall-size-100 md-size-100"
+        style="text-align: left;"
+      >
+        Ads :
+      </h3>
       <div
         class="md-layout-item md-medium-size-50 md-xsmall-size-100 md-size-30"
         v-for="ad in ads"
@@ -86,10 +100,10 @@
               {{ ad.details }}
               <br /><br />
               <div v-if="ad.worker_found" class="worker_found">
-                <i class=" fas fa-exclamation-circle fa-sm"></i> worker found
+                <i class=" fas fa-exclamation-circle fa-sm worker_found"></i> worker found
               </div>
               <div v-else class="worker_not_found">
-                <i class=" fas fa-exclamation-circle fa-sm"></i> worker not
+                <i class=" fas fa-exclamation-circle fa-sm worker_not_found"></i> worker not
                 found yet
               </div>
               <br />
@@ -97,21 +111,21 @@
               <button
                 data-background-color="red"
                 class="btn btn-sm"
-                @click="cancel(ad.id, 'ad')"
+                @click="cancel(ad.id, ad.client, ad.worker, ad.creation_date, 'ad')"
               >
                 delete
               </button>
               <button
                 data-background-color="red"
                 class="btn btn-sm"
-                @click="report(ad.id, 'ad')"
+                @click="report(ad.id, ad.client, ad.worker, ad.creation_date, 'ad')"
               >
                 report
               </button>
               <button
                 data-background-color="red"
                 class="btn btn-sm"
-                @click="done(ad.id,ad.client,ad.worker,ad.creation_date, 'ad')"
+                @click="done(ad.id, ad.client, ad.worker, ad.creation_date, 'ad')"
               >
                 done
               </button>
@@ -136,7 +150,15 @@
       width="400px"
       :adaptive="true"
     >
-      <done v-on:hide="hide_done" :id="id" :type="post_type" :client="client" :worker="worker" :creation_date="creation_date"> </done>
+      <done
+        v-on:hide="hide_done"
+        :id="id"
+        :type="post_type"
+        :client="client"
+        :worker="worker"
+        :creation_date="creation_date"
+      >
+      </done>
     </modal>
 
     <modal
@@ -146,13 +168,17 @@
       :draggable="false"
       width="400px"
       :adaptive="true"
+      
     >
       <cancel
         :post="post_type"
         @hide="hide_cancel"
         :id="id"
-        :client="client" :worker="worker" :creation_date="creation_date"
+        :client="client"
+        :worker="worker"
+        :creation_date="creation_date"
         client_worker="client"
+        v-on:delete_thing="deletee"
       >
       </cancel>
     </modal>
@@ -165,7 +191,15 @@
       width="400px"
       :adaptive="true"
     >
-      <report v-on:hide="hide_report" :id="id" :type="post_type" :client="client" :worker="worker" :creation_date="creation_date"> </report>
+      <report
+        v-on:hide="hide_report"
+        :id="id"
+        :type="post_type"
+        :client="client"
+        :worker="worker"
+        :creation_date="creation_date"
+      >
+      </report>
     </modal>
   </div>
 </template>
@@ -186,23 +220,23 @@ export default {
 
   data() {
     return {
-      id:"",
+      id: "",
       post_type: "",
-      client :"",
-      worker :"",
-      creation_date:"",
+      client: "",
+      worker: "",
+      creation_date: "",
       tasks: [
         {
           id: "1",
           name: "task 1",
           category: "task category",
-          date : "task date",
+          date: "task date",
           place: "task place",
           price: "2 $",
           deets: "deeeeeeeeeeeeetaaaaaaaaaaillllllls",
           creation_date: " 2 minutes",
-          worker_found: true
-        }
+          worker_found: true,
+        },
       ],
       ads: [
         {
@@ -211,66 +245,69 @@ export default {
           price: "1 $",
           deets: "deeeeeeeeeeeeetaaaaaaaaaaillllllls",
           creation_date: " 1 day",
-          worker_found: false
-        }
+          worker_found: false,
+        },
       ],
     };
   },
-  created() { 
+  created() {
     axios
-          .get('http://localhost/Taskme/public/api/tasks/client'+localStorage.id)
-          .then(response => (this.tasks = response["data"]["data"]))
+      .get("http://localhost/Taskme/public/api/tasks/client" + localStorage.id)
+      .then((response) => (this.tasks = response["data"]["data"]));
     axios
-          .get('http://localhost/Taskme/public/api/ads/client'+localStorage.id) //mafammech l route
-          .then(response => (this.ads = response["data"]["data"]))
+      .get("http://localhost/Taskme/public/api/ads/client" + localStorage.id) //mafammech l route
+      .then((response) => (this.ads = response["data"]["data"]));
   },
   methods: {
-    done(id,client,worker,creation_date, type) {
+    done(id, client, worker, creation_date, type) {
       this.id = id;
       this.post_type = type;
-      this.client=client;
-      this.worker=worker;
-      this.creation_date=creation_date;
+      this.client = client;
+      this.worker = worker;
+      this.creation_date = creation_date;
       this.$modal.show("Done");
     },
     hide_done() {
       this.$modal.hide("Done");
     },
 
-    cancel(id, client,worker,creation_date, type) {
+    cancel(id, client, worker, creation_date, type) {
       //popup
       this.id = id;
       this.post_type = type;
-      this.client=client;
-      this.worker=worker;
-      this.creation_date=creation_date;
+      this.client = client;
+      this.worker = worker;
+      this.creation_date = creation_date;
       this.$modal.show("Cancel");
-      // cant cancel if worker started the job
-      //
     },
     hide_cancel() {
       this.$modal.hide("Cancel");
     },
-    report(id, client,worker,creation_date, type) {
+    report(id, client, worker, creation_date, type) {
       // pop up
       this.id = id;
       this.post_type = type;
-      this.client=client;
-      this.worker=worker;
-      this.creation_date=creation_date;
+      this.client = client;
+      this.worker = worker;
+      this.creation_date = creation_date;
       this.$modal.show("Report");
-      // worker didnt get the job done
-      // worker is late
-      // worker didnt show up ?
     },
     hide_report() {
       this.$modal.hide("Report");
     },
+    deletee(id,type){
+      console.log("in deletee");
+      for( var i = 0; i < this[type+'s'].length; i++){ 
+        if ( this[type+'s'][i].id === id) { console.log("delete this object : "+this[type+'s'][i]);this[type+'s'].splice(i, 1); }}
+    }
   },
 };
 </script>
 
 <style scoped>
+.content {
+  width: 100%;
+}
 hr {
   border: 1px dashed rgb(202, 201, 201);
   margin: 0px;

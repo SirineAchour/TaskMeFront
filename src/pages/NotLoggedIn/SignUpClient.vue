@@ -2,37 +2,58 @@
   <md-card>
     <md-card-header data-background-color="blue">
       <h4 class="title">Sign Up</h4>
-      <p class="category">as client or smth</p>
+      <p class="category">as client </p>
     </md-card-header>
 
     <md-card-content>
       <span class="uneditable">
-        <i class="fas fa-exclamation-triangle fa-xs"></i>
+        <i class="fas fa-exclamation-triangle fa-xs" style="color : rgba(223, 1, 1, 0.781);"></i>
         first name, last name and id fields are uneditable
       </span>
-      <form class="md-layout">
+      <form class="md-layout" @submit="signup">
+        <div class="md-layout-item md-small-size-100 md-size-100">
+          <md-field>
+            <label >Username</label>
+            <md-input type="text" class="form-control" required v-model="username" id="username" ></md-input>
+            <span
+              class="md-helper-text invalid-feedback"
+              style="color : rgba(223, 1, 1, 0.781);"
+              id="used"
+              ><i class="fas fa-exclamation-triangle fa-xs"></i>
+              Username already in use 
+            </span>
+            <span
+              class="md-helper-text valid-feedback"
+              style="color : green;"
+              id="free"
+            >
+              <i class="fas fa-check fa-xs"></i>
+              Available username </span
+            >
+          </md-field>
+        </div>
         <div class="md-layout-item md-small-size-100 md-size-50">
           <md-field>
             <label>First Name</label>
-            <md-input type="text" class="form-control" required></md-input>
+            <md-input type="text" class="form-control" required v-model="first_name"></md-input>
           </md-field>
         </div>
         <div class="md-layout-item md-small-size-100 md-size-50">
           <md-field>
             <label>Last Name</label>
-            <md-input type="text" required></md-input>
+            <md-input type="text" required v-model="last_name"></md-input>
           </md-field>
         </div>
         <div class="md-layout-item md-small-size-100 md-size-33">
           <md-field>
             <label>ID</label>
-            <md-input type="text" required></md-input>
+            <md-input type="text" required v-model="id"></md-input>
           </md-field>
         </div>
         <div class="md-layout-item md-small-size-100 md-size-67">
           <md-field>
             <label>Email Address</label>
-            <md-input type="email" required id="mail"></md-input>
+            <md-input type="email" required id="mail" v-model="email"></md-input>
             <span
               class="md-helper-text invalid-feedback"
               style="color : rgba(223, 1, 1, 0.781);"
@@ -53,7 +74,7 @@
         <div class="md-layout-item md-small-size-100 md-size-100">
           <md-field>
             <label>Password</label>
-            <md-input type="password" id="pass" required></md-input>
+            <md-input type="password" id="pass" required v-model="password"></md-input>
           </md-field>
         </div>
         <div class="md-layout-item md-small-size-100 md-size-100">
@@ -117,7 +138,7 @@
             style="margin-right:20px;"
             >Birth date :</label
           >
-          <input id="dob_worker" type="date" required />
+          <input id="dob_worker" type="date" required v-model="birth_date"/>
         </div>
 
         <div
@@ -127,10 +148,10 @@
           Phone :
         </div>
         <div class="md-layout-item md-small-size-70 md-size-70 stuff">
-          <vue-tel-input placeholder="" required> </vue-tel-input>
+          <vue-tel-input placeholder="" required v-model="phone" > </vue-tel-input>
         </div>
 
-        <center
+<!--        <center
           class="md-layout-item md-small-size-100 md-size-70 form-group contract-worker"
         >
           <br />
@@ -143,15 +164,16 @@
           <label class="form-check-label" for="contract_check_worker">
             Example checkbox checkbox checkbox checkbox
           </label>
-        </center>
+        </center> -->
         <div class="md-layout-item md-size-100 text-right">
-          <md-button
-            class="md-raised"
+          <button
+            class="md-raised btn"
             data-background-color="blue"
             type="submit"
+            style="color: white"
           >
             Sign up
-          </md-button>
+          </button>
         </div>
       </form>
     </md-card-content>
@@ -163,8 +185,19 @@ export default {
   name: "SignUpClient",
   data() {
     return {
+      username : "",
+      first_name : "",
+      last_name : "",
+      birth_date : "",
+      phone : "",
+      email : "",
+      id : "",
+      password : "",
+      check_valid_email: true,
+      check_valid_password: true,
+      check_valid_username : true,
       pass: "",
-      con_pass: ""
+      con_pass: "",
     };
   },
   methods: {
@@ -176,9 +209,11 @@ export default {
         if (mail_input.checkValidity()) {
           document.getElementById("valid").classList.add("displayed");
           document.getElementById("invalid").classList.remove("displayed");
+          this.check_valid_email=true;
         } else {
           document.getElementById("invalid").classList.add("displayed");
           document.getElementById("valid").classList.remove("displayed");
+          this.check_valid_email=false;
         }
       }
     },
@@ -189,10 +224,68 @@ export default {
         if (con_pass == pass) {
           document.getElementById("correct").classList.add("displayed");
           document.getElementById("wrong").classList.remove("displayed");
+                    this.check_valid_password=true;
         } else {
           document.getElementById("correct").classList.remove("displayed");
           document.getElementById("wrong").classList.add("displayed");
+                    this.check_valid_password=false;
+
         }
+      }
+    },
+    check_username_availability(input){
+     //idk
+      return true;
+    },
+    check_username(){
+        if (this.check_username_availability(document.getElementById("username").value)) {
+          document.getElementById("free").classList.add("displayed");
+          document.getElementById("used").classList.remove("displayed");
+          this.check_valid_username=true;
+        } else {
+          document.getElementById("used").classList.add("displayed");
+          document.getElementById("free").classList.remove("displayed");
+          this.check_valid_username=false;
+        }
+    },
+    signup(e){
+      e.preventDefault();
+      if(this.check_valid_password && this.check_valid_email && this.check_valid_username){
+        var gender="";
+          var ele = document.getElementsByName('gender'); 
+          for(var i = 0; i < ele.length; i++) { 
+            if(ele[i].checked) 
+            gender = ele[i].getAttribute("id");
+          } 
+          if(gender == "gridRadios3_worker") gender="other";
+          if(gender == "gridRadios2_worker") gender="male";
+          if(gender == "gridRadios1_worker") gender="female";
+        var client = {
+          "username" : this.username,
+          "firstname" : this.first_name,
+          "last_name" : this.last_name,
+          "gender" : gender,
+          "birth_date" : this.birth_date,
+          "phone" : this.phone,
+          "email" : this.email,
+          "id" : this.id, //cin 
+          "password" : this.password,
+        };
+        var this_var=this;
+          axios
+          .get('http://localhost/Taskme/public/api/client/signup',JSON.stringify(client))
+          .then(response => { 
+            if(response["data"]["data"]!=""){
+              localStorage.id=this.username;
+              localStorage.type="client";
+              this_var.$router.push("/client");
+            }  
+            return;
+          }).catch(function (error) {
+            console.log(error);
+          });
+      }else{
+        console.log("dont submit")
       }
     }
   },
@@ -204,11 +297,16 @@ export default {
 
     var email = document.getElementById("mail");
     email.addEventListener("input", this.valid_mail);
+
+    document.getElementById("username").addEventListener("focusout", this.check_username);
   }
 };
 </script>
 
 <style scoped>
+*{
+  text-align: left;
+}
 .radio-inline {
   margin: 20px;
 }

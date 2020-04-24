@@ -57,6 +57,9 @@ export default {
         creation_date:{
             type : String,
         },
+        table :{
+            type : Array,
+        }
     },
     methods : {
         yes(){
@@ -67,7 +70,11 @@ export default {
                 "worker" : this.worker,
                 "creation_date" : this.creation_date,
             }
-            axios.get('http://localhost/Taskme/public/api/'+this.type+'/delete',JSON.stringify(info));
+            console.log("heyy "+info)
+            this.$emit("delete_thing",this.id,this.type);
+            console.log("emitted")
+            axios.delete('http://localhost/Taskme/public/api/'+this.type+'/'+this.id,JSON.stringify(info));
+            
             this.hide();
         }
         ,

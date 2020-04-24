@@ -76,6 +76,8 @@ export default {
 button {
   margin-left: 10px;
   margin-right: 10px;
+  width: 90px;
+  height: auto;
   color: #ffffff;
   background-color: #337ab7;
 }

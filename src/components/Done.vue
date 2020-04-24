@@ -52,6 +52,9 @@ export default {
         creation_date:{
             type : String,
         },
+        table :{
+            type : Array,
+        }
     },
     methods:{
         done(){

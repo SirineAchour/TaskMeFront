@@ -15,6 +15,7 @@ import VueStar from 'vue-star';
 import ToggleButton from 'vue-js-toggle-button';
 import vSelect from "vue-select";
 import "vue-select/dist/vue-select.css";
+import VueDragSelector from "vue-drag-selector";
 
 
 // bootstrap
@@ -57,7 +58,7 @@ Vue.use(rate);
 Vue.use(DateDropdown);
 Vue.use(VueTelInput);
 Vue.use(ToggleButton);
-
+Vue.use(VueDragSelector);
 
 Vue.component('VueStar', VueStar);
 Vue.component("v-select", vSelect);

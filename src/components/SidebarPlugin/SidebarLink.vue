@@ -6,9 +6,9 @@
       v-bind="$attrs"
     >
       <div class="md-list-item-content md-ripple">
-        <slot>
+        <slot style="text-align : left;">
           <md-icon>{{ link.icon }}</md-icon>
-          <p>{{ link.name }}</p>
+          <p >{{ link.name }}</p>
         </slot>
       </div>
     </router-link>

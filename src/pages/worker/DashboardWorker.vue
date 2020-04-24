@@ -1,32 +1,37 @@
 <template>
-<!--  recommeneded tasks and ads -->
-  <div class="content" style="padding-top:0px;margin-top:2px;">
-    <h3 style="margin-top:0px;">Suggested Tasks :</h3>
-    <div class="md-layout md-gutter">
-      <div class="md-layout-item md-medium-size-50 md-xsmall-size-100 md-size-30"
-        v-for="task in tasks" :key="task.id">
-        <chart-card
-          :chart-type="'Line'"
-          icon="person"
-        >
+  <div class="content" style="padding-top:2px;">
+    <div class="md-layout">
+      <h3
+        class="md-layout-item md-medium-size-100 md-xsmall-size-100 md-size-100"
+        style="text-align: left;margin-bottom:3px;"
+      >
+        &nbsp; Tasks :
+      </h3>
+
+      <div
+        class="md-layout-item md-medium-size-50 md-xsmall-size-100 md-size-30"
+        v-for="task in tasks"
+        :key="task.id"
+      >
+        <chart-card :chart-type="'Line'" icon="person">
           <template slot="content">
             <center class="title">
-              <h3><md-icon> directions_run </md-icon> {{task["subject"]}}</h3>
+              <h3><md-icon> directions_run </md-icon> {{ task["subject"] }}</h3>
             </center>
-            <center class="category"><h4>category</h4>
+            <center class="category">
+              <h4>category</h4>
 
-              {{task.date}} <br />
-              {{task.place}} <br />
-              {{task.price}} <br /><br>
+              {{ task.date }} <br />
+              {{ task.place }} <br />
+              {{ task.price }} <br /><br />
             </center>
-            <div>
-            </div>
+            <div></div>
             <center>
               <br />
               <button
                 data-background-color="red"
                 class="btn btn-sm"
-                @click="doit(task.id, task.client,'task')"
+                @click="doit(task.id, task.client, 'task')"
               >
                 do it!
               </button>
@@ -44,57 +49,66 @@
           <template slot="footer">
             <span class="stats">
               <md-icon>access_time</md-icon>
-              created {{task.creation_date}} ago
+              created {{ task.creation_date }} ago
             </span>
           </template>
         </chart-card>
       </div>
     </div>
-    <hr class="dashed">
+    <hr class="dashed" />
     <!-- ADS -->
-    <div class="md-layout md-gutter md-alignment-center">
-      <h3 class="md-layout-item">Ads :</h3>
-    </div>
-    <div class="md-layout md-gutter scrolling-wrapper">
+    <div class="md-layout scrolling-wrapper">
+      <h3
+        class="md-layout-item md-layout-item md-medium-size-100 md-xsmall-size-100 md-size-100"
+        style="text-align: left;"
+      >
+        Ads :
+      </h3>
       <div
         class="md-layout-item md-medium-size-50 md-xsmall-size-100 md-size-30"
-        v-for="ad in ads" :key="ad.id"
+        v-for="ad in ads"
+        :key="ad.id"
       >
-        <chart-card
-        >
+        <chart-card>
           <template slot="content">
             <center class="title">
-              <h3><md-icon> local_play </md-icon> {{ad.name}}</h3>
+              <h3><md-icon> local_play </md-icon> {{ ad.name }}</h3>
             </center>
-            <center class="category"><h4>{{ad.price}}</h4>
-              {{ad.deets}}
-              <br /><br>
-              <div  v-if="ad.worker_found" class="worker_found"><i class=" fas fa-exclamation-circle fa-sm"></i> worker found</div>
-              <div v-else class="worker_not_found"><i class=" fas fa-exclamation-circle fa-sm"></i> worker not found yet</div>
-              <br>
-            <center>
-              <button
-                data-background-color="red"
-                class="btn btn-sm"
-                @click="cancel(ad.id, 'ad')"
-              >
-                do it!
-              </button>
-              <button
-                data-background-color="red"
-                class="btn btn-sm"
-                @click="report(ad.id, 'ad')"
-              >
-                remove
-              </button>
-            </center>
+            <center class="category">
+              <h4>{{ ad.price }}</h4>
+              {{ ad.deets }}
+              <br /><br />
+              <div v-if="ad.worker_found" class="worker_found">
+                <i class=" fas fa-exclamation-circle fa-sm"></i> worker found
+              </div>
+              <div v-else class="worker_not_found">
+                <i class=" fas fa-exclamation-circle fa-sm"></i> worker not
+                found yet
+              </div>
+              <br />
+              <center>
+                <button
+                  data-background-color="red"
+                  class="btn btn-sm"
+                  @click="cancel(ad.id, 'ad')"
+                >
+                  do it!
+                </button>
+                <button
+                  data-background-color="red"
+                  class="btn btn-sm"
+                  @click="report(ad.id, 'ad')"
+                >
+                  remove
+                </button>
+              </center>
             </center>
           </template>
 
           <template slot="footer">
             <div class="stats">
               <md-icon>access_time</md-icon>
-              posted {{ad.creation_date}} ago
+              posted {{ ad.creation_date }} ago
             </div>
           </template>
         </chart-card>
@@ -108,70 +122,69 @@ import { ChartCard } from "@/components";
 
 export default {
   components: {
-    ChartCard
+    ChartCard,
   },
   data() {
     return {
-      client :"",
-      worker :"",
-      creation_date:"",
+      client: "",
+      worker: "",
+      creation_date: "",
       tasks: [
         {
           id: "1",
           name: "task 1",
           category: "task category",
-          date : "task date",
+          date: "task date",
           place: "task place",
           price: "2 $",
           deets: "deeeeeeeeeeeeetaaaaaaaaaaillllllls",
           creation_date: " 2 minutes",
-        }
-      ],
-      ads : [
-        {
-          id : "1",
-          name : "ad 1",
-          price : "1 $",
-          details : "deeeeeeeeeeeeetaaaaaaaaaaillllllls",
-          creation_date : " 1 day",
         },
-      ]
-    }
+      ],
+      ads: [
+        {
+          id: "1",
+          name: "ad 1",
+          price: "1 $",
+          details: "deeeeeeeeeeeeetaaaaaaaaaaillllllls",
+          creation_date: " 1 day",
+        },
+      ],
+    };
   },
-  mounted(){
+  mounted() {
     axios
-          .get('http://localhost/Taskme/public/api/tasks')
-          .then(response => (this.tasks = response["data"]["data"]))
-  }
+      .get("http://localhost/Taskme/public/api/tasks")
+      .then((response) => (this.tasks = response["data"]["data"]));
+  },
 };
 </script>
 
 <style scoped>
 hr {
   border: 1px dashed rgb(202, 201, 201);
-  margin : 0px;
+  margin: 0px;
 }
-.worker_not_found{
+.worker_not_found {
   color: rgb(46, 46, 46);
 }
-.title{
+.title {
   font-weight: bold;
 }
 
-h4{
+h4 {
   color: black;
 }
-i{
+i {
   margin-left: 5px;
 }
 
-.worker_found{
-  color : #45bd81;
+.worker_found {
+  color: #45bd81;
 }
 
-button{
+button {
   width: 66px;
   margin-left: 7px;
 }
-
 </style>
