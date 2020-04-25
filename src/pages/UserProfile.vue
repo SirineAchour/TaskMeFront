@@ -1,10 +1,10 @@
 <template>
   <div class="content md-layout" style="padding-top:0px;margin-top:2px;">
     <div class="md-layout-item md-medium-size-70 md-xsmall-size-100 md-size-70" style="margin-top:0px;"> 
+      <br>
         <md-card>
           <md-card-header data-background-color="purple">
-            <h4 class="title">Edit Profile</h4>
-            <!--<p class="category">Complete your profile</p>-->
+            <h4 class="title" style="text-align:center;">Edit Profile</h4>
           </md-card-header>
 
           <md-card-content>
@@ -17,13 +17,13 @@
               </div>
               <div class="md-layout-item md-small-size-100 md-size-33">
                 <md-field>
-                  <label>First Name: {{user.firstName}}</label>
+                  <label>First Name: {{user.prenom}}</label>
                   <md-input type="text" disabled></md-input>
                 </md-field>
               </div>
               <div class="md-layout-item md-small-size-100 md-size-33">
                 <md-field>
-                  <label>Last Name: {{user.LastName}}</label>
+                  <label>Last Name: {{user.nom}}</label>
                   <md-input type="text" disabled></md-input>
                 </md-field>
               </div>
@@ -102,7 +102,6 @@
                   Other
                 </label>
               </div>
-
               <div class="md-layout-item md-size-100 text-right">
                 <md-button class="md-raised" data-background-color="purple" @click="update"
                   >Update Profile</md-button
@@ -119,12 +118,12 @@
           <img class="img" :src="user.cardUserImage" />
         </div>
 
-        <md-card-content>
-          <h6 v-if="user.verified" class="category text-gray">verified</h6>
-          <h6 v-else class="category text-gray">not verified</h6>
-          <h4 class="card-title">{{ nom }} {{ prenom }}</h4>
-          <h6 class="category text-gray">{{ cin }}</h6>
-          <rate :length="5" :value="user.rating" :readonly="true" />
+        <md-card-content >
+          <h6 v-if="user.verified" class="category text-gray" style="text-align:center;">verified</h6>
+          <h6 v-else class="category text-gray" style="text-align:center;">not verified</h6>
+          <h4 class="card-title" style="text-align:center;">{{ user.nom }} {{ user.prenom }}</h4>
+          <h6 class="category text-gray" style="text-align:center;">{{ user.cin }}</h6>
+          <rate :length="5" :value="user.rating" :readonly="true" style="text-align:center;" />
         </md-card-content>
       </md-card>
     </div>
@@ -133,16 +132,16 @@
 
 <script>
 export default {
-  props : {
-    email_update : String,
-    password_update : String,
-    tel_update : String,
-    birthday_update : String,
-  },
+
   data() {
     return {
+      email_update : "",
+      password_update : "",
+      tel_update : "",
+      birthday_update : "",
       user : 
-    {    cardUserImage: require("@/assets/img/faces/marc.jpg"),
+      {    
+        cardUserImage: require("@/assets/img/faces/marc.jpg"),
         rating: "3",
         prenom: "Name",
         nom: "Lastname",
@@ -153,9 +152,9 @@ export default {
         birthday : "1998-12-03"}
     }
   },
-  created() {
-    // fill e stuff here
-    
+  mounted(){
+    axios.get('http://localhost/Taskme/public/api/user'+localStorage.id)
+          .then(response => (this.user = response["data"]["data"]));
     this.nom="Lastname";
     this.prenom="Firstname";
     this.verified="true";
@@ -165,37 +164,41 @@ export default {
     this.email="emaiiil@email.email";
     this.phone="87654321";
     this.birthday="1998-12-03";
-  },
-  mounted(){
-      //gender !!!!!!!all dom stuff must be fl mounted
-  /*  var id=""
-    axios
-          .get('http://localhost/Taskme/public/api/user'+id)
-          .then(response => (this.user = response["data"]["data"]))
+
     var gender="male";
-    document.getElementById(gender+"_client_edit").checked = true;*/
+    document.getElementById(gender+"_client_edit").checked = true;
   },
   methods :{
     update(){
-      
-      console.log("it works yay");
       console.log("email_update : "+ this.email_update);
       console.log("password_update : "+ this.password_update);
       console.log("tel_update : "+ this.tel_update);
       console.log("birthday : "+ this.birthday);
-      if(document.getElementById("female_client_edit").checked == true)
-        console.log("female");
-      else if(document.getElementById("male_client_edit").checked == true)
-        console.log("male");
-        else 
-          console.log("other");
+      var gender;
       
+      if(document.getElementById("female_client_edit").checked == true)
+        gender="female";
+      else if(document.getElementById("male_client_edit").checked == true)
+        gender="male";
+        else 
+          gender="other";
+      var update_info={
+        "id": localStorage.id,
+        "email": this.email_update,
+        "password": this.password_update,
+        "phone": this.tel_update,
+        "birthday": this.birthday_update,
+      }
+      axios.post('http://localhost/Taskme/public/api/user_update/'+localStorage.id,this.user);
     }
   }
 };
 </script>
 
 <style scoped>
+*{
+  text-align: left;
+}
 .radio-inline {
   margin: 20px;
 }

@@ -1,7 +1,7 @@
 <template>
   <div class="wrapper">
     <md-card>
-      <md-card-header data-background-color="green">
+      <md-card-header data-background-color="green" style="text-align : center;">
         <h4 class="title">Post Add</h4>
         <p class="category">
           Please provide as many details as possible as to avoid
@@ -14,29 +14,41 @@
           <div class="md-layout-item md-small-size-100 md-size-70">
             <md-field>
               <label>Title</label>
-              <md-input type="text" class="padd"></md-input>
+              <md-input type="text" class="padd" v-model="title"></md-input>
               <span class="md-helper-text">a short and simple title helps</span>
             </md-field>
+            <div class="invalid-feedback">
+              <i class="fas fa-exclamation-triangle fa-xs" style="color : rgba(223, 1, 1, 0.781);"></i> &nbsp;Please specify a title.
+            </div>
           </div>
 
           <div class="md-layout-item md-small-size-100 md-size-30">
             <md-field>
               <label>Price</label>
-              <md-input type="text" class="padd"></md-input>
+              <md-input type="text" class="padd" v-model="price"></md-input>
             </md-field>
+            <div class="invalid-feedback">
+              <i class="fas fa-exclamation-triangle fa-xs" style="color : rgba(223, 1, 1, 0.781);"></i> &nbsp;Please specify a price.
+            </div>
           </div>
           <div class="md-layout-item md-small-size-50 md-size-50">
             <md-field>
               <label>Date</label>
-              <md-input type="text" class="padd"></md-input>
+              <md-input type="text" class="padd" v-model="date"></md-input>
               <span class="md-helper-text">dd-mm-yyyy</span>
             </md-field>
+            <div class="invalid-feedback">
+              <i class="fas fa-exclamation-triangle fa-xs" style="color : rgba(223, 1, 1, 0.781);"></i> &nbsp;Please specify a date.
+            </div>
           </div>
           <div class="md-layout-item md-small-size-50 md-size-50">
             <md-field>
               <label>Place</label>
-              <md-input type="text" class="padd"></md-input>
+              <md-input type="text" class="padd" v-model="price"></md-input>
             </md-field>
+            <div class="invalid-feedback">
+              <i class="fas fa-exclamation-triangle fa-xs" style="color : rgba(223, 1, 1, 0.781);"></i> &nbsp;Please specify a place.
+            </div>
           </div>
 
           <div class="md-layout-item md-small-size-100 md-size-100">
@@ -66,7 +78,67 @@
 
 <script>
 export default {
+  data() {
+    return {
+      date :"",
+      place: "",
+      price: "",
+      title: "",
+    }
+  },
+  methods: {
+    post(){
+      var date = this.date.trim();
+      var place = this.place.trim();
+      var price = this.price.trim();
+      var title = this.title.trim();
+      var ok=true;
+      if(place==""){
+        document.getElementsByClassName("invalid-feedback")[3].style["display"]="block";
+        ok=false;
+      }
+      else{
+        document.getElementsByClassName("invalid-feedback")[3].style["display"]="none";
+      }
 
+      if(date==""){
+        document.getElementsByClassName("invalid-feedback")[2].style["display"]="block";
+        ok=false;
+      }
+      else{
+        document.getElementsByClassName("invalid-feedback")[2].style["display"]="none";
+      }
+
+      if(price==""){
+        document.getElementsByClassName("invalid-feedback")[1].style["display"]="block";
+        ok=false;
+      }
+      else{
+        document.getElementsByClassName("invalid-feedback")[1].style["display"]="none";
+      }
+
+      if(title==""){
+        document.getElementsByClassName("invalid-feedback")[0].style["display"]="block";
+        ok=false;
+      }
+      else{
+        document.getElementsByClassName("invalid-feedback")[0].style["display"]="none";
+      }
+      if(ok){
+      axios
+        .post('http://localhost/Taskme/public/api/ad',JSON.stringify({
+          'client_id' : localStorage.id,
+          'date' : date,
+          'details' : document.getElementsByClassName("txtarea")[0].value,
+          'address_id' : place,
+          'price' : price,
+        }))
+        .catch(function (error) {
+          console.log(error);
+      })}
+    },
+  }
+    
 };
 </script>
 
@@ -80,5 +152,8 @@ export default {
   width: 100%;
   padding: 4px;
   margin: 5px;
+}
+*{
+  text-align: left;
 }
 </style>

@@ -1,12 +1,12 @@
 <template>
   <span>
-  <button type="button" class="btn" @click="show">Sign Up</button>
+  <button type="button" class="btn" @click="show" style="width:90px;">Sign Up</button>
     <modal name="SignUp" height="auto" width="400px">
       <div class="modal-body" id="wrapper">
         <button type="button" class="btn" @click="show_client" id="button1">
           Sign Up As Client
         </button>
-        <button type="button" class="btn " @click="show_worker" id="button2">
+        <button type="button" class="btn" @click="show_worker" id="button2">
           Sign Up As Worker
         </button>
       </div>
@@ -76,7 +76,7 @@ export default {
 button {
   margin-left: 10px;
   margin-right: 10px;
-  width: 90px;
+  width: 200px;
   height: auto;
   color: #ffffff;
   background-color: #337ab7;

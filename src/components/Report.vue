@@ -3,8 +3,8 @@
     <h2>Report</h2>
     <div>
       <center>
-        <br>
-        <textarea cols="50" placeholder=">>Issues" id="report_t">
+        <div style="text-align : left; margin-left : 17px; margin-bottom : 5px"> Please report in detail the issues that you encountered with the {{client_worker}} :</div>
+        <textarea cols="50" id="report_t" rows="6" style="text-align : left;">
         </textarea>
       </center>
     </div>
@@ -36,8 +36,12 @@ export default {
     worker:{
        type : String,
     },
-        creation_date:{
-            type : String,
+    creation_date:{
+      type : String,
+    },
+    client_worker:{
+            type: String,
+            default : "worker"
         },
   },
   data(){
@@ -51,9 +55,9 @@ export default {
                 "client" : this.client,
                 "worker" : this.worker,
                 "creation_date" : this.creation_date,
-                "report" : document.getElementById("report_t").textContent,
+                "report" : document.getElementById("report_t").value,
             }
-            axios.get('http://localhost/Taskme/public/api/'+this.type+'/report',JSON.stringify(info));
+            axios.get('http://localhost/Taskme/public/api/'+this.type+'/report/'+this.id,JSON.stringify(info));
       this.hide();
     },
     hide() {

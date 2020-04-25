@@ -6,7 +6,7 @@
         
         <div>
             <span>
-            uAre you sure you want to {{delete_cancel}} this {{post}} ?
+            Are you sure you want to {{delete_cancel}} this {{post}} ?
             </span>
             <br>
             <div>

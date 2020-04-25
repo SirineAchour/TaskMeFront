@@ -1,5 +1,5 @@
 <template>
-  <transition name="fade" mode="out-in">
+  <transition name="fade" mode="out-in" >
     <router-view></router-view>
   </transition>
 </template>
@@ -18,5 +18,4 @@ export default {};
  {
   opacity: 0;
 }
-
 </style>

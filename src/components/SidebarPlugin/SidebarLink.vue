@@ -8,7 +8,7 @@
       <div class="md-list-item-content md-ripple">
         <slot style="text-align : left;">
           <md-icon>{{ link.icon }}</md-icon>
-          <p >{{ link.name }}</p>
+          <p>{{ link.name }}</p>
         </slot>
       </div>
     </router-link>
@@ -18,8 +18,8 @@
 export default {
   inject: {
     autoClose: {
-      default: true
-    }
+      default: true,
+    },
   },
   props: {
     link: {
@@ -28,14 +28,14 @@ export default {
         return {
           name: "",
           path: "",
-          icon: ""
+          icon: "",
         };
-      }
+      },
     },
     tag: {
       type: String,
-      default: "router-link"
-    }
+      default: "router-link",
+    },
   },
   methods: {
     hideSidebar() {
@@ -46,10 +46,8 @@ export default {
       ) {
         this.$sidebar.displaySidebar(false);
       }
-    }
-  }
+    },
+  },
 };
 </script>
-<style scoped>
-
-</style>
+<style scoped></style>

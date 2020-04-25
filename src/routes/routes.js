@@ -8,16 +8,11 @@ import History from "@/pages/history/History.vue";
 import NewTask from "@/pages/client/NewTask.vue";
 import PostAdd from "@/pages/client/PostAdd.vue";
 import Homepage from "@/pages/Homepage.vue";
-import playground from "@/pages/playground.vue";
 import DashboardWorker from "@/pages/worker/DashboardWorker.vue";
 import OngoingTasks from "@/pages/worker/OngoingTasks.vue";
 import OngoingAds from "@/pages/worker/OngoingAds.vue";
 
 const routes = [
-  {
-    path: "/test",
-    component: playground,
-  },
   {
     path: "/",
     component: Homepage,

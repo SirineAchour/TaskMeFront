@@ -59,6 +59,10 @@ export default {
         }
       ]
     };
+  },
+  created(){
+    axios.get('http://localhost/Taskme/public/api/history/ads/'+localStorage.id)
+    .then((response) => (this.tasks = response["data"]["data"]));
   }
 };
 </script>

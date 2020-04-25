@@ -157,6 +157,7 @@
         :client="client"
         :worker="worker"
         :creation_date="creation_date"
+        :client_worker="client"
         @done_thing="donee"
       >
       </done>
@@ -176,7 +177,7 @@
         :client="client"
         :worker="worker"
         :creation_date="creation_date"
-        client_worker="client"
+        :client_worker="client"
         @hide="hide_cancel"
         @delete_thing="deletee"
       >
@@ -198,6 +199,7 @@
         :client="client"
         :worker="worker"
         :creation_date="creation_date"
+        :client_worker="worker"
       >
       </report>
     </modal>
@@ -251,12 +253,12 @@ export default {
     };
   },
   created() {
-  /*  axios
+    axios
       .get("http://localhost/Taskme/public/api/tasks/client" + localStorage.id)
       .then((response) => (this.tasks = response["data"]["data"]));
     axios
       .get("http://localhost/Taskme/public/api/ads/client" + localStorage.id) //mafammech l route
-      .then((response) => (this.ads = response["data"]["data"]));*/
+      .then((response) => (this.ads = response["data"]["data"]));
   },
   methods: {
     done(id, client, worker, creation_date, post_type) {

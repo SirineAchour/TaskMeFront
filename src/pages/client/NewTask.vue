@@ -1,8 +1,13 @@
 <template>
   <div class="wrapper">
+    <br>
     <md-card>
       <md-card-header data-background-color="blue">
-        <h4 class="title">New Task</h4>
+        <h4 class="title" >New Task</h4>
+        <p class="category">
+          Please provide as many details as possible as to avoid
+          misunderstandings
+        </p>
       </md-card-header>
 
       <md-card-content>
@@ -15,6 +20,7 @@
               id="validationCustom03"
               @change="ChangecatList()"
               required
+              style="border : 1px solid grey;"
             >
               <option value="" disabled selected>Category </option>
               <option value="Care">Care</option>
@@ -28,7 +34,7 @@
               <option value="Other">Other...</option>
             </select>
             <div class="invalid-feedback">
-              Please provide a category.
+              <i class="fas fa-exclamation-triangle fa-xs" style="color : rgba(223, 1, 1, 0.781);"></i> &nbsp;Please provide a category.
             </div>
           </div>
 
@@ -40,6 +46,7 @@
               name="activity"
               required
               @change="taskPrice"
+              style="border : 1px solid grey;"
             >
               <option value="" disabled selected> Task </option>
             </select>
@@ -54,15 +61,21 @@
           <div class="md-layout-item md-small-size-50 md-size-50">
             <md-field>
               <label>Date</label>
-              <md-input type="text" class="padd" :v-bind="date"></md-input>
+              <md-input type="text" class="padd" v-model="date"></md-input>
               <span class="md-helper-text">dd-mm-yyyy</span>
             </md-field>
+            <div class="invalid-feedback">
+              <i class="fas fa-exclamation-triangle fa-xs" style="color : rgba(223, 1, 1, 0.781);"></i> &nbsp;Please set a date.
+            </div>
           </div>
           <div class="md-layout-item md-small-size-50 md-size-50">
             <md-field>
-              <label v-bind="place">Place</label>
-              <md-input type="text" class="padd"></md-input>
+              <label >Place</label>
+              <md-input type="text" class="padd" v-model="place"></md-input>
             </md-field>
+            <div class="invalid-feedback">
+              <i class="fas fa-exclamation-triangle fa-xs" style="color : rgba(223, 1, 1, 0.781);"></i> &nbsp;Please specify a place.
+            </div>
           </div>
 
           <div class="md-layout-item md-small-size-100 md-size-100">
@@ -178,29 +191,48 @@ export default {
   },
   methods: {
     send(){
-      this.user_id="1500;"
       var date=this.date.trim();
       var place=this.place.trim();
-      console.log("user id : "+this.user_id);
-      if(place=="" || date==""){
-        console.log("nope");
-        return;
+      var ok=true;
+      if(place==""){
+        document.getElementsByClassName("invalid-feedback")[2].style["display"]="block";
+        ok=false;
       }
+      else{
+        document.getElementsByClassName("invalid-feedback")[2].style["display"]="none";
+      }
+
+      if(date==""){
+        document.getElementsByClassName("invalid-feedback")[1].style["display"]="block";
+        ok=false;
+      }
+      else{
+        document.getElementsByClassName("invalid-feedback")[1].style["display"]="none";
+      }
+
+      var cat = document.getElementsByTagName("select")[0].value;
+      var task = document.getElementsByTagName("select")[1].value;
+      if(cat==""){
+        document.getElementsByClassName("invalid-feedback")[0].style["display"]="block";
+        ok=false;
+      }
+      else{
+        document.getElementsByClassName("invalid-feedback")[0].style["display"]="none";
+        
+      }
+      if(ok){
       axios
-        .post('http://localhost/Taskme/public/api/task/',JSON.stringify({
-          task_id : "",
-          'client_id' : this.user_id,
-          'worker_id' : "",
+        .post('http://localhost/Taskme/public/api/task',JSON.stringify({
+          'client_id' : localStorage.id,
+          'category_name' : cat,
+          'task_number': task, // task number in list 
           'date' : date,
-          'description' : "",
+          'details' : document.getElementsByClassName("txtarea")[0].value,
           'address_id' : place,
-          'issues' : "",
-          'state' : ""
         }))
         .catch(function (error) {
           console.log(error);
-      })
-      console.log(this.id+" is deleted normalement")
+      })}
     },
     taskPrice() {
       var sel = document.getElementById("validationCustom04");
@@ -233,6 +265,9 @@ export default {
 };
 </script>
 <style scoped>
+*{
+  text-align: left;
+}
 .wrapper {
   margin-left: 148px;
   margin-right: 148px;
@@ -251,4 +286,5 @@ export default {
   padding: 4px;
   margin: 5px;
 }
+
 </style>
