@@ -314,7 +314,7 @@ export default {
         };
         var this_var=this;
           axios
-          .get('http://localhost/Taskme/public/api/worker/signup',JSON.stringify(worker))
+          .get('http://localhost/TaskMeBack/public/api/worker/signup',JSON.stringify(worker))
           .then(response => { 
             if(response["data"]["data"]!=""){
               localStorage.id=this.username;

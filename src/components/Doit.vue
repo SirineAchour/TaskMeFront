@@ -1,12 +1,10 @@
 <template>
     <div class="wrapper">
-        <h2>
-            
-             {{delete_remove}} {{post}}</h2>
-        
+        <h2 v-if="this.post=='task'"> Do  {{post}}  </h2>
+        <h2 v-else> Answer this ad </h2>
         <div>
             <span>
-            Are you sure you want to {{delete_remove}} this {{post}} ?
+            Are you sure you want to take up this {{post}} ?
             </span>
             <br>
             <div>
@@ -32,20 +30,13 @@
 
 <script>
 export default {
-    name:"cancel",
+    name:"doit",
     props:{
         post : {
             type : String,
         },
         id : {
             type :String
-        },
-        delete_remove :{
-            type: String,
-            default: "delete"
-        },
-        client_worker:{
-            type: String
         },
         client:{
             type : String,
@@ -59,13 +50,16 @@ export default {
     },
     methods : {
         yess(){
-            if(this.client_worker=="client"){
-                if(this.post=="task"){
-                    console.log("normalement mrigla")
-                    axios.delete('http://localhost/TaskMeBack/public/api/post/'+this.id);
-                }else
-                    console.log("ne9es delete ad");
+            var info={
+                "id" : this.id,
+                "client" : this.client,
+                "worker" : this.worker,
+                "creation_date" : this.creation_date,
             }
+            console.log("do it")
+            //axios.delete('http://localhost/TaskMeBack/public/api/'+this.type+'/'+this.id,JSON.stringify(info));
+            
+            
             this.$emit("delete_thing",this.id,this.post);
             this.hide();
         }
@@ -74,13 +68,6 @@ export default {
             this.$emit("hide");
         }
     },
-    created(){
-        if(this.client_worker=="client"){
-            this.delete_remove="delete"
-        }
-        else
-            this.delete_remove="remove"
-    }
 }
 </script>
 

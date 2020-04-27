@@ -1,9 +1,9 @@
 <template>
   <div class="wrapper">
-    <br>
+    <br />
     <md-card>
       <md-card-header data-background-color="blue">
-        <h4 class="title" >New Task</h4>
+        <h4 class="title">New Task</h4>
         <p class="category">
           Please provide as many details as possible as to avoid
           misunderstandings
@@ -23,18 +23,19 @@
               style="border : 1px solid grey;"
             >
               <option value="" disabled selected>Category </option>
-              <option value="Care">Care</option>
-              <option value="Cleaning">Cleaning</option>
-              <option value="Computer">Computer related</option>
-              <option value="Errands">Errands</option>
-              <option value="Events">Events</option>
-              <option value="Gardening">Gardening</option>
-              <option value="Organizing">Organizing</option>
-              <option value="Res/App">Reservations/Appointments</option>
-              <option value="Other">Other...</option>
+              <option
+                v-for="category in categories_tasks"
+                :key="category.name"
+                :value="category.name"
+                >{{ category.name }}</option
+              >
             </select>
             <div class="invalid-feedback">
-              <i class="fas fa-exclamation-triangle fa-xs" style="color : rgba(223, 1, 1, 0.781);"></i> &nbsp;Please provide a category.
+              <i
+                class="fas fa-exclamation-triangle fa-xs"
+                style="color : rgba(223, 1, 1, 0.781);"
+              ></i>
+              &nbsp;Please provide a category.
             </div>
           </div>
 
@@ -65,16 +66,24 @@
               <span class="md-helper-text">dd-mm-yyyy</span>
             </md-field>
             <div class="invalid-feedback">
-              <i class="fas fa-exclamation-triangle fa-xs" style="color : rgba(223, 1, 1, 0.781);"></i> &nbsp;Please set a date.
+              <i
+                class="fas fa-exclamation-triangle fa-xs"
+                style="color : rgba(223, 1, 1, 0.781);"
+              ></i>
+              &nbsp;Please set a date.
             </div>
           </div>
           <div class="md-layout-item md-small-size-50 md-size-50">
             <md-field>
-              <label >Place</label>
+              <label>Place</label>
               <md-input type="text" class="padd" v-model="place"></md-input>
             </md-field>
             <div class="invalid-feedback">
-              <i class="fas fa-exclamation-triangle fa-xs" style="color : rgba(223, 1, 1, 0.781);"></i> &nbsp;Please specify a place.
+              <i
+                class="fas fa-exclamation-triangle fa-xs"
+                style="color : rgba(223, 1, 1, 0.781);"
+              ></i>
+              &nbsp;Please specify a place.
             </div>
           </div>
 
@@ -90,7 +99,10 @@
           </div>
 
           <div class="md-layout-item md-size-100 text-right">
-            <md-button class="md-raised" data-background-color="blue" @click="send"
+            <md-button
+              class="md-raised"
+              data-background-color="blue"
+              @click="send"
               >New Task</md-button
             >
           </div>
@@ -104,168 +116,138 @@
 export default {
   data() {
     return {
-      date :"",
+      date: "",
       place: "",
       prix: "",
-      catAndActs: {
-        Care: [
-          "Babysitting",
-          "Dog walking",
-          "Pet sitting",
-          "Take an elderly person shopping"
-        ],
-        Cleaning: [
-          "Clean boat",
-          "Clean fridge",
-          "Clean out attic/basement",
-          "Clean pool and empty skimmers",
-          "Clean room",
-          "Clean up after a party",
-          "Clean/organize gardening and yard tools",
-          "Do Laundry",
-          "Full house cleaning",
-          "Polish/buff shoe collection",
-          "Wash car",
-          "Wash dishes"
-        ],
-        Computer: [
-          "Enter data into an Excel doc",
-          "Set up blog",
-          "Teach basic computer skills"
-        ],
-        Errands: [
-          "Buy tickets for an event",
-          "Deliver car for maintenance and inspections",
-          "Drive elderly parents to doctor's appointments",
-          "Drive kids to soccer practice",
-          "Grocery shopping run",
-          "Pick up dry cleaning, alterations or clothing repairs",
-          "Pick up from the airport or train station",
-          "Pick-up and deliver anything you need",
-          "Return library books (and get new ones)"
-        ],
-        Events: [
-          "Bartend at a party",
-          "DJ at an event",
-          "Do magic tricks",
-          "Grill at a barbecue",
-          "Paint nails and do hair at a party for little girls",
-          "Serve food at a house party"
-        ],
-        Gardening: [
-          "Collect fruits",
-          "Mow the lawn",
-          "Plowing",
-          "Trim trees",
-          "Water plants"
-        ],
-        Manpower: [
-          "Chop firewood",
-          "Heavy lifting",
-          "Move furniture",
-          "Shovel snow"
-        ],
-        Organizing: [
-          "Interior decorating",
-          "Organize closet",
-          "Organize garage",
-          "Organize library",
-          "Pack and unpack after a move"
-        ],
-        "Res/Apps": [
-          "Make reservations",
-          "Plan a vacation",
-          "Schedule appointments"
-        ],
-        Other: [
-          "Assemble furniture",
-          "Guide a tour around town",
-          "Hand out flyers around town",
-          "Housesit",
-          "Paint a room",
-          "Provide personal shopping",
-          "Set up yard toys (trampoline, swing set, etc)"
-        ]
-      }
+      categories_tasks: [],
+      selected_task_id: "",
     };
   },
   methods: {
-    send(){
-      var date=this.date.trim();
-      var place=this.place.trim();
-      var ok=true;
-      if(place==""){
-        document.getElementsByClassName("invalid-feedback")[2].style["display"]="block";
-        ok=false;
-      }
-      else{
-        document.getElementsByClassName("invalid-feedback")[2].style["display"]="none";
+    send() { //working on it 
+      var date = this.date.trim();
+      var place = this.place.trim();
+      var ok = true;
+      if (place == "") {
+        document.getElementsByClassName("invalid-feedback")[2].style[
+          "display"
+        ] = "block";
+        ok = false;
+      } else {
+        document.getElementsByClassName("invalid-feedback")[2].style[
+          "display"
+        ] = "none";
       }
 
-      if(date==""){
-        document.getElementsByClassName("invalid-feedback")[1].style["display"]="block";
-        ok=false;
-      }
-      else{
-        document.getElementsByClassName("invalid-feedback")[1].style["display"]="none";
+      if (date == "") {
+        document.getElementsByClassName("invalid-feedback")[1].style[
+          "display"
+        ] = "block";
+        ok = false;
+      } else {
+        document.getElementsByClassName("invalid-feedback")[1].style[
+          "display"
+        ] = "none";
       }
 
       var cat = document.getElementsByTagName("select")[0].value;
-      var task = document.getElementsByTagName("select")[1].value;
-      if(cat==""){
-        document.getElementsByClassName("invalid-feedback")[0].style["display"]="block";
-        ok=false;
+      
+      if (cat == "") {
+        document.getElementsByClassName("invalid-feedback")[0].style[
+          "display"
+        ] = "block";
+        ok = false;
+      } else {
+        document.getElementsByClassName("invalid-feedback")[0].style[
+          "display"
+        ] = "none";
       }
-      else{
-        document.getElementsByClassName("invalid-feedback")[0].style["display"]="none";
-        
+      if (ok) {
+        axios
+          .post(
+            "http://localhost/TaskMeBack/public/api/post",
+            JSON.stringify({
+              id: "",
+              task_id: this.task_id, // task number in list
+              client_id: localStorage.id,
+              worker_found: false,
+              worker_id: "",
+              date: this.date,
+              description: document.getElementsByClassName("txtarea")[0].value,
+              address_id: this.place,
+              issues: "",
+              state: "new",
+            })
+          )
+          .catch(function(error) {
+            console.log(error);
+          });
       }
-      if(ok){
-      axios
-        .post('http://localhost/Taskme/public/api/task',JSON.stringify({
-          'client_id' : localStorage.id,
-          'category_name' : cat,
-          'task_number': task, // task number in list 
-          'date' : date,
-          'details' : document.getElementsByClassName("txtarea")[0].value,
-          'address_id' : place,
-        }))
-        .catch(function (error) {
-          console.log(error);
-      })}
     },
-    taskPrice() {
-      var sel = document.getElementById("validationCustom04");
-      var opt = sel.options[sel.selectedIndex];
-      this.prix = opt.text;
+    taskPrice() { //done
+      var select_task = document.getElementById("validationCustom04");
+      var select_category=document.getElementById("validationCustom03")
+      var opt = select_task.options[select_task.selectedIndex];
+      for(let i=0; i!=this.categories_tasks.length;i++){
+        if(select_category.options[select_category.selectedIndex].text==this.categories_tasks[i].name){
+          for(let j=0; j!=this.categories_tasks[i].tasks.length; j++){
+            if(select_task.options[select_task.selectedIndex].text==this.categories_tasks[i].tasks[j].subject){
+              this.selected_task_id=this.categories_tasks[i].tasks[j].id;
+              this.prix = this.categories_tasks[i].tasks[j].price;
+            }
+          }
+          
+        }
+      }
+      
     },
-    ChangecatList() {
+    ChangecatList() { //done
       var catList = document.getElementById("validationCustom03");
       var actList = document.getElementById("validationCustom04");
       var selCat = catList.options[catList.selectedIndex].value;
       while (actList.options.length) {
         actList.remove(0);
       }
-      var cats = this.catAndActs[selCat];
-      if (cats) {
+      for (i = 0; i != this.categories_tasks.length; i++) {
+        if (this.categories_tasks[i].name == selCat)
+          var tas = this.categories_tasks[i].tasks;
+      }
+
+      if (tas) {
         var i;
-        for (i = 0; i < cats.length; i++) {
-          var cat = new Option(cats[i], i);
-          actList.options.add(cat);
+        for (i = 0; i < tas.length; i++) {
+          var ta = new Option(tas[i].subject, i);
+          actList.options.add(ta);
         }
       }
       this.taskPrice();
     },
-  
   },
   created() {
-    // check session stuff
-    
+    axios
+      .get("http://localhost/TaskMeBack/public/api/categories")
+      .then((response) => {
+        this.categories_tasks = [];
+        var categories = response["data"]["data"];
+        categories.forEach((category) => {
+          axios
+            .get(
+              "http://localhost/TaskMeBack/public/api/tasks_by_category/" +
+                category.name
+            )
+            .then((response) => {
+              this.categories_tasks.push({
+                name: category.name,
+                tasks: response["data"]["data"],
+              });
+            });
+        });
+      });
   },
 };
 </script>
 <style scoped>
-*{
+* {
   text-align: left;
 }
 .wrapper {
@@ -286,5 +268,4 @@ export default {
   padding: 4px;
   margin: 5px;
 }
-
 </style>

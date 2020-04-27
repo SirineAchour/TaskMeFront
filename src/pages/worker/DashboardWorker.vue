@@ -31,7 +31,7 @@
               <button
                 data-background-color="red"
                 class="btn btn-sm"
-                @click="doit(task.id, task.client, 'task')"
+                @click="doit(task.id, task.client, '', task.creation_date, 'task')"
               >
                 do it!
               </button>
@@ -39,7 +39,7 @@
               <button
                 data-background-color="red"
                 class="btn btn-sm"
-                @click="remove(task.id, 'task')"
+                @click="remove(task.id, task.client, '', task.creation_date, 'task')"
               >
                 remove
               </button>
@@ -76,7 +76,7 @@
             </center>
             <center class="category">
               <h4>{{ ad.price }}</h4>
-              {{ ad.deets }}
+              {{ ad.details }}
               <br /><br />
               <div v-if="ad.worker_found" class="worker_found">
                 <i class=" fas fa-exclamation-circle fa-sm"></i> worker found
@@ -90,14 +90,14 @@
                 <button
                   data-background-color="red"
                   class="btn btn-sm"
-                  @click="cancel(ad.id, 'ad')"
+                  @click="doit(ad.id, ad.client, '', ad.creation_date, 'ad')"
                 >
                   do it!
                 </button>
                 <button
                   data-background-color="red"
                   class="btn btn-sm"
-                  @click="report(ad.id, 'ad')"
+                  @click="remove(ad.id, ad.client, '', ad.creation_date, 'ad')"
                 >
                   remove
                 </button>
@@ -114,18 +114,64 @@
         </chart-card>
       </div>
     </div>
+
+  <modal
+      name="Cancel"
+      height="auto"
+      :scrollable="true"
+      :draggable="false"
+      width="400px"
+      :adaptive="true"
+    >
+      <cancel
+        :post="post_type"
+        :id="id"
+        :client="client"
+        :worker="worker"
+        :creation_date="creation_date"
+        client_worker="worker"
+        @hide="hide_remove"
+        @delete_thing="deletee"
+      >
+      </cancel>
+    </modal>
+
+    <modal
+      name="Doit"
+      height="auto"
+      :scrollable="true"
+      :draggable="false"
+      width="400px"
+      :adaptive="true"
+    >
+      <doit
+        :post="post_type"
+        :id="id"
+        :client="client"
+        :worker="worker"
+        :creation_date="creation_date"
+        @hide="hide_doit"
+        @delete_thing="deletee"
+      >
+      </doit>
+    </modal>
   </div>
 </template>
 
 <script>
 import { ChartCard } from "@/components";
-
+import Cancel from "D:/GL3/GL3/Semestre 2/Processus Unifiés/TaskMeFront/src/components/Cancel.vue";
+import Doit from "D:/GL3/GL3/Semestre 2/Processus Unifiés/TaskMeFront/src/components/Doit.vue";
 export default {
   components: {
     ChartCard,
+    Cancel,
+    Doit
   },
   data() {
     return {
+      id: "",
+      post_type: "",
       client: "",
       worker: "",
       creation_date: "",
@@ -154,9 +200,48 @@ export default {
   },
   mounted() {
     axios
-      .get("http://localhost/Taskme/public/api/tasks")
+      .get("http://localhost/TaskMeBack/public/api/tasks/"+localStorage.id)
       .then((response) => (this.tasks = response["data"]["data"]));
+    axios
+      .get("http://localhost/TaskMeBack/public/api/ads/"+localStorage.id)
+      .then((response) => (this.ads = response["data"]["data"]));
   },
+  methods:{
+    remove(id, client, worker, creation_date, post_type) {
+      //popup
+      this.id = id;
+      this.post_type = post_type;
+      this.client = client;
+      this.worker = worker;
+      this.creation_date = creation_date;
+      console.log("show cancel");
+      this.$modal.show("Cancel");
+    },
+    doit(id, client, worker, creation_date, post_type) {
+      //popup
+      this.id = id;
+      this.post_type = post_type;
+      this.client = client;
+      this.worker = worker;
+      this.creation_date = creation_date;
+      console.log("show doit");
+      this.$modal.show("Doit");
+    },
+    hide_remove() {
+      this.$modal.hide("Cancel");
+    },
+    hide_doit() {
+      this.$modal.hide("Doit");
+    },
+    deletee(id,type){
+      var tt=type+'s';
+      for( var i = 0; i < this[tt].length; i++){ 
+        if ( this[tt][i].id === id) {
+          this[tt].splice(i, 1); 
+        }
+      }
+    },
+  }
 };
 </script>
 

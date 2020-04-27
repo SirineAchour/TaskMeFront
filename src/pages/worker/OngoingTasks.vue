@@ -125,10 +125,10 @@ export default {
   mounted() {
     /* var id=""   // idk how this is gonna work yet 
     axios
-          .get('http://localhost/Taskme/public/api/tasks'+id)
+          .get('http://localhost/TaskMeBack/public/api/tasks'+id)
           .then(response => (this.tasks = response["data"]["data"]))
     axios
-          .get('http://localhost/Taskme/public/api/ads'+id) //mafammech l route
+          .get('http://localhost/TaskMeBack/public/api/ads'+id) //mafammech l route
           .then(response => (this.ads = response["data"]["data"]))*/
   },
   created() {

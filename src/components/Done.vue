@@ -65,7 +65,7 @@ export default {
                 "creation_date" : this.creation_date,
                 "rating" : this.rating,
             }
-            axios.get('http://localhost/Taskme/public/api/'+this.type+'/done/'+this.id,JSON.stringify(info));
+            axios.get('http://localhost/TaskMeBack/public/api/'+this.type+'/done/'+this.id,JSON.stringify(info));
             this.$emit("done_thing",this.id,this.type);
             this.hide();
         },

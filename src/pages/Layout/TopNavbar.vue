@@ -108,11 +108,11 @@ export default {
     /*
     var id=""
     axios
-          .get('http://localhost/Taskme/public/api/notifcations'+id) // mafammech l route
+          .get('http://localhost/TaskMeBack/public/api/notifcations'+id) // mafammech l route
           .then(response => (this.notifications = response["data"]["data"]))
     this.notifications_size=this.notifications.size
     axios
-          .get('http://localhost/Taskme/public/api/user'+id) // mafammech l route
+          .get('http://localhost/TaskMeBack/public/api/user'+id) // mafammech l route
           .then(response => (this.user = response["data"]["data"]))*/
   }
 };

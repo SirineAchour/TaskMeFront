@@ -57,7 +57,7 @@ export default {
                 "creation_date" : this.creation_date,
                 "report" : document.getElementById("report_t").value,
             }
-            axios.get('http://localhost/Taskme/public/api/'+this.type+'/report/'+this.id,JSON.stringify(info));
+            axios.get('http://localhost/TaskMeBack/public/api/'+this.type+'/report/'+this.id,JSON.stringify(info));
       this.hide();
     },
     hide() {

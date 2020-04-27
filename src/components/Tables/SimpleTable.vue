@@ -58,7 +58,7 @@ export default {
     };
   },
   created(){
-    axios.get('http://localhost/Taskme/public/api/history/tasks/'+localStorage.id)
+    axios.get('http://localhost/TaskMeBack/public/api/history/tasks/'+localStorage.id)
     .then((response) => (this.tasks = response["data"]["data"]));
   }
 };

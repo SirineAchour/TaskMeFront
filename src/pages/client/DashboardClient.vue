@@ -38,9 +38,13 @@
               <button
                 data-background-color="red"
                 class="btn btn-sm"
-                @click="cancel(task.id, task.client, task.worker, task.creation_date, 'task')"
-              >
-                delete
+                @click="done(
+                    task.id,
+                    task.client,
+                    task.worker,
+                    task.creation_date,
+                    'task')">
+                done
               </button>
               <button
                 data-background-color="red"
@@ -52,17 +56,9 @@
               <button
                 data-background-color="red"
                 class="btn btn-sm"
-                @click="
-                  done(
-                    task.id,
-                    task.client,
-                    task.worker,
-                    task.creation_date,
-                    'task'
-                  )
-                "
+                @click="cancel(task.id, task.client, task.worker, task.creation_date, 'task')"
               >
-                done
+                delete
               </button>
             </center>
           </template>
@@ -107,14 +103,14 @@
                 found yet
               </div>
               <br />
-
               <button
                 data-background-color="red"
                 class="btn btn-sm"
-                @click="cancel(ad.id, ad.client, ad.worker, ad.creation_date, 'ad')"
+                @click="done(ad.id, ad.client, ad.worker, ad.creation_date, 'ad')"
               >
-                delete
+                done
               </button>
+              
               <button
                 data-background-color="red"
                 class="btn btn-sm"
@@ -125,9 +121,9 @@
               <button
                 data-background-color="red"
                 class="btn btn-sm"
-                @click="done(ad.id, ad.client, ad.worker, ad.creation_date, 'ad')"
+                @click="cancel(ad.id, ad.client, ad.worker, ad.creation_date, 'ad')"
               >
-                done
+                delete
               </button>
             </center>
           </template>
@@ -157,7 +153,7 @@
         :client="client"
         :worker="worker"
         :creation_date="creation_date"
-        :client_worker="client"
+        client_worker="worker"
         @done_thing="donee"
       >
       </done>
@@ -177,7 +173,7 @@
         :client="client"
         :worker="worker"
         :creation_date="creation_date"
-        :client_worker="client"
+        client_worker="client"
         @hide="hide_cancel"
         @delete_thing="deletee"
       >
@@ -235,7 +231,7 @@ export default {
           date: "task date",
           place: "task place",
           price: "2 $",
-          deets: "deeeeeeeeeeeeetaaaaaaaaaaillllllls",
+          details: "deeeeeeeeeeeeetaaaaaaaaaaillllllls",
           creation_date: " 2 minutes",
           worker_found: true,
         },
@@ -245,7 +241,7 @@ export default {
           id: "1",
           name: "ad 1",
           price: "1 $",
-          deets: "deeeeeeeeeeeeetaaaaaaaaaaillllllls",
+          details: "deeeeeeeeeeeeetaaaaaaaaaaillllllls",
           creation_date: " 1 day",
           worker_found: false,
         },
@@ -253,12 +249,14 @@ export default {
     };
   },
   created() {
+    console.log("get tasks")
     axios
-      .get("http://localhost/Taskme/public/api/tasks/client" + localStorage.id)
-      .then((response) => (this.tasks = response["data"]["data"]));
+      .get("http://localhost/TaskMeBack/public/api/tasks/client/" + localStorage.id)
+      .then((response) => {this.tasks = response["data"]["data"];console.log("got tasks")});
+    console.log("get ads")
     axios
-      .get("http://localhost/Taskme/public/api/ads/client" + localStorage.id) //mafammech l route
-      .then((response) => (this.ads = response["data"]["data"]));
+      .get("http://localhost/TaskMeBack/public/api/ads/client/" + localStorage.id) //mafammech l route
+      .then((response) => {this.ads = response["data"]["data"];console.log("got ads")});
   },
   methods: {
     done(id, client, worker, creation_date, post_type) {

@@ -1,7 +1,7 @@
 //importing axios
 import axios from 'axios';
 window.axios = axios;
-axios.defaults.baseURL = 'http://localhost/Taskme/public/';
+axios.defaults.baseURL = 'http://localhost/TaskMeBack/public/';
 
 
 import Vue from "vue";

@@ -126,7 +126,7 @@ export default {
       }
       if(ok){
       axios
-        .post('http://localhost/Taskme/public/api/ad',JSON.stringify({
+        .post('http://localhost/TaskMeBack/public/api/ad',JSON.stringify({
           'client_id' : localStorage.id,
           'date' : date,
           'details' : document.getElementsByClassName("txtarea")[0].value,

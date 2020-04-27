@@ -153,7 +153,7 @@ export default {
     }
   },
   mounted(){
-    axios.get('http://localhost/Taskme/public/api/user'+localStorage.id)
+    axios.get('http://localhost/TaskMeBack/public/api/user'+localStorage.id)
           .then(response => (this.user = response["data"]["data"]));
     this.nom="Lastname";
     this.prenom="Firstname";
@@ -189,7 +189,7 @@ export default {
         "phone": this.tel_update,
         "birthday": this.birthday_update,
       }
-      axios.post('http://localhost/Taskme/public/api/user_update/'+localStorage.id,this.user);
+      axios.post('http://localhost/TaskMeBack/public/api/user_update/'+localStorage.id,this.user);
     }
   }
 };
