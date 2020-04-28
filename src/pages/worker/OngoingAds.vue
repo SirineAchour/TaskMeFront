@@ -83,8 +83,8 @@
 
 <script>
 import { ChartCard } from "@/components";
-import Done from "D:/GL3/GL3/Semestre 2/Processus Unifiés/TaskMeFront/src/components/Done.vue";
-import Cancel from "D:/GL3/GL3/Semestre 2/Processus Unifiés/TaskMeFront/src/components/Cancel.vue";
+import  Done  from "../../components/Done.vue";
+import  Cancel  from "../../components/Cancel.vue";
 
 export default {
   components: {

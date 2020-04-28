@@ -48,7 +48,7 @@ export default {
 
 
 .bg {
-  background-image: url("D:/GL3/GL3/Semestre 2/Processus Unifiés/TaskMeFront/src/assets/img/b10.jpg");
+  background-image: url("../assets/img/b10.jpg");
 
   /* Full height */
   height: 100%; 

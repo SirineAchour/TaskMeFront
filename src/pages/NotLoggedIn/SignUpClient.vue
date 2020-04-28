@@ -14,33 +14,6 @@
         first name, last name and id fields are uneditable
       </span>
       <form class="md-layout" @submit="signup">
-        <div class="md-layout-item md-small-size-100 md-size-100">
-          <md-field>
-            <label>Username</label>
-            <md-input
-              type="text"
-              class="form-control"
-              required
-              v-model="username"
-              id="username"
-            ></md-input>
-            <span
-              class="md-helper-text invalid-feedback"
-              style="color : rgba(223, 1, 1, 0.781);"
-              id="used"
-              ><i class="fas fa-exclamation-triangle fa-xs"></i>
-              Username already in use
-            </span>
-            <span
-              class="md-helper-text valid-feedback"
-              style="color : green;"
-              id="free"
-            >
-              <i class="fas fa-check fa-xs"></i>
-              Available username
-            </span>
-          </md-field>
-        </div>
         <div class="md-layout-item md-small-size-100 md-size-50">
           <md-field>
             <label>First Name</label>
@@ -175,21 +148,6 @@
           <vue-tel-input placeholder="" required v-model="phone">
           </vue-tel-input>
         </div>
-
-        <!--        <center
-          class="md-layout-item md-small-size-100 md-size-70 form-group contract-worker"
-        >
-          <br />
-          <input
-            class="form-check-input"
-            type="checkbox"
-            id="contract_check_worker"
-            required
-          />
-          <label class="form-check-label" for="contract_check_worker">
-            Example checkbox checkbox checkbox checkbox
-          </label>
-        </center> -->
         <div class="md-layout-item md-size-100 text-right">
           <button
             class="md-raised btn"
@@ -210,7 +168,6 @@ export default {
   name: "SignUpClient",
   data() {
     return {
-      username: "",
       first_name: "",
       last_name: "",
       birth_date: "",
@@ -257,25 +214,6 @@ export default {
         }
       }
     },
-    check_username_availability(input) {
-      //idk
-      return true;
-    },
-    check_username() {
-      if (
-        this.check_username_availability(
-          document.getElementById("username").value
-        )
-      ) {
-        document.getElementById("free").classList.add("displayed");
-        document.getElementById("used").classList.remove("displayed");
-        this.check_valid_username = true;
-      } else {
-        document.getElementById("used").classList.add("displayed");
-        document.getElementById("free").classList.remove("displayed");
-        this.check_valid_username = false;
-      }
-    },
     signup(e) {
       e.preventDefault();
       if (
@@ -311,7 +249,8 @@ export default {
         axios
           .post(
             "http://localhost/TaskMeBack/public/api/register",
-            JSON.stringify(client)
+            JSON.stringify(client),
+            {headers: {'Content-Type':'application/json'}}
           )
           .then((response) => {
             if (response["data"]["data"] != "") {
@@ -339,10 +278,6 @@ export default {
 
     var email = document.getElementById("mail");
     email.addEventListener("input", this.valid_mail);
-
-    document
-      .getElementById("username")
-      .addEventListener("focusout", this.check_username);
   },
 };
 </script>

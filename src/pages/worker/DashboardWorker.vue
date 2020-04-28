@@ -160,8 +160,8 @@
 
 <script>
 import { ChartCard } from "@/components";
-import Cancel from "D:/GL3/GL3/Semestre 2/Processus Unifiés/TaskMeFront/src/components/Cancel.vue";
-import Doit from "D:/GL3/GL3/Semestre 2/Processus Unifiés/TaskMeFront/src/components/Doit.vue";
+import  Cancel  from "../../components/Cancel.vue";
+import  Doit  from "../../components/Doit.vue";
 export default {
   components: {
     ChartCard,

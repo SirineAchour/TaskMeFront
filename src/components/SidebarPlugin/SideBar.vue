@@ -65,7 +65,7 @@ export default {
 }
 
 .bgg {
-  background-image: url("D:/GL3/GL3/Semestre 2/Processus Unifiés/TaskMeFront/src/assets/img/b2.jpg");
+  background-image: url("../../assets/img/b2.jpg");
 
   /* Full height */
   height: 100%; 
