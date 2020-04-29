@@ -7,20 +7,29 @@
 
     <md-card-content>
       <span class="uneditable">
-        <i class="fas fa-exclamation-triangle fa-xs" style="color : rgba(223, 1, 1, 0.781);"></i>
+        <i
+          class="fas fa-exclamation-triangle fa-xs"
+          style="color : rgba(223, 1, 1, 0.781);"
+        ></i>
         first name, last name and id fields are uneditable
       </span>
       <form class="md-layout" @submit="signup">
         <div class="md-layout-item md-small-size-100 md-size-100">
           <md-field>
-            <label >Username</label>
-            <md-input type="text" class="form-control" required v-model="username" id="username" ></md-input>
+            <label>Username</label>
+            <md-input
+              type="text"
+              class="form-control"
+              required
+              v-model="username"
+              id="username"
+            ></md-input>
             <span
               class="md-helper-text invalid-feedback"
               style="color : rgba(223, 1, 1, 0.781);"
               id="used"
               ><i class="fas fa-exclamation-triangle fa-xs"></i>
-              Username already in use 
+              Username already in use
             </span>
             <span
               class="md-helper-text valid-feedback"
@@ -28,14 +37,19 @@
               id="free"
             >
               <i class="fas fa-check fa-xs"></i>
-              Available username </span
-            >
+              Available username
+            </span>
           </md-field>
         </div>
         <div class="md-layout-item md-small-size-100 md-size-50">
           <md-field>
             <label>First Name</label>
-            <md-input type="text" class="form-control" required v-model="first_name"></md-input>
+            <md-input
+              type="text"
+              class="form-control"
+              required
+              v-model="first_name"
+            ></md-input>
           </md-field>
         </div>
         <div class="md-layout-item md-small-size-100 md-size-50">
@@ -53,7 +67,12 @@
         <div class="md-layout-item md-small-size-100 md-size-67">
           <md-field>
             <label>Email Address</label>
-            <md-input type="email" required id="mail" v-model="email"></md-input>
+            <md-input
+              type="email"
+              required
+              id="mail"
+              v-model="email"
+            ></md-input>
             <span
               class="md-helper-text invalid-feedback"
               style="color : rgba(223, 1, 1, 0.781);"
@@ -74,7 +93,12 @@
         <div class="md-layout-item md-small-size-100 md-size-100">
           <md-field>
             <label>Password</label>
-            <md-input type="password" id="pass" required v-model="password"></md-input>
+            <md-input
+              type="password"
+              id="pass"
+              required
+              v-model="password"
+            ></md-input>
           </md-field>
         </div>
         <div class="md-layout-item md-small-size-100 md-size-100">
@@ -147,35 +171,33 @@
           Phone :
         </div>
         <div class="md-layout-item md-small-size-70 md-size-70 stuff">
-          <vue-tel-input placeholder="" required v-model="phone"> </vue-tel-input>
+          <vue-tel-input placeholder="" required v-model="phone">
+          </vue-tel-input>
         </div>
 
         <div class="md-layout-item md-small-size-100 md-size-100">
-         
-            Skillset :
-            <drag-selector
-              v-model="skillSet"
-              @change="handleDragSelectorChange"
-              class="drag-selector"
-
+          Skillset :
+          <drag-selector
+            v-model="skillSet"
+            @change="handleDragSelectorChange"
+            class="drag-selector"
+          >
+            <drag-selector-item
+              v-for="(item, index) in skills"
+              :value="item"
+              :key="index"
+              class="drag-selector__item"
+              @click="selected_item(item)"
             >
-              <drag-selector-item
-                v-for="(item, index) in myDragList"
-                :value="item"
-                :key="index"
-                class="drag-selector__item"
-                @click="selected_item(item)"
-              >
-                {{ item.name }}
-              </drag-selector-item>
-              <br>
-              <div class="unselect">
-                unselect all
-              </div>
-            </drag-selector>
-         
+              {{ item.name }}
+            </drag-selector-item>
+            <br />
+            <div class="unselect">
+              unselect all
+            </div>
+          </drag-selector>
         </div>
- <!--       <center
+        <!--       <center
           class="md-layout-item md-small-size-100 md-size-70 form-group contract-worker"
         >
           <br />
@@ -209,32 +231,21 @@ export default {
   name: "SignUpWorker",
   data() {
     return {
-      username : "",
-      first_name : "",
-      last_name : "",
-      birth_date : "",
-      phone : "",
-      email : "",
-      id : "",
-      password : "",
+      username: "",
+      first_name: "",
+      last_name: "",
+      birth_date: "",
+      phone: "",
+      email: "",
+      id: "",
+      password: "",
       check_valid_email: true,
       check_valid_password: true,
-      check_valid_username : true,
+      check_valid_username: true,
       pass: "",
       con_pass: "",
       skillSet: [],
-      myDragList: [
-        { name: "Care" },
-        { name: "Cleaning" },
-        { name: "Computer Knowledge" },
-        { name: "Errands" },
-        { name: "Events" },
-        { name: "Gardening" },
-        { name: "Manpower" },
-        { name: "Organizing" },
-        { name: "Reservations and Appointments" },
-        { name: "Other" },
-      ],
+      skills: [],
     };
   },
   methods: {
@@ -249,11 +260,11 @@ export default {
         if (mail_input.checkValidity()) {
           document.getElementById("valid").classList.add("displayed");
           document.getElementById("invalid").classList.remove("displayed");
-          this.check_valid_email=true;
+          this.check_valid_email = true;
         } else {
           document.getElementById("invalid").classList.add("displayed");
           document.getElementById("valid").classList.remove("displayed");
-          this.check_valid_email=false;
+          this.check_valid_email = false;
         }
       }
     },
@@ -264,71 +275,81 @@ export default {
         if (con_pass == pass) {
           document.getElementById("correct").classList.add("displayed");
           document.getElementById("wrong").classList.remove("displayed");
-                    this.check_valid_password=true;
+          this.check_valid_password = true;
         } else {
           document.getElementById("correct").classList.remove("displayed");
           document.getElementById("wrong").classList.add("displayed");
-                    this.check_valid_password=false;
-
+          this.check_valid_password = false;
         }
       }
     },
-    check_username_availability(input){
+    check_username_availability(input) {
       //idk yet
       return true;
     },
-    check_username(){
-        if (this.check_username_availability(document.getElementById("username").value)) {
-          document.getElementById("free").classList.add("displayed");
-          document.getElementById("used").classList.remove("displayed");
-          this.check_valid_username=true;
-        } else {
-          document.getElementById("used").classList.add("displayed");
-          document.getElementById("free").classList.remove("displayed");
-          this.check_valid_username=false;
-        }
+    check_username() {
+      if (
+        this.check_username_availability(
+          document.getElementById("username").value
+        )
+      ) {
+        document.getElementById("free").classList.add("displayed");
+        document.getElementById("used").classList.remove("displayed");
+        this.check_valid_username = true;
+      } else {
+        document.getElementById("used").classList.add("displayed");
+        document.getElementById("free").classList.remove("displayed");
+        this.check_valid_username = false;
+      }
     },
-    signup(e){
+    signup(e) {
       e.preventDefault();
-      if(this.check_valid_password && this.check_valid_email && this.check_valid_username){
-        var gender="";
-          var ele = document.getElementsByName('gender'); 
-          for(var i = 0; i < ele.length; i++) { 
-            if(ele[i].checked) 
-            gender = ele[i].getAttribute("id");
-          } 
-          if(gender == "gridRadios3_worker") gender="other";
-          if(gender == "gridRadios2_worker") gender="male";
-          if(gender == "gridRadios1_worker") gender="female";
+      if (
+        this.check_valid_password &&
+        this.check_valid_email &&
+        this.check_valid_username
+      ) {
+        var gender = "";
+        var ele = document.getElementsByName("gender");
+        for (var i = 0; i < ele.length; i++) {
+          if (ele[i].checked) gender = ele[i].getAttribute("id");
+        }
+        if (gender == "gridRadios3_worker") gender = "other";
+        if (gender == "gridRadios2_worker") gender = "male";
+        if (gender == "gridRadios1_worker") gender = "female";
         var worker = {
-          "username" : this.username,
-          "firstname" : this.first_name,
-          "last_name" : this.last_name,
-          "gender" : gender,
-          "birth_date" : this.birth_date,
-          "phone" : this.phone,
-          "email" : this.email,
-          "id" : this.id, //cin 
-          "password" : this.password,
-          "skillset" : this.skillSet,
+          username: this.username,
+          firstname: this.first_name,
+          last_name: this.last_name,
+          gender: gender,
+          birth_date: this.birth_date,
+          phone: this.phone,
+          email: this.email,
+          id: this.id, //cin
+          password: this.password,
+          skillset: this.skillSet,
         };
-        var this_var=this;
-          axios
-          .get('http://localhost/TaskMeBack/public/api/worker/signup',JSON.stringify(worker))
-          .then(response => { 
-            if(response["data"]["data"]!=""){
-              localStorage.id=this.username;
-              localStorage.type="worker";
+        var this_var = this;
+        axios
+          .get(
+            "http://localhost/TaskMeBack/public/api/worker/signup",
+            JSON.stringify(worker)
+          )
+          .then((response) => {
+            if (response["data"]["data"] != "") {
+              localStorage.id = this.username;
+              localStorage.type = "worker";
               this_var.$router.push("/worker");
-            }  
+            }
             return;
-          }).catch(function (error) {
+          })
+          .catch(function(error) {
             console.log(error);
           });
-      }else{
-        console.log("dont submit")
+      } else {
+        console.log("dont submit");
       }
-    }
+    },
   },
   mounted() {
     var confirm_password = document.getElementById("confirm_password");
@@ -339,13 +360,26 @@ export default {
     var email = document.getElementById("mail");
     email.addEventListener("input", this.valid_mail);
 
-    document.getElementById("username").addEventListener("focusout", this.check_username);
+    document
+      .getElementById("username")
+      .addEventListener("focusout", this.check_username);
+
+    axios
+      .get("http://localhost/TaskMeBack/public/api/categories")
+      .then((response) => {
+        var categories = response["data"]["data"];
+        categories.forEach((category) => {
+          this.skills.push({
+            name: category.name,
+          });
+        });
+      });
   },
 };
 </script>
 
 <style scoped>
-*{
+* {
   text-align: left;
 }
 .radio-inline {
@@ -370,49 +404,49 @@ i {
 }
 
 .drag-selector {
-            display: flex;
-            align-content: flex-start;
-            flex-wrap: wrap;
-            padding: 10px;
-            margin-top: 2px;
-            cursor: default;
-        }
+  display: flex;
+  align-content: flex-start;
+  flex-wrap: wrap;
+  padding: 10px;
+  margin-top: 2px;
+  cursor: default;
+}
 
-        .drag-selector__item {
-            width: auto;
-            height: 30px;
-            margin: 2px;
-            padding: 7px;
-            border-radius: 4px;
-            border: 1px solid #45bd81;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background-color: white;
-            color: black;
-        }
-        .drag-selector__item:hover{
-          cursor: pointer;
-        }
-        .drag-selector__item.selected {
-            background-color: #45bd81;
-            color: white;
-        }
+.drag-selector__item {
+  width: auto;
+  height: 30px;
+  margin: 2px;
+  padding: 7px;
+  border-radius: 4px;
+  border: 1px solid #45bd81;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: white;
+  color: black;
+}
+.drag-selector__item:hover {
+  cursor: pointer;
+}
+.drag-selector__item.selected {
+  background-color: #45bd81;
+  color: white;
+}
 
-        .back {
-            position: fixed;
-            top: 30px;
-            right: 200px;
-        }
+.back {
+  position: fixed;
+  top: 30px;
+  right: 200px;
+}
 
-        .back a {
-            padding: 10px 20px;
-            color: white;
-            border-radius: 4px;
-            background-color: #FF4081;
-            text-decoration: none;
-        }
-.unselect{
+.back a {
+  padding: 10px 20px;
+  color: white;
+  border-radius: 4px;
+  background-color: #ff4081;
+  text-decoration: none;
+}
+.unselect {
   border-radius: 4px;
   color: white;
   background-color: rgba(223, 1, 1, 0.781);

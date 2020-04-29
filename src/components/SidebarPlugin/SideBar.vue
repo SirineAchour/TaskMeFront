@@ -1,5 +1,5 @@
 <template>
-  <div class="sidebar bgg" >
+  <div class="sidebar" >
     <div class="logo">
       <div class="logo-img simple-text logo-mini">
         <img :src="imgLogo" alt="" height="30" width="30" />

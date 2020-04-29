@@ -12,12 +12,12 @@ import DashboardWorker from "@/pages/worker/DashboardWorker.vue";
 import OngoingTasks from "@/pages/worker/OngoingTasks.vue";
 import OngoingAds from "@/pages/worker/OngoingAds.vue";
 
+
 const routes = [
   {
     path: "/",
     component: Homepage,
   },
-
   {
     path: "/client",
     component: DashboardLayout,

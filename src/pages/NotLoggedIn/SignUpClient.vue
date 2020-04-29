@@ -250,7 +250,10 @@ export default {
           .post(
             "http://localhost/TaskMeBack/public/api/register",
             JSON.stringify(client),
-            {headers: {'Content-Type':'application/json'}}
+            {headers: {
+              'Content-Type':'application/json',
+              }
+            }
           )
           .then((response) => {
             if (response["data"]["data"] != "") {

@@ -8,6 +8,7 @@
       >
         Tasks :
       </h3>
+
       <div
         class="md-layout-item md-medium-size-50 md-xsmall-size-100 md-size-30 "
         v-for="task in tasks"
@@ -25,11 +26,14 @@
               {{ task.place }} <br />
               {{ task.price }} <br /><br />
               <div v-if="task.worker_found" class="worker_found">
-                <i class=" fas fa-exclamation-circle fa-sm worker_found"></i> worker found
+                <i class=" fas fa-exclamation-circle fa-sm worker_found"></i>
+                worker found
               </div>
               <div v-else class="worker_not_found">
-                <i class=" fas fa-exclamation-circle fa-sm worker_not_found"></i> worker not
-                found yet
+                <i
+                  class=" fas fa-exclamation-circle fa-sm worker_not_found"
+                ></i>
+                worker not found yet
               </div>
             </center>
             <div></div>
@@ -38,25 +42,45 @@
               <button
                 data-background-color="red"
                 class="btn btn-sm"
-                @click="done(
+                @click="
+                  done(
                     task.id,
                     task.client,
                     task.worker,
                     task.creation_date,
-                    'task')">
+                    'task'
+                  )
+                "
+              >
                 done
               </button>
               <button
                 data-background-color="red"
                 class="btn btn-sm"
-                @click="report(task.id, task.client, task.worker, task.creation_date, 'task')"
+                @click="
+                  report(
+                    task.id,
+                    task.client,
+                    task.worker,
+                    task.creation_date,
+                    'task'
+                  )
+                "
               >
                 report
               </button>
               <button
                 data-background-color="red"
                 class="btn btn-sm"
-                @click="cancel(task.id, task.client, task.worker, task.creation_date, 'task')"
+                @click="
+                  cancel(
+                    task.id,
+                    task.client,
+                    task.worker,
+                    task.creation_date,
+                    'task'
+                  )
+                "
               >
                 delete
               </button>
@@ -96,32 +120,41 @@
               {{ ad.details }}
               <br /><br />
               <div v-if="ad.worker_found" class="worker_found">
-                <i class=" fas fa-exclamation-circle fa-sm worker_found"></i> worker found
+                <i class=" fas fa-exclamation-circle fa-sm worker_found"></i>
+                worker found
               </div>
               <div v-else class="worker_not_found">
-                <i class=" fas fa-exclamation-circle fa-sm worker_not_found"></i> worker not
-                found yet
+                <i
+                  class=" fas fa-exclamation-circle fa-sm worker_not_found"
+                ></i>
+                worker not found yet
               </div>
               <br />
               <button
                 data-background-color="red"
                 class="btn btn-sm"
-                @click="done(ad.id, ad.client, ad.worker, ad.creation_date, 'ad')"
+                @click="
+                  done(ad.id, ad.client, ad.worker, ad.creation_date, 'ad')
+                "
               >
                 done
               </button>
-              
+
               <button
                 data-background-color="red"
                 class="btn btn-sm"
-                @click="report(ad.id, ad.client, ad.worker, ad.creation_date, 'ad')"
+                @click="
+                  report(ad.id, ad.client, ad.worker, ad.creation_date, 'ad')
+                "
               >
                 report
               </button>
               <button
                 data-background-color="red"
                 class="btn btn-sm"
-                @click="cancel(ad.id, ad.client, ad.worker, ad.creation_date, 'ad')"
+                @click="
+                  cancel(ad.id, ad.client, ad.worker, ad.creation_date, 'ad')
+                "
               >
                 delete
               </button>
@@ -204,9 +237,9 @@
 
 <script>
 import { ChartCard } from "@/components";
-import  Done  from "../../components/Done.vue";
-import  Cancel  from "../../components/Cancel.vue";
-import  Report  from "../../components/Report.vue";
+import Done from "../../components/Done.vue";
+import Cancel from "../../components/Cancel.vue";
+import Report from "../../components/Report.vue";
 
 export default {
   components: {
@@ -249,14 +282,24 @@ export default {
     };
   },
   created() {
-    console.log("get tasks")
+    console.log("get tasks");
     axios
-      .get("http://localhost/TaskMeBack/public/api/tasks/client/" + localStorage.id)
-      .then((response) => {this.tasks = response["data"]["data"];console.log("got tasks")});
-    console.log("get ads")
+      .get(
+        "http://localhost/TaskMeBack/public/api/tasks/client/" + localStorage.id
+      )
+      .then((response) => {
+        this.tasks = response["data"]["data"];
+        console.log("got tasks");
+      });
+    console.log("get ads");
     axios
-      .get("http://localhost/TaskMeBack/public/api/ads/client/" + localStorage.id) //mafammech l route
-      .then((response) => {this.ads = response["data"]["data"];console.log("got ads")});
+      .get(
+        "http://localhost/TaskMeBack/public/api/ads/client/" + localStorage.id
+      ) //mafammech l route
+      .then((response) => {
+        this.ads = response["data"]["data"];
+        console.log("got ads");
+      });
   },
   methods: {
     done(id, client, worker, creation_date, post_type) {
@@ -296,19 +339,19 @@ export default {
     hide_report() {
       this.$modal.hide("Report");
     },
-    deletee(id,type){
-      var tt=type+'s';
-      for( var i = 0; i < this[tt].length; i++){ 
-        if ( this[tt][i].id === id) {
-          this[tt].splice(i, 1); 
+    deletee(id, type) {
+      var tt = type + "s";
+      for (var i = 0; i < this[tt].length; i++) {
+        if (this[tt][i].id === id) {
+          this[tt].splice(i, 1);
         }
       }
     },
-    donee(id,type){
-      var tt=type+'s';
-      for( var i = 0; i < this[tt].length; i++){ 
-        if ( this[tt][i].id === id) {
-          this[tt].splice(i, 1); 
+    donee(id, type) {
+      var tt = type + "s";
+      for (var i = 0; i < this[tt].length; i++) {
+        if (this[tt][i].id === id) {
+          this[tt].splice(i, 1);
         }
       }
     },

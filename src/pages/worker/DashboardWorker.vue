@@ -24,10 +24,11 @@
               {{ task.date }} <br />
               {{ task.place }} <br />
               {{ task.price }} <br /><br />
+              <p>{{task.details}}</p>
             </center>
             <div></div>
             <center>
-              <br />
+              
               <button
                 data-background-color="red"
                 class="btn btn-sm"
@@ -75,17 +76,12 @@
               <h3><md-icon> local_play </md-icon> {{ ad.name }}</h3>
             </center>
             <center class="category">
+              <h4>{{ ad.date }}</h4>
+              <h4>{{ ad.place }}</h4>
               <h4>{{ ad.price }}</h4>
+              
               {{ ad.details }}
               <br /><br />
-              <div v-if="ad.worker_found" class="worker_found">
-                <i class=" fas fa-exclamation-circle fa-sm"></i> worker found
-              </div>
-              <div v-else class="worker_not_found">
-                <i class=" fas fa-exclamation-circle fa-sm"></i> worker not
-                found yet
-              </div>
-              <br />
               <center>
                 <button
                   data-background-color="red"
@@ -183,7 +179,7 @@ export default {
           date: "task date",
           place: "task place",
           price: "2 $",
-          deets: "deeeeeeeeeeeeetaaaaaaaaaaillllllls",
+          details: "deeeeeeeeeeeeetaaaaaaaaaaillllllls",
           creation_date: " 2 minutes",
         },
       ],
@@ -270,6 +266,8 @@ i {
 
 button {
   width: 66px;
-  margin-left: 7px;
+  margin-left: 5px;
+  margin-right: 5px;
 }
+
 </style>

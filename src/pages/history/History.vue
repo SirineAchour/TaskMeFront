@@ -22,7 +22,6 @@
       <div class="md-layout-item md-medium-size-100 md-xsmall-size-100 md-size-100">
       
       <component :is='dynamic_comp'>   </component>
-
       </div>
 
     </div>

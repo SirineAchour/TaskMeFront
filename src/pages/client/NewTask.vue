@@ -1,114 +1,126 @@
 <template>
-  <div class="wrapper">
-    <br />
-    <md-card>
-      <md-card-header data-background-color="blue">
-        <h4 class="title">New Task</h4>
-        <p class="category">
-          Please provide as many details as possible as to avoid
-          misunderstandings
-        </p>
-      </md-card-header>
+  <div class="wrapper md-layout">
+    <div class="md-layout-item md-small-size-70 md-size-70">
+      <md-card>
+        <md-card-header data-background-color="blue">
+          <h4 class="title">New Task</h4>
+          <p class="category">
+            Please provide as many details as possible as to avoid
+            misunderstandings
+          </p>
+        </md-card-header>
 
-      <md-card-content>
-        <div class="md-layout">
-          <div class="md-layout-item md-small-size-50 md-size-30">
-            <br />
-            <select
-              class="form-control form-control-lg"
-              name="category"
-              id="validationCustom03"
-              @change="ChangecatList()"
-              required
-              style="border : 1px solid grey;"
-            >
-              <option value="" disabled selected>Category </option>
-              <option
-                v-for="category in categories_tasks"
-                :key="category.name"
-                :value="category.name"
-                >{{ category.name }}</option
+        <md-card-content>
+          <div class="md-layout">
+            <div class="md-layout-item md-small-size-50 md-size-30">
+              <br />
+              <select
+                class="form-control form-control-lg"
+                name="category"
+                id="validationCustom03"
+                @change="ChangecatList()"
+                required
+                style="border : 1px solid grey;"
               >
-            </select>
-            <div class="invalid-feedback">
-              <i
-                class="fas fa-exclamation-triangle fa-xs"
-                style="color : rgba(223, 1, 1, 0.781);"
-              ></i>
-              &nbsp;Please provide a category.
+                <option value="" disabled selected>Category </option>
+                <option
+                  v-for="category in categories_tasks"
+                  :key="category.name"
+                  :value="category.name"
+                  >{{ category.name }}</option
+                >
+              </select>
+              <div class="invalid-feedback">
+                <i
+                  class="fas fa-exclamation-triangle fa-xs"
+                  style="color : rgba(223, 1, 1, 0.781);"
+                ></i>
+                &nbsp;Please provide a category.
+              </div>
+            </div>
+
+            <div class="md-layout-item md-small-size-50 md-size-30">
+              <br />
+              <select
+                class="form-control form-control-lg"
+                id="validationCustom04"
+                name="activity"
+                required
+                @change="taskPrice"
+                style="border : 1px solid grey;"
+              >
+                <option value="" disabled selected> Task </option>
+              </select>
+            </div>
+
+            <div class="md-layout-item md-small-size-100 md-size-40">
+              <md-field>
+                <label>Price : {{ prix }}</label>
+                <md-input type="text" class="padd" disabled></md-input>
+              </md-field>
+            </div>
+            <div class="md-layout-item md-small-size-50 md-size-50">
+              <md-field>
+                <label>Date</label>
+                <md-input type="text" class="padd" v-model="date"></md-input>
+                <span class="md-helper-text">dd-mm-yyyy</span>
+              </md-field>
+              <div class="invalid-feedback">
+                <i
+                  class="fas fa-exclamation-triangle fa-xs"
+                  style="color : rgba(223, 1, 1, 0.781);"
+                ></i>
+                &nbsp;Please set a date.
+              </div>
+            </div>
+            <div class="md-layout-item md-small-size-50 md-size-50">
+              <md-field>
+                <label>Place</label>
+                <md-input type="text" class="padd" v-model="place"></md-input>
+              </md-field>
+              <div class="invalid-feedback">
+                <i
+                  class="fas fa-exclamation-triangle fa-xs"
+                  style="color : rgba(223, 1, 1, 0.781);"
+                ></i>
+                &nbsp;Please specify a place.
+              </div>
+            </div>
+
+            <div class="md-layout-item md-small-size-100 md-size-100">
+              <br />
+              <textarea
+                class="txtarea padd"
+                type="text"
+                rows="5"
+                cols="150"
+                placeholder="Details"
+              ></textarea>
+            </div>
+
+            <div class="md-layout-item md-size-100 text-right">
+              <md-button
+                class="md-raised"
+                data-background-color="blue"
+                @click="send"
+                >New Task</md-button
+              >
             </div>
           </div>
-
-          <div class="md-layout-item md-small-size-50 md-size-30">
-            <br />
-            <select
-              class="form-control form-control-lg"
-              id="validationCustom04"
-              name="activity"
-              required
-              @change="taskPrice"
-              style="border : 1px solid grey;"
-            >
-              <option value="" disabled selected> Task </option>
-            </select>
-          </div>
-
-          <div class="md-layout-item md-small-size-100 md-size-40">
-            <md-field>
-              <label>Price : {{ prix }}</label>
-              <md-input type="text" class="padd" disabled></md-input>
-            </md-field>
-          </div>
-          <div class="md-layout-item md-small-size-50 md-size-50">
-            <md-field>
-              <label>Date</label>
-              <md-input type="text" class="padd" v-model="date"></md-input>
-              <span class="md-helper-text">dd-mm-yyyy</span>
-            </md-field>
-            <div class="invalid-feedback">
-              <i
-                class="fas fa-exclamation-triangle fa-xs"
-                style="color : rgba(223, 1, 1, 0.781);"
-              ></i>
-              &nbsp;Please set a date.
-            </div>
-          </div>
-          <div class="md-layout-item md-small-size-50 md-size-50">
-            <md-field>
-              <label>Place</label>
-              <md-input type="text" class="padd" v-model="place"></md-input>
-            </md-field>
-            <div class="invalid-feedback">
-              <i
-                class="fas fa-exclamation-triangle fa-xs"
-                style="color : rgba(223, 1, 1, 0.781);"
-              ></i>
-              &nbsp;Please specify a place.
-            </div>
-          </div>
-
-          <div class="md-layout-item md-small-size-100 md-size-100">
-            <br />
-            <textarea
-              class="txtarea padd"
-              type="text"
-              rows="5"
-              cols="150"
-              placeholder="Details"
-            ></textarea>
-          </div>
-
-          <div class="md-layout-item md-size-100 text-right">
-            <md-button
-              class="md-raised"
-              data-background-color="blue"
-              @click="send"
-              >New Task</md-button
-            >
-          </div>
-        </div>
-      </md-card-content>
-    </md-card>
+        </md-card-content>
+      </md-card>
+    </div>
+    <div class="md-layout-item md-small-size-30 md-size-30">
+      <div class="white-box">
+        ad space
+      </div>
+      <div class="white-box">
+        ad space
+      </div>
+      <div class="white-box">
+        ad space
+      </div>
+    </div>
   </div>
 </template>
 
@@ -124,7 +136,8 @@ export default {
     };
   },
   methods: {
-    send() { //working on it 
+    send() {
+      //working on it
       var date = this.date.trim();
       var place = this.place.trim();
       var ok = true;
@@ -151,7 +164,7 @@ export default {
       }
 
       var cat = document.getElementsByTagName("select")[0].value;
-      
+
       if (cat == "") {
         document.getElementsByClassName("invalid-feedback")[0].style[
           "display"
@@ -167,16 +180,21 @@ export default {
           .post(
             "http://localhost/TaskMeBack/public/api/post",
             JSON.stringify({
-              id: "",
+              post_id: "",
               task_id: this.task_id, // task number in list
               client_id: localStorage.id,
               worker_found: false,
               worker_id: "",
               date: this.date,
               description: document.getElementsByClassName("txtarea")[0].value,
-              address_id: this.place,
+              // address_id: this.place,
               issues: "",
               state: "new",
+              country: "Country",
+              city: "City",
+              postal_code: "4011",
+              street: "Street 1",
+              house_number: "512",
             })
           )
           .catch(function(error) {
@@ -184,24 +202,30 @@ export default {
           });
       }
     },
-    taskPrice() { //done
+    taskPrice() {
+      //done
       var select_task = document.getElementById("validationCustom04");
-      var select_category=document.getElementById("validationCustom03")
+      var select_category = document.getElementById("validationCustom03");
       var opt = select_task.options[select_task.selectedIndex];
-      for(let i=0; i!=this.categories_tasks.length;i++){
-        if(select_category.options[select_category.selectedIndex].text==this.categories_tasks[i].name){
-          for(let j=0; j!=this.categories_tasks[i].tasks.length; j++){
-            if(select_task.options[select_task.selectedIndex].text==this.categories_tasks[i].tasks[j].subject){
-              this.selected_task_id=this.categories_tasks[i].tasks[j].id;
+      for (let i = 0; i != this.categories_tasks.length; i++) {
+        if (
+          select_category.options[select_category.selectedIndex].text ==
+          this.categories_tasks[i].name
+        ) {
+          for (let j = 0; j != this.categories_tasks[i].tasks.length; j++) {
+            if (
+              select_task.options[select_task.selectedIndex].text ==
+              this.categories_tasks[i].tasks[j].subject
+            ) {
+              this.selected_task_id = this.categories_tasks[i].tasks[j].id;
               this.prix = this.categories_tasks[i].tasks[j].price;
             }
           }
-          
         }
       }
-      
     },
-    ChangecatList() { //done
+    ChangecatList() {
+      //done
       var catList = document.getElementById("validationCustom03");
       var actList = document.getElementById("validationCustom04");
       var selCat = catList.options[catList.selectedIndex].value;
@@ -251,8 +275,9 @@ export default {
   text-align: left;
 }
 .wrapper {
-  margin-left: 148px;
-  margin-right: 148px;
+  margin-left: 28px;
+  margin-right: 28px;
+  margin-top: 25px;
 }
 .scrolling-wrapper {
   overflow-x: scroll;
@@ -267,5 +292,24 @@ export default {
   width: 100%;
   padding: 4px;
   margin: 5px;
+}
+
+.white-box {
+  width: 240px;
+  height: 145px;
+  margin-top: 25px;
+  margin-left: 40px;
+  margin-right: auto;
+  text-align: center;
+  background: rgba(255, 255, 255, 0.9);
+  padding: 30px;
+  -webkit-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.15);
+  -moz-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.15);
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  -ms-border-radius: 5px;
+  -o-border-radius: 5px;
+  border-radius: 5px;
 }
 </style>

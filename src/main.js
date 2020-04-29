@@ -16,6 +16,8 @@ import ToggleButton from 'vue-js-toggle-button';
 import vSelect from "vue-select";
 import "vue-select/dist/vue-select.css";
 import VueDragSelector from "vue-drag-selector";
+import SequentialEntrance from 'vue-sequential-entrance'
+import 'vue-sequential-entrance/vue-sequential-entrance.css'
 
 
 // bootstrap
@@ -37,9 +39,6 @@ import MaterialDashboard from "./material-dashboard";
 import Chartist from "chartist";
 
 
-
-
-
 // configure router
 const router = new VueRouter({
   routes, // short for routes: routes
@@ -59,6 +58,7 @@ Vue.use(DateDropdown);
 Vue.use(VueTelInput);
 Vue.use(ToggleButton);
 Vue.use(VueDragSelector);
+Vue.use(SequentialEntrance);
 
 Vue.component('VueStar', VueStar);
 Vue.component("v-select", vSelect);
