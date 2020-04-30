@@ -1,5 +1,5 @@
 <template>
-  <div class="content" style="padding-top:2px;">
+  <div class="content" style="padding-top:0px;margin-top:0px;">
     <!-- TASKS -->
     <div class="md-layout">
       <h3

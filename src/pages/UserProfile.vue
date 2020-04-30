@@ -30,6 +30,19 @@
                 <md-input type="text" disabled></md-input>
               </md-field>
             </div>
+
+            <div v-if="this.type=='worker'" class="md-layout-item md-small-size-100 md-size-50">
+            <md-field>
+                <label>Country: {{ user.country }}</label>
+                <md-input type="text" v-model="country"></md-input>
+              </md-field>
+          </div>
+          <div v-if="this.type=='worker'" class="md-layout-item md-small-size-100 md-size-50">
+            <md-field>
+                <label>City: {{ user.city }}</label>
+                <md-input type="text" v-model="city"></md-input>
+              </md-field>
+          </div>
             <div class="md-layout-item md-small-size-100 md-size-50">
               <md-field>
                 <label>Email Address</label>
@@ -58,6 +71,7 @@
               <vue-tel-input :placeholder="user.phone" v-model="tel_update">
               </vue-tel-input>
             </div>
+
             <div class="md-layout-item md-small-size-100 md-size-100 stuff">
               <label
                 for="dob_client"
@@ -209,6 +223,8 @@ export default {
         email: "",
         phone: "12345678",
         birthday: "1998-12-03",
+        city : "",
+        country : "",
       },
     };
   },
@@ -224,8 +240,9 @@ export default {
     this.cardUserImage = require("@/assets/img/faces/marc.jpg");
     this.email = "emaiiil@email.email";
     this.phone = "87654321";
-    this.birthday = "1998-12-03";
-
+    this.birthday = "1998-12-03"; 
+    this.country="";
+    this.city="";
     var gender = "male";
     document.getElementById(gender + "_client_edit").checked = true;
     this.type=this.localStorage.type;

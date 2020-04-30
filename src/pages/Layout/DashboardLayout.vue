@@ -1,7 +1,5 @@
 <template>
   <div class="wrapper back" :class="{ 'nav-open': $sidebar.showSidebar }">
-    <!--   <notifications></notifications>-->
-
     <side-bar class="sidebar-nav">
       <sidebar-link v-if="client" to="/client">
         <div
@@ -94,7 +92,7 @@
           @mouseout="icon_color_out(4)"
         >
           <i style="color: #2c3e50ce;" class="fas  fa-user fa-xs "></i>
-          <p>User Profile</p>
+          <p>Edit Profile</p>
         </div>
       </sidebar-link>
       <sidebar-link v-else to="/worker/user">
@@ -107,15 +105,18 @@
           <p>User Profile</p>
         </div>
       </sidebar-link>
+      <div class="side-bottom">
+        <span>
+          <i style="color: #2c3e50ce; margin-right:0px;" class="fas  fa-user fa-xs "></i>
+          <p style="margin-left : 0px">Profile</p>
+          <i style="color: #2c3e50ce;margin-right:0px;" class="fas fa-sign-out-alt fa-xs"></i>
+          <p style="margin-left : 0px">Logout</p>
+        </span>
+      </div>
     </side-bar>
 
     <div class="main-panel">
-      <!--<top-navbar></top-navbar>-->
-      <br />
-
-      <!--   <fixed-plugin :color.sync="sidebarBackground"> </fixed-plugin>-->
-
-      <dashboard-content > </dashboard-content>
+      <dashboard-content> </dashboard-content>
 
       <!-- <content-footer v-if="!$route.meta.hideFooter"></content-footer>-->
     </div>
@@ -123,17 +124,13 @@
 </template>
 
 <script>
-//import TopNavbar from "./TopNavbar.vue";
 //import ContentFooter from "./ContentFooter.vue";
 import DashboardContent from "./Content.vue";
-//import FixedPlugin from "./Extra/FixedPlugin.vue";
 
 export default {
   components: {
-    //   TopNavbar,
     DashboardContent,
     // ContentFooter,
-    //  FixedPlugin
   },
   props: {
     client: {
@@ -227,5 +224,13 @@ p {
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
+}
+
+.side-bottom{
+  position: absolute;
+  bottom : 0;
+  left: 0;
+  margin : 10px;
+  margin-left: 20px;
 }
 </style>
