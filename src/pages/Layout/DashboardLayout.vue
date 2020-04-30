@@ -115,7 +115,7 @@
 
       <!--   <fixed-plugin :color.sync="sidebarBackground"> </fixed-plugin>-->
 
-      <dashboard-content :user_id="1234"> </dashboard-content>
+      <dashboard-content > </dashboard-content>
 
       <!-- <content-footer v-if="!$route.meta.hideFooter"></content-footer>-->
     </div>

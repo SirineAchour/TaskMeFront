@@ -11,12 +11,16 @@ import Homepage from "@/pages/Homepage.vue";
 import DashboardWorker from "@/pages/worker/DashboardWorker.vue";
 import OngoingTasks from "@/pages/worker/OngoingTasks.vue";
 import OngoingAds from "@/pages/worker/OngoingAds.vue";
-
+import test from "@/pages/test.vue"
 
 const routes = [
   {
     path: "/",
     component: Homepage,
+  },
+  {
+    path : "/test",
+    component: test,
   },
   {
     path: "/client",
