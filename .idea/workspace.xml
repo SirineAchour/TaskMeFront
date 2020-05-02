@@ -2,9 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="83307f34-0917-4850-9397-bd2ca1243e9b" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/pages/playground.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/routes/routes.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/routes/routes.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/Homepage.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/Homepage.vue" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -51,6 +50,7 @@
       <option name="presentableId" value="Default" />
       <updated>1585060228011</updated>
       <workItem from="1585060245183" duration="6959000" />
+      <workItem from="1588451724048" duration="2084000" />
     </task>
     <servers />
   </component>

@@ -27,7 +27,7 @@
           <div class="flip-card-inner">
             <div class="flip-card-front">
               <img
-                src="../assets/img/step1.jpg"
+                src="../assets/img/stepa.jpg"
                 alt="Avatar"
                 style="width:200px;height:200px;border-radius: 50%;"
               />
@@ -48,7 +48,7 @@
           <div class="flip-card-inner">
             <div class="flip-card-front">
               <img
-                src="../assets/img/step2.jpg"
+                src="../assets/img/stepb.jpg"
                 alt="Avatar"
                 style="width:200px;height:200px;border-radius: 50%;"
               />
@@ -68,7 +68,7 @@
           <div class="flip-card-inner">
             <div class="flip-card-front">
               <img
-                src="../assets/img/step3.jpg"
+                src="../assets/img/stepc.jpg"
                 alt="Avatar"
                 style="width:200px;height:200px;border-radius: 50%;"
               />
@@ -92,7 +92,7 @@
           <div class="flip-card-inner">
             <div class="flip-card-front">
               <img
-                src="../assets/img/step1.jpg"
+                src="../assets/img/stepab.jpg"
                 alt="Avatar"
                 style="width:200px;height:200px;border-radius: 50%;"
               />
@@ -112,7 +112,7 @@
           <div class="flip-card-inner">
             <div class="flip-card-front">
               <img
-                src="../assets/img/step2.jpg"
+                src="../assets/img/stepbb.jpg"
                 alt="Avatar"
                 style="width:200px;height:200px;border-radius: 50%;"
               />
@@ -134,7 +134,7 @@
           <div class="flip-card-inner">
             <div class="flip-card-front">
               <img
-                src="../assets/img/step3.jpg"
+                src="../assets/img/stepcb.jpg"
                 alt="Avatar"
                 style="width:200px;height:200px;border-radius: 50%;"
               />
