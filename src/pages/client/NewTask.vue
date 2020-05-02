@@ -2,7 +2,7 @@
   <div class="wrapper md-layout">
     <div class="md-layout-item md-small-size-70 md-size-70">
       <md-card>
-        <md-card-header data-background-color="blue">
+        <md-card-header data-background-color="purple">
           <h4 class="title">New Task</h4>
           <p class="category">
             Please provide as many details as possible as to avoid
@@ -12,7 +12,7 @@
 
         <md-card-content>
           <div class="md-layout">
-            <div class="md-layout-item md-small-size-50 md-size-30">
+            <div class="md-layout-item md-small-size-50 md-size-33">
               <br />
               <select
                 class="form-control form-control-lg"
@@ -39,24 +39,24 @@
               </div>
             </div>
 
-            <div class="md-layout-item md-small-size-50 md-size-30">
+            <div class="md-layout-item md-small-size-50 md-size-33">
               <br />
               <select
                 class="form-control form-control-lg"
                 id="validationCustom04"
                 name="activity"
                 required
-                @change="taskPrice"
+                @change="taskId"
                 style="border : 1px solid grey;"
               >
                 <option value="" disabled selected> Task </option>
               </select>
             </div>
 
-            <div class="md-layout-item md-small-size-100 md-size-40">
+            <div class="md-layout-item md-small-size-100 md-size-33">
               <md-field>
-                <label>Price : {{ prix }}</label>
-                <md-input type="text" class="padd" disabled></md-input>
+                <label>Pay </label>
+                <md-input type="text" class="padd" v-model="pay" ></md-input>
               </md-field>
             </div>
             <div class="md-layout-item md-small-size-33 md-size-33">
@@ -150,7 +150,7 @@
             <div class="md-layout-item md-size-100 text-right">
               <md-button
                 class="md-raised"
-                data-background-color="blue"
+                data-background-color="purple"
                 @click="send"
                 >New Task</md-button
               >
@@ -183,7 +183,7 @@ export default {
       street : "",
       house_number : "",
       postal_code : "",
-      prix: "",
+      pay: "",
       categories_tasks: [],
       selected_task_id: "",
     };
@@ -196,6 +196,7 @@ export default {
       var city = this.city.trim();
       var postal_code = this.postal_code.trim();
       var street = this.street.trim();
+      var pay = this.pay.trim();
       var ok = true;
       if (country == "") {
         document.getElementsByClassName("invalid-feedback")[2].style[
@@ -265,17 +266,6 @@ export default {
         ] = "none";
       }
       if (ok) {
-        console.log(JSON.stringify({
-              task_id: this.selected_task_id, // task number in list
-              client_id: localStorage.id,
-              date: this.date,
-              description: document.getElementsByClassName("txtarea")[0].value,
-              country: this.country.trim(),
-              city: this.city.trim(),
-              postal_code: this.postal_code.trim(),
-              street: this.street.trim(),
-              house_number: this.house_number.trim(),
-            }))
         axios
           .post(
             "http://localhost/TaskMeBack/public/api/post",
@@ -296,8 +286,8 @@ export default {
           });
       }
     },
-    taskPrice() {
-      //done
+    taskId() {
+      
       var select_task = document.getElementById("validationCustom04");
       var select_category = document.getElementById("validationCustom03");
       var opt = select_task.options[select_task.selectedIndex];
@@ -312,7 +302,6 @@ export default {
               this.categories_tasks[i].tasks[j].subject
             ) {
               this.selected_task_id = this.categories_tasks[i].tasks[j].id;
-              this.prix = this.categories_tasks[i].tasks[j].price;
             }
           }
         }

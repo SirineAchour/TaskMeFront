@@ -242,8 +242,6 @@ export default {
           phone_number: this.phone,
          // gender: gender,
         };
-        console.log(JSON.stringify(client))
-        console.log(client)
         
         var this_var = this;
         axios
@@ -257,7 +255,6 @@ export default {
           )
           .then((response) => {
             if (response["data"]["data"] != "") {
-              console.log(response["data"]["data"]);
               //localStorage.id = response["data"]["data"];
               localStorage.type = "client";
               this_var.$router.push("/client");
@@ -265,11 +262,8 @@ export default {
             return;
           })
           .catch(function(error) {
-            console.log(error.message);
             console.log(error);
           });
-      } else {
-        console.log("dont submit");
       }
     },
   },

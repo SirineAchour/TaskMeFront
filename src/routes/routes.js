@@ -26,29 +26,29 @@ const routes = [
       {
         path: "/client/dashboard-client",
         name: "DashboardClient",
-        component: DashboardClient
+        component: DashboardClient,
       },
       {
         path: "/client/user",
         name: "User Profile",
         component: UserProfile,
-        props : true,
+        props: true,
       },
       {
         path: "/client/newtask",
         name: "New Task",
-        component: NewTask
+        component: NewTask,
       },
       {
         path: "/client/postadd",
         name: "Post Add",
-        component: PostAdd
+        component: PostAdd,
       },
       {
         path: "/client/history",
         name: "History",
-        component: History
-      },/*
+        component: History,
+      } /*
       {
         path: "maps",
         name: "Maps",
@@ -61,8 +61,8 @@ const routes = [
         path: "notifications",
         name: "Notifications",
         component: Notifications
-      }*/
-    ]
+      }*/,
+    ],
   },
   {
     path: "/worker",
@@ -73,30 +73,30 @@ const routes = [
       {
         path: "/worker/dashboard-worker",
         name: "DashboardWorker",
-        component: DashboardWorker
+        component: DashboardWorker,
       },
       {
         path: "/worker/tasks",
         name: "OngoingTasks",
-        component: OngoingTasks
+        component: OngoingTasks,
       },
       {
         path: "/worker/ads",
         name: "OngoingAds",
-        component: OngoingAds
+        component: OngoingAds,
       },
       {
         path: "/worker/user",
         name: "User Profile",
-        component: UserProfile
+        component: UserProfile,
       },
       {
         path: "/worker/history",
         name: "History",
-        component: History
+        component: History,
       },
-    ]
-  }
+    ],
+  },
 ];
 
 export default routes;

@@ -30,7 +30,7 @@
             <center>
               
               <button
-                data-background-color="red"
+                data-background-color="blue"
                 class="btn btn-sm"
                 @click="doit(task.id, task.client, '', task.creation_date, 'task')"
               >
@@ -38,7 +38,7 @@
               </button>
 
               <button
-                data-background-color="red"
+                data-background-color="blue"
                 class="btn btn-sm"
                 @click="remove(task.id, task.client, '', task.creation_date, 'task')"
               >
@@ -84,14 +84,17 @@
               <br /><br />
               <center>
                 <button
-                  data-background-color="red"
+                  data-background-color="blue"
                   class="btn btn-sm"
                   @click="doit(ad.id, ad.client, '', ad.creation_date, 'ad')"
                 >
                   do it!
                 </button>
+
+
+
                 <button
-                  data-background-color="red"
+                  data-background-color="blue"
                   class="btn btn-sm"
                   @click="remove(ad.id, ad.client, '', ad.creation_date, 'ad')"
                 >
@@ -210,7 +213,6 @@ export default {
       this.client = client;
       this.worker = worker;
       this.creation_date = creation_date;
-      console.log("show cancel");
       this.$modal.show("Cancel");
     },
     doit(id, client, worker, creation_date, post_type) {
@@ -220,7 +222,6 @@ export default {
       this.client = client;
       this.worker = worker;
       this.creation_date = creation_date;
-      console.log("show doit");
       this.$modal.show("Doit");
     },
     hide_remove() {

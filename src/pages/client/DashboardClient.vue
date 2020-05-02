@@ -10,7 +10,7 @@
       </h3>
 
       <div
-        class="md-layout-item md-medium-size-50 md-xsmall-size-100 md-size-30 "
+        class="md-layout-item md-medium-size-50 md-xsmall-size-100 md-size-30"
         v-for="task in tasks"
         :key="task.id"
       >
@@ -40,7 +40,7 @@
             <center>
               <br />
               <button
-                data-background-color="red"
+                data-background-color="blue"
                 class="btn btn-sm"
                 @click="
                   done(
@@ -55,7 +55,7 @@
                 done
               </button>
               <button
-                data-background-color="red"
+                data-background-color="blue"
                 class="btn btn-sm"
                 @click="
                   report(
@@ -70,7 +70,7 @@
                 report
               </button>
               <button
-                data-background-color="red"
+                data-background-color="blue"
                 class="btn btn-sm"
                 @click="
                   cancel(
@@ -131,7 +131,7 @@
               </div>
               <br />
               <button
-                data-background-color="red"
+                data-background-color="blue"
                 class="btn btn-sm"
                 @click="
                   done(ad.id, ad.client, ad.worker, ad.creation_date, 'ad')
@@ -141,7 +141,7 @@
               </button>
 
               <button
-                data-background-color="red"
+                data-background-color="blue"
                 class="btn btn-sm"
                 @click="
                   report(ad.id, ad.client, ad.worker, ad.creation_date, 'ad')
@@ -150,7 +150,7 @@
                 report
               </button>
               <button
-                data-background-color="red"
+                data-background-color="blue"
                 class="btn btn-sm"
                 @click="
                   cancel(ad.id, ad.client, ad.worker, ad.creation_date, 'ad')
@@ -282,23 +282,19 @@ export default {
     };
   },
   created() {
-    console.log("get tasks");
     axios
       .get(
         "http://localhost/TaskMeBack/public/api/tasks/client/" + localStorage.id
       )
       .then((response) => {
         this.tasks = response["data"]["data"];
-        console.log("got tasks");
       });
-    console.log("get ads");
     axios
       .get(
         "http://localhost/TaskMeBack/public/api/ads/client/" + localStorage.id
       ) //mafammech l route
       .then((response) => {
         this.ads = response["data"]["data"];
-        console.log("got ads");
       });
   },
   methods: {
@@ -321,7 +317,6 @@ export default {
       this.client = client;
       this.worker = worker;
       this.creation_date = creation_date;
-      console.log("show cancel");
       this.$modal.show("Cancel");
     },
     hide_cancel() {

@@ -94,7 +94,6 @@ export default {
           JSON.stringify(user)
         )
         .then((response) => {
-          console.log(response["data"]["data"]);
           if (response["data"]["data"] == "") {
             document.getElementsByClassName("wrong_login")[0].style.display =
               "block";
@@ -155,7 +154,6 @@ button:hover {
   margin-top: 20px;
   margin-bottom: 0;
   margin-right: 0;
-  margin-left: 77%;
 }
 .logg:hover{
   color: white;

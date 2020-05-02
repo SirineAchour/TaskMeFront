@@ -24,16 +24,28 @@
               {{ task.date }} <br />
               {{ task.place }} <br />
               {{ task.price }} <br /><br />
-              {{ task.details }}
+              {{ task.details }} <br>
               <button
-                data-background-color="blue"
+                data-background-color="purple"
                 class="btn btn-sm"
                 @click="done(task.id, 'task')"
               >
                 done
               </button>
+
               <button
-                data-background-color="blue"
+                data-background-color="purple"
+                class="btn btn-sm"
+                @click="
+                  report(task.id, task.client, task.worker, task.creation_date, 'task')
+                "
+              >
+                report
+              </button>
+
+
+              <button
+                data-background-color="purple"
                 class="btn btn-sm"
                 @click="cancel(task.id, 'task')"
               >
@@ -70,6 +82,7 @@
         :id="id"
         :type="post_type"
         :client_worker="client"
+        color="#973fad"
       >
       </done>
     </modal>
@@ -83,12 +96,33 @@
       :adaptive="true"
     >
       <cancel
-        :post="post_type"
+        post="task"
         @hide="hide_cancel"
         :id="id"
         :client_worker="worker"
+        color="#973fad"
       >
       </cancel>
+    </modal>
+
+    <modal
+      name="Report"
+      height="auto"
+      :scrollable="true"
+      :draggable="false"
+      width="400px"
+      :adaptive="true"
+    >
+      <report
+        v-on:hide="hide_report"
+        :id="id"
+        type="task"
+        :client="client"
+        :worker="worker"
+        :creation_date="creation_date"
+        client_worker="client"
+      >
+      </report>
     </modal>
   </div>
 </template>
@@ -97,12 +131,14 @@
 import { ChartCard } from "@/components";
 import Done from "../../components/Done.vue";
 import Cancel from "../../components/Cancel.vue";
+import Report from "../../components/Report.vue";
 
 export default {
   components: {
     ChartCard,
     Done,
     Cancel,
+    Report
   },
   data() {
     return {
@@ -110,6 +146,7 @@ export default {
       client: "client",
       post_type: "",
       id: "",
+      creation_date:"",
       tasks: [
         {
           id: "1",
@@ -167,6 +204,18 @@ export default {
     },
     hide_cancel() {
       this.$modal.hide("Cancel");
+    },
+        report(id, client, worker, creation_date, post_type) {
+      // pop up
+      this.id = id;
+      this.post_type = post_type;
+      this.client = client;
+      this.worker = worker;
+      this.creation_date = creation_date;
+      this.$modal.show("Report");
+    },
+    hide_report() {
+      this.$modal.hide("Report");
     },
   },
 };

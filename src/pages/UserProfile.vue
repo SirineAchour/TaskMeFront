@@ -6,7 +6,7 @@
     >
       <br />
       <md-card>
-        <md-card-header data-background-color="purple">
+        <md-card-header data-background-color="green">
           <h4 style="text-align:center;">Edit Profile</h4>
         </md-card-header>
 
@@ -152,7 +152,7 @@
             <div class="md-layout-item md-size-100 text-right">
               <md-button
                 class="md-raised"
-                data-background-color="purple"
+                data-background-color="green"
                 @click="update"
                 >Update Profile</md-button
               >
@@ -245,7 +245,7 @@ export default {
     this.city="";
     var gender = "male";
     document.getElementById(gender + "_client_edit").checked = true;
-    this.type=this.localStorage.type;
+    this.type=localStorage.type;
     if(this.type=="worker"){
     axios
       .get("http://localhost/TaskMeBack/public/api/categories")
@@ -261,12 +261,7 @@ export default {
   },
   methods: {
     update() {
-      console.log("email_update : " + this.email_update);
-      console.log("password_update : " + this.password_update);
-      console.log("tel_update : " + this.tel_update);
-      console.log("birthday : " + this.birthday);
       var gender;
-
       if (document.getElementById("female_client_edit").checked == true)
         gender = "female";
       else if (document.getElementById("male_client_edit").checked == true)

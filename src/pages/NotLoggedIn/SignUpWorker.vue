@@ -164,7 +164,6 @@
           Skillset :
           <drag-selector
             v-model="skillSet"
-            @change="handleDragSelectorChange"
             class="drag-selector"
           >
             <drag-selector-item
@@ -222,9 +221,6 @@ export default {
     };
   },
   methods: {
-    handleDragSelectorChange(list) {
-      console.log("list", list);
-    },
     valid_mail(e) {
       var mail = e.target.value;
       var mail_input = document.getElementById("mail");
@@ -319,8 +315,6 @@ export default {
           .catch(function(error) {
             console.log(error);
           });
-      } else {
-        console.log("dont submit");
       }
     },
   },

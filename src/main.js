@@ -16,7 +16,6 @@ import ToggleButton from 'vue-js-toggle-button';
 import vSelect from "vue-select";
 import "vue-select/dist/vue-select.css";
 import VueDragSelector from "vue-drag-selector";
-import VueScrollactive from "vue-scrollactive";
 
 // bootstrap
 import BootstrapVue from 'bootstrap-vue';
@@ -43,8 +42,6 @@ const router = new VueRouter({
   linkExactActiveClass: "nav-item active"
 });
 
-Vue.use(VueScrollactive);
-
 Vue.prototype.$Chartist = Chartist;
 Vue.use(VModal);
 Vue.use(VueRouter);
@@ -58,7 +55,6 @@ Vue.use(DateDropdown);
 Vue.use(VueTelInput);
 Vue.use(ToggleButton);
 Vue.use(VueDragSelector);
-Vue.use(VueScrollactive);
 
 Vue.component('VueStar', VueStar);
 Vue.component("v-select", vSelect);

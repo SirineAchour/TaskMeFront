@@ -102,17 +102,27 @@
           @mouseout="icon_color_out(4)"
         >
           <i style="color: #2c3e50ce;" class="fas  fa-user fa-xs "></i>
-          <p>User Profile</p>
+          <p>Edit Profile</p>
         </div>
       </sidebar-link>
-      <div class="side-bottom">
-        <span>
-          <i style="color: #2c3e50ce; margin-right:0px;" class="fas  fa-user fa-xs "></i>
-          <p style="margin-left : 0px">Profile</p>
-          <i style="color: #2c3e50ce;margin-right:0px;" class="fas fa-sign-out-alt fa-xs"></i>
-          <p style="margin-left : 0px">Logout</p>
-        </span>
-      </div>
+
+          <div class="side-bottom">
+        <button class=" btn logout-profile">
+          <i
+            style="color: #2c3e50ce; margin-right:2px;"
+            class="fas fa-user fa-xs"
+          ></i>
+          Profile
+        </button>
+        <button class="btn logout-profile" @click="logout">
+          <i
+            style="color: #2c3e50ce;margin-right:2px;"
+            class="fas fa-sign-out-alt fa-xs"
+          ></i>
+          Logout
+        </button>
+    </div>
+    
     </side-bar>
 
     <div class="main-panel">
@@ -149,6 +159,11 @@ export default {
       document.getElementsByTagName("p")[i].style["color"] = "#2c3e50";
       document.getElementsByTagName("i")[i].style["color"] = "#2c3e50ce";
     },
+    logout(){
+      localStorage.id="";
+      localStorage.type="";
+      this.$router.push("/" );
+    }
   },
 };
 </script>
@@ -174,19 +189,19 @@ export default {
   width: 100%;
 }
 .item1:before {
-  background-color: #ec1b5a;
-}
-.item2:before {
   background-color: #337ab7;
 }
+.item2:before {
+  background-color: #973fad;
+}
 .item3:before {
-  background-color: #45bd81;
+  background-color: #ed2f75;
 }
 .item4:before {
-  background-color: #f8552c;
+  background-color: #fa6741;
 }
 .item5:before {
-  background-color: #973fad;
+  background-color: #45bd81;
 }
 
 .items:hover:before {
@@ -226,11 +241,18 @@ p {
   background-size: cover;
 }
 
-.side-bottom{
-  position: absolute;
-  bottom : 0;
+.side-bottom {
+  position: fixed;
+  bottom: 0;
   left: 0;
-  margin : 10px;
-  margin-left: 20px;
+  margin: 5px;
+}
+
+.logout-profile{
+  margin-right: 15px;
+}
+
+.logout-profile:hover{
+  background-color: white;
 }
 </style>

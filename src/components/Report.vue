@@ -4,7 +4,7 @@
     <div>
       <center>
         <div style="text-align : left; margin-left : 17px; margin-bottom : 5px"> Please report in detail the issues that you encountered with the {{client_worker}} :</div>
-        <textarea cols="50" id="report_t" rows="6" style="text-align : left;">
+        <textarea cols="50" id="report_t" rows="10" style="text-align : left;">
         </textarea>
       </center>
     </div>

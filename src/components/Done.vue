@@ -6,16 +6,16 @@
             <span class="plz-rate">
               Please rate the {{client_worker}} :
             </span>
-            <rate :length="5" v-model="rating" :readonly="false" />
+            <rate :length="5" v-model="rating" :readonly="false"  />
             <button
-              class="btn btn-sm align-self-start mr-auto"
+              class="btn btn-sm align-self-start mr-auto done"
               @click='hide'
               
             >
               cancel
             </button>
             <button
-              class="btn btn-sm align-self-end ml-auto"
+              class="btn btn-sm align-self-end ml-auto done"
               @click="done"
             >
               done
@@ -37,7 +37,7 @@ export default {
         },
         rating :{
             type : String,
-            default : "0"
+            default : "5"
         },
         client_worker:{
             type: String,
@@ -54,6 +54,10 @@ export default {
         },
         table :{
             type : Array,
+        },
+        color :{
+            type : String,
+            default : "#337ab7",
         }
     },
     methods:{
@@ -73,6 +77,10 @@ export default {
             this.$emit("hide")
         }
     },
+    mounted(){
+        document.getElementsByClassName("done")[0].style["background-color"]=this.color;
+        document.getElementsByClassName("done")[1].style["background-color"]=this.color;
+    }
 }
 </script>
 
@@ -83,7 +91,6 @@ export default {
 }
 button{
     color: white;
-    background-color: #ec1b5aa6;
     margin: 10px;
     margin-top: 20px;
     width: 59px;

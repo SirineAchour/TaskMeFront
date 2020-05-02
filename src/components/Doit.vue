@@ -56,7 +56,6 @@ export default {
                 "worker" : this.worker,
                 "creation_date" : this.creation_date,
             }
-            console.log("do it")
             //axios.delete('http://localhost/TaskMeBack/public/api/'+this.type+'/'+this.id,JSON.stringify(info));
             
             
@@ -74,7 +73,7 @@ export default {
 <style scoped>
 button{
     color: white;
-    background-color: #ec1b5aa6;
+    background-color: #337ab7;
     margin: 10px;
     margin-top: 20px;
     width: 50px;
