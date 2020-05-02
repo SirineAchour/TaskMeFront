@@ -14,33 +14,6 @@
         first name, last name and id fields are uneditable
       </span>
       <form class="md-layout" @submit="signup">
-        <div class="md-layout-item md-small-size-100 md-size-100">
-          <md-field>
-            <label>Username</label>
-            <md-input
-              type="text"
-              class="form-control"
-              required
-              v-model="username"
-              id="username"
-            ></md-input>
-            <span
-              class="md-helper-text invalid-feedback"
-              style="color : rgba(223, 1, 1, 0.781);"
-              id="used"
-              ><i class="fas fa-exclamation-triangle fa-xs"></i>
-              Username already in use
-            </span>
-            <span
-              class="md-helper-text valid-feedback"
-              style="color : green;"
-              id="free"
-            >
-              <i class="fas fa-check fa-xs"></i>
-              Available username
-            </span>
-          </md-field>
-        </div>
         <div class="md-layout-item md-small-size-100 md-size-50">
           <md-field>
             <label>First Name</label>
@@ -88,6 +61,18 @@
               <i class="fas fa-check fa-xs"></i>
               Valid email</span
             >
+          </md-field>
+        </div>
+        <div class="md-layout-item md-small-size-100 md-size-50">
+          <md-field>
+            <label>Country</label>
+            <md-input type="text" required v-model="country"></md-input>
+          </md-field>
+        </div>
+        <div class="md-layout-item md-small-size-100 md-size-50">
+          <md-field>
+            <label>City</label>
+            <md-input type="text" required v-model="city"></md-input>
           </md-field>
         </div>
         <div class="md-layout-item md-small-size-100 md-size-100">
@@ -179,7 +164,6 @@
           Skillset :
           <drag-selector
             v-model="skillSet"
-            @change="handleDragSelectorChange"
             class="drag-selector"
           >
             <drag-selector-item
@@ -197,20 +181,6 @@
             </div>
           </drag-selector>
         </div>
-        <!--       <center
-          class="md-layout-item md-small-size-100 md-size-70 form-group contract-worker"
-        >
-          <br />
-          <input
-            class="form-check-input"
-            type="checkbox"
-            id="contract_check_worker"
-            required
-          />
-          <label class="form-check-label" for="contract_check_worker">
-            Example checkbox checkbox checkbox checkbox
-          </label>
-        </center> -->
         <div class="md-layout-item md-size-100 text-right">
           <button
             class="md-raised btn"
@@ -244,14 +214,13 @@ export default {
       check_valid_username: true,
       pass: "",
       con_pass: "",
+      country :"",
+      city :"",
       skillSet: [],
       skills: [],
     };
   },
   methods: {
-    handleDragSelectorChange(list) {
-      console.log("list", list);
-    },
     valid_mail(e) {
       var mail = e.target.value;
       var mail_input = document.getElementById("mail");
@@ -346,8 +315,6 @@ export default {
           .catch(function(error) {
             console.log(error);
           });
-      } else {
-        console.log("dont submit");
       }
     },
   },

@@ -11,14 +11,14 @@
             <br>
             <div>
             <button
-              class="btn btn-sm"
+              class="btn btn-sm cancel"
               @click='hide'
               style="float: left;"
             >
               No
             </button>
             <button
-              class="btn btn-sm"
+              class="btn btn-sm cancel"
               @click="yess"
               style="float: right;"
             >
@@ -42,7 +42,7 @@ export default {
         },
         delete_remove :{
             type: String,
-            default: "delete"
+            default: "Delete"
         },
         client_worker:{
             type: String
@@ -55,16 +55,18 @@ export default {
         },
         creation_date:{
             type : String,
+        },
+        color:{
+            type :  String,
+            default : "#337ab7",
         }
     },
     methods : {
         yess(){
             if(this.client_worker=="client"){
                 if(this.post=="task"){
-                    console.log("normalement mrigla")
                     axios.delete('http://localhost/TaskMeBack/public/api/post/'+this.id);
-                }else
-                    console.log("ne9es delete ad");
+                }
             }
             this.$emit("delete_thing",this.id,this.post);
             this.hide();
@@ -74,12 +76,11 @@ export default {
             this.$emit("hide");
         }
     },
-    created(){
-        if(this.client_worker=="client"){
-            this.delete_remove="delete"
-        }
-        else
-            this.delete_remove="remove"
+    mounted(){
+        if(this.client_worker!="client")
+            this.delete_remove=="Remove"
+        document.getElementsByClassName("cancel")[0].style["background-color"]=this.color;
+        document.getElementsByClassName("cancel")[1].style["background-color"]=this.color;
     }
 }
 </script>
@@ -87,7 +88,6 @@ export default {
 <style scoped>
 button{
     color: white;
-    background-color: #ec1b5aa6;
     margin: 10px;
     margin-top: 20px;
     width: 50px;

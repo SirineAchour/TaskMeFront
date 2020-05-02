@@ -1,7 +1,5 @@
 <template>
   <div class="wrapper back" :class="{ 'nav-open': $sidebar.showSidebar }">
-    <!--   <notifications></notifications>-->
-
     <side-bar class="sidebar-nav">
       <sidebar-link v-if="client" to="/client">
         <div
@@ -94,7 +92,7 @@
           @mouseout="icon_color_out(4)"
         >
           <i style="color: #2c3e50ce;" class="fas  fa-user fa-xs "></i>
-          <p>User Profile</p>
+          <p>Edit Profile</p>
         </div>
       </sidebar-link>
       <sidebar-link v-else to="/worker/user">
@@ -104,18 +102,31 @@
           @mouseout="icon_color_out(4)"
         >
           <i style="color: #2c3e50ce;" class="fas  fa-user fa-xs "></i>
-          <p>User Profile</p>
+          <p>Edit Profile</p>
         </div>
       </sidebar-link>
+
+          <div class="side-bottom">
+        <button class=" btn logout-profile">
+          <i
+            style="color: #2c3e50ce; margin-right:2px;"
+            class="fas fa-user fa-xs"
+          ></i>
+          Profile
+        </button>
+        <button class="btn logout-profile" @click="logout">
+          <i
+            style="color: #2c3e50ce;margin-right:2px;"
+            class="fas fa-sign-out-alt fa-xs"
+          ></i>
+          Logout
+        </button>
+    </div>
+    
     </side-bar>
 
     <div class="main-panel">
-      <!--<top-navbar></top-navbar>-->
-      <br />
-
-      <!--   <fixed-plugin :color.sync="sidebarBackground"> </fixed-plugin>-->
-
-      <dashboard-content :user_id="1234"> </dashboard-content>
+      <dashboard-content> </dashboard-content>
 
       <!-- <content-footer v-if="!$route.meta.hideFooter"></content-footer>-->
     </div>
@@ -123,17 +134,13 @@
 </template>
 
 <script>
-//import TopNavbar from "./TopNavbar.vue";
 //import ContentFooter from "./ContentFooter.vue";
 import DashboardContent from "./Content.vue";
-//import FixedPlugin from "./Extra/FixedPlugin.vue";
 
 export default {
   components: {
-    //   TopNavbar,
     DashboardContent,
     // ContentFooter,
-    //  FixedPlugin
   },
   props: {
     client: {
@@ -152,6 +159,11 @@ export default {
       document.getElementsByTagName("p")[i].style["color"] = "#2c3e50";
       document.getElementsByTagName("i")[i].style["color"] = "#2c3e50ce";
     },
+    logout(){
+      localStorage.id="";
+      localStorage.type="";
+      this.$router.push("/" );
+    }
   },
 };
 </script>
@@ -177,19 +189,19 @@ export default {
   width: 100%;
 }
 .item1:before {
-  background-color: #ec1b5a;
-}
-.item2:before {
   background-color: #337ab7;
 }
+.item2:before {
+  background-color: #973fad;
+}
 .item3:before {
-  background-color: #45bd81;
+  background-color: #ed2f75;
 }
 .item4:before {
-  background-color: #f8552c;
+  background-color: #fa6741;
 }
 .item5:before {
-  background-color: #973fad;
+  background-color: #45bd81;
 }
 
 .items:hover:before {
@@ -227,5 +239,20 @@ p {
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
+}
+
+.side-bottom {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  margin: 5px;
+}
+
+.logout-profile{
+  margin-right: 15px;
+}
+
+.logout-profile:hover{
+  background-color: white;
 }
 </style>

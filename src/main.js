@@ -17,7 +17,6 @@ import vSelect from "vue-select";
 import "vue-select/dist/vue-select.css";
 import VueDragSelector from "vue-drag-selector";
 
-
 // bootstrap
 import BootstrapVue from 'bootstrap-vue';
 import 'bootstrap/dist/css/bootstrap.css';

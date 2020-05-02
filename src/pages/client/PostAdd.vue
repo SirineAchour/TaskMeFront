@@ -3,10 +3,10 @@
     <div class="md-layout-item md-small-size-70 md-size-70">
       <md-card>
         <md-card-header
-          data-background-color="green"
+          data-background-color="red"
           style="text-align : center;"
         >
-          <h4 class="title">Post Add</h4>
+          <h4 class="title">Post Ad</h4>
           <p class="category">
             Please provide as many details as possible as to avoid
             misunderstandings
@@ -34,7 +34,7 @@
 
             <div class="md-layout-item md-small-size-100 md-size-30">
               <md-field>
-                <label>Price</label>
+                <label>Pay</label>
                 <md-input type="text" class="padd" v-model="price"></md-input>
               </md-field>
               <div class="invalid-feedback">
@@ -42,7 +42,7 @@
                   class="fas fa-exclamation-triangle fa-xs"
                   style="color : rgba(223, 1, 1, 0.781);"
                 ></i>
-                &nbsp;Please specify a price.
+                &nbsp;Please specify the payment.
               </div>
             </div>
             <div class="md-layout-item md-small-size-50 md-size-50">
@@ -86,7 +86,7 @@
             <div class="md-layout-item md-size-100 text-right">
               <md-button
                 class="md-raised"
-                data-background-color="green"
+                data-background-color="red"
                 @click="post"
                 >Post</md-button
               >

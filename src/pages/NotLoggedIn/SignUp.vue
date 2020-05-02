@@ -1,38 +1,34 @@
 <template>
   <span>
-  <button type="button" class="btn" @click="show" style="width:90px;">Sign Up</button>
-    <modal name="SignUp" height="auto" width="400px">
-      <div class="modal-body" id="wrapper">
-        <button type="button" class="btn" @click="show_client" id="button1">
-          Sign Up As Client
-        </button>
-        <button type="button" class="btn" @click="show_worker" id="button2">
-          Sign Up As Worker
-        </button>
-      </div>
-      <modal
-        name="SignUpClient"
-        height="auto"
-        :scrollable="true"
-        :draggable="false"
-        width="600px"
-        :adaptive="true"
-        @before-close="beforeClose"
-      >
-        <SignUpClient />
-      </modal>
+    <button type="button" class="btn" @click="show_client" id="button1">
+      Sign Up As Client
+    </button>
+    <span>
+      or
+    </span>
+    <button type="button" class="btn" @click="show_worker" id="button2">
+      Sign Up As Worker
+    </button>
+    <modal
+      name="SignUpClient"
+      height="auto"
+      :scrollable="true"
+      :draggable="false"
+      width="600px"
+      :adaptive="true"
+    >
+      <SignUpClient />
+    </modal>
 
-      <modal
-        name="SignUpWorker"
-        height="auto"
-        :scrollable="true"
-        :draggable="false"
-        width="600px"
-        :adaptive="true"
-        @before-close="beforeClose"
-      >
-        <SignUpWorker />
-      </modal>
+    <modal
+      name="SignUpWorker"
+      height="auto"
+      :scrollable="true"
+      :draggable="false"
+      width="600px"
+      :adaptive="true"
+    >
+      <SignUpWorker />
     </modal>
   </span>
 </template>
@@ -44,15 +40,9 @@ export default {
   name: "SignUp",
   components: {
     SignUpClient,
-    SignUpWorker
+    SignUpWorker,
   },
   methods: {
-    show() {
-      this.$modal.show("SignUp");
-    },
-    hide() {
-      this.$modal.hide("SignUp");
-    },
     show_client() {
       this.$modal.show("SignUpClient");
     },
@@ -65,10 +55,7 @@ export default {
     hide_worker() {
       this.$modal.hide("SignUpWorker");
     },
-    beforeClose() {
-      this.hide();
-    }
-  }
+  },
 };
 </script>
 
@@ -76,7 +63,7 @@ export default {
 button {
   margin-left: 10px;
   margin-right: 10px;
-  width: 200px;
+  width: auto;
   height: auto;
   color: #ffffff;
   background-color: #337ab7;
@@ -97,8 +84,17 @@ button:hover {
   align-items: center;
   justify-content: center;
 }
-img{
+img {
   border: darkslategrey;
   border-width: 1px;
+}
+span {
+  font-size: 19px;
+
+  text-align: center;
+  color: #414141;
+
+  margin-bottom: 1 px;
+  margin-top: 1 px;
 }
 </style>

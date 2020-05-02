@@ -6,7 +6,7 @@
     >
       <br />
       <md-card>
-        <md-card-header data-background-color="purple">
+        <md-card-header data-background-color="green">
           <h4 style="text-align:center;">Edit Profile</h4>
         </md-card-header>
 
@@ -30,6 +30,19 @@
                 <md-input type="text" disabled></md-input>
               </md-field>
             </div>
+
+            <div v-if="this.type=='worker'" class="md-layout-item md-small-size-100 md-size-50">
+            <md-field>
+                <label>Country: {{ user.country }}</label>
+                <md-input type="text" v-model="country"></md-input>
+              </md-field>
+          </div>
+          <div v-if="this.type=='worker'" class="md-layout-item md-small-size-100 md-size-50">
+            <md-field>
+                <label>City: {{ user.city }}</label>
+                <md-input type="text" v-model="city"></md-input>
+              </md-field>
+          </div>
             <div class="md-layout-item md-small-size-100 md-size-50">
               <md-field>
                 <label>Email Address</label>
@@ -58,6 +71,7 @@
               <vue-tel-input :placeholder="user.phone" v-model="tel_update">
               </vue-tel-input>
             </div>
+
             <div class="md-layout-item md-small-size-100 md-size-100 stuff">
               <label
                 for="dob_client"
@@ -138,7 +152,7 @@
             <div class="md-layout-item md-size-100 text-right">
               <md-button
                 class="md-raised"
-                data-background-color="purple"
+                data-background-color="green"
                 @click="update"
                 >Update Profile</md-button
               >
@@ -209,6 +223,8 @@ export default {
         email: "",
         phone: "12345678",
         birthday: "1998-12-03",
+        city : "",
+        country : "",
       },
     };
   },
@@ -224,11 +240,12 @@ export default {
     this.cardUserImage = require("@/assets/img/faces/marc.jpg");
     this.email = "emaiiil@email.email";
     this.phone = "87654321";
-    this.birthday = "1998-12-03";
-
+    this.birthday = "1998-12-03"; 
+    this.country="";
+    this.city="";
     var gender = "male";
     document.getElementById(gender + "_client_edit").checked = true;
-    this.type=this.localStorage.type;
+    this.type=localStorage.type;
     if(this.type=="worker"){
     axios
       .get("http://localhost/TaskMeBack/public/api/categories")
@@ -244,12 +261,7 @@ export default {
   },
   methods: {
     update() {
-      console.log("email_update : " + this.email_update);
-      console.log("password_update : " + this.password_update);
-      console.log("tel_update : " + this.tel_update);
-      console.log("birthday : " + this.birthday);
       var gender;
-
       if (document.getElementById("female_client_edit").checked == true)
         gender = "female";
       else if (document.getElementById("male_client_edit").checked == true)
