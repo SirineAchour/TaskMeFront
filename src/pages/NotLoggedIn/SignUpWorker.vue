@@ -148,7 +148,6 @@
           >
           <input id="dob_worker" type="date" required v-model="birth_date" />
         </div>
-
         <div
           class="md-layout-item md-small-size-15 md-size-15 stuff"
           style="padding-top:7px;"
@@ -159,13 +158,9 @@
           <vue-tel-input placeholder="" required v-model="phone">
           </vue-tel-input>
         </div>
-
         <div class="md-layout-item md-small-size-100 md-size-100">
           Skillset :
-          <drag-selector
-            v-model="skillSet"
-            class="drag-selector"
-          >
+          <drag-selector v-model="skillSet" class="drag-selector">
             <drag-selector-item
               v-for="(item, index) in skills"
               :value="item"
@@ -201,7 +196,6 @@ export default {
   name: "SignUpWorker",
   data() {
     return {
-      username: "",
       first_name: "",
       last_name: "",
       birth_date: "",
@@ -211,11 +205,10 @@ export default {
       password: "",
       check_valid_email: true,
       check_valid_password: true,
-      check_valid_username: true,
       pass: "",
       con_pass: "",
-      country :"",
-      city :"",
+      country: "",
+      city: "",
       skillSet: [],
       skills: [],
     };
@@ -252,32 +245,9 @@ export default {
         }
       }
     },
-    check_username_availability(input) {
-      //idk yet
-      return true;
-    },
-    check_username() {
-      if (
-        this.check_username_availability(
-          document.getElementById("username").value
-        )
-      ) {
-        document.getElementById("free").classList.add("displayed");
-        document.getElementById("used").classList.remove("displayed");
-        this.check_valid_username = true;
-      } else {
-        document.getElementById("used").classList.add("displayed");
-        document.getElementById("free").classList.remove("displayed");
-        this.check_valid_username = false;
-      }
-    },
     signup(e) {
       e.preventDefault();
-      if (
-        this.check_valid_password &&
-        this.check_valid_email &&
-        this.check_valid_username
-      ) {
+      if (this.check_valid_password && this.check_valid_email) {
         var gender = "";
         var ele = document.getElementsByName("gender");
         for (var i = 0; i < ele.length; i++) {
@@ -287,7 +257,6 @@ export default {
         if (gender == "gridRadios2_worker") gender = "male";
         if (gender == "gridRadios1_worker") gender = "female";
         var worker = {
-          username: this.username,
           firstname: this.first_name,
           last_name: this.last_name,
           gender: gender,
@@ -306,9 +275,7 @@ export default {
           )
           .then((response) => {
             if (response["data"]["data"] != "") {
-              localStorage.id = this.username;
-              localStorage.type = "worker";
-              this_var.$router.push("/worker");
+              this_var.$router.push("/");
             }
             return;
           })

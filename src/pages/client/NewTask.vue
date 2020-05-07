@@ -331,6 +331,10 @@ export default {
     },
   },
   created() {
+ /*   if (!this.$session.exists() || localStorage.type=="worker") {
+      this.$router.push('/');
+      return;
+    }*/
     axios
       .get("http://localhost/TaskMeBack/public/api/categories")
       .then((response) => {

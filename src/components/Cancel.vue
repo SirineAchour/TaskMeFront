@@ -63,7 +63,7 @@ export default {
     },
     methods : {
         yess(){
-            if(this.client_worker=="client"){
+            if(localStorage.type="client"){
                 if(this.post=="task"){
                     axios.delete('http://localhost/TaskMeBack/public/api/post/'+this.id);
                 }

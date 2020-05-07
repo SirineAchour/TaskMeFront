@@ -238,7 +238,12 @@ export default {
         }
       }
     },
-  }
+  },
+  created(){/*
+    if (!this.$session.exists() || localStorage.type=="client") {
+      this.$router.push('/')
+    }*/
+  },
 };
 </script>
 

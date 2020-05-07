@@ -119,6 +119,12 @@ export default {
       title: "",
     };
   },
+  created(){
+ /*   if (!this.$session.exists() || localStorage.type=="worker") {
+      this.$router.push('/');
+      return;
+    }*/
+  },
   methods: {
     post() {
       var date = this.date.trim();

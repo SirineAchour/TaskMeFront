@@ -280,6 +280,11 @@ export default {
       );
     },
   },
+  created(){
+   /* if (!this.$session.exists()) {
+      this.$router.push('/');
+    }*/
+  }
 };
 </script>
 

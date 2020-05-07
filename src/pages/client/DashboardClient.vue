@@ -10,7 +10,7 @@
       </h3>
 
       <div
-        class="md-layout-item md-medium-size-50 md-xsmall-size-100 md-size-30"
+        class="md-layout-item md-medium-size-33 md-xsmall-size-100 md-size-33"
         v-for="task in tasks"
         :key="task.id"
       >
@@ -24,7 +24,27 @@
 
               {{ task.date }} <br />
               {{ task.place }} <br />
-              {{ task.price }} <br /><br />
+              {{ task.price }} <br />
+              <input
+                type="button"
+                value="view details"
+                class="btn color-me btn-sm"
+                @click="
+                  viewPost(
+                    task.id,
+                    task.name,
+                    task.category,
+                    task.price,
+                    task.date,
+                    task.place,
+                    task.details,
+                    task.worker_found,
+                    task.worker_name,
+                    task.worker_id,
+                    task.worker_phone
+                  )
+                "
+              /><br />
               <div v-if="task.worker_found" class="worker_found">
                 <i class=" fas fa-exclamation-circle fa-sm worker_found"></i>
                 worker found
@@ -106,7 +126,7 @@
         Ads :
       </h3>
       <div
-        class="md-layout-item md-medium-size-50 md-xsmall-size-100 md-size-30"
+        class="md-layout-item md-medium-size-33 md-xsmall-size-100 md-size-33"
         v-for="ad in ads"
         :key="ad.id"
       >
@@ -117,8 +137,29 @@
             </center>
             <center class="category">
               <h4>{{ ad.price }}</h4>
-              {{ ad.details }}
-              <br /><br />
+
+              {{ ad.date }} <br />
+              {{ ad.place }} <br />
+              <input
+                type="button"
+                value="view details"
+                class="btn color-me btn-sm"
+                @click="
+                  viewPost(
+                    ad.id,
+                    ad.title,
+                    '',
+                    ad.price,
+                    ad.date,
+                    ad.place,
+                    ad.details,
+                    ad.worker_found,
+                    ad.worker_name,
+                    ad.worker_id,
+                    ad.worker_phone
+                  )
+                "
+              /><br />
               <div v-if="ad.worker_found" class="worker_found">
                 <i class=" fas fa-exclamation-circle fa-sm worker_found"></i>
                 worker found
@@ -232,6 +273,36 @@
       >
       </report>
     </modal>
+
+    <modal
+      name="View"
+      height="auto"
+      :scrollable="true"
+      :draggable="false"
+      width="350px"
+      :adaptive="true"
+    >
+      <div class="view">
+        <div v-if="this.post.category != ''">
+          <h3 style="font-weight:bold;"> Task : {{ this.post.title }} <br /></h3>
+          <h4>Category : {{ this.post.category }} <br /></h4>
+        </div>
+        <h3 v-else style="font-weight:bold;">Title : {{ this.post.title }} <br /></h3>
+        <strong> Date : </strong> {{ this.post.date }} <br />
+        <strong> Place : </strong> {{ this.post.place }} <br />
+        <strong> Pay : </strong> {{ this.post.price }} <br />
+        <span v-if="this.post.worker_found == true">
+          <strong>Worker Name :</strong> {{ this.post.worker_name }} <br />
+          <strong>Worker ID : </strong>{{ this.post.worker_id }} <br />
+          <strong>Worker Phone Number : </strong>{{ this.post.worker_phone }} <br />
+        </span>
+        <span v-else>
+          <strong>Worker :</strong> not found yet <br>
+        </span>
+        <strong>Details : </strong>
+        <br> <div style="margin-left:20px; text-align:left;"> {{ this.post.details }} </div> <br />
+      </div>
+    </modal>
   </div>
 </template>
 
@@ -256,7 +327,51 @@ export default {
       client: "",
       worker: "",
       creation_date: "",
+      post: {},
       tasks: [
+        {
+          id: "4",
+          name: "task 1",
+          category: "task category",
+          date: "task date",
+          place: "task place",
+          price: "2 $",
+          details:
+            "deeeeeeeeeeeeetaaaaaaaaaaillllllls deeeeeeeeeeeeetaaaaaaaaaaillllllls \n deeeeeeeeeeeeetaaaaaaaaaaillllllls deeeeeeeeeeeeetaaaaaaaaaaillllllls",
+          creation_date: " 2 minutes",
+          worker_found: true,
+          worker_name: "worker name",
+          worker_id: "123123",
+          worker_phone: "9999999",
+        },
+        {
+          id: "2",
+          name: "task 1",
+          category: "task category",
+          date: "task date",
+          place: "task place",
+          price: "2 $",
+          details: "deeeeeeeeeeeeetaaaaaaaaaaillllllls",
+          creation_date: " 2 minutes",
+          worker_found: true,
+          worker_name: "worker name",
+          worker_id: "123123",
+          worker_phone: "9999999",
+        },
+        {
+          id: "3",
+          name: "task 1",
+          category: "task category",
+          date: "task date",
+          place: "task place",
+          price: "2 $",
+          details: "deeeeeeeeeeeeetaaaaaaaaaaillllllls",
+          creation_date: " 2 minutes",
+          worker_found: true,
+          worker_name: "worker name",
+          worker_id: "123123",
+          worker_phone: "9999999",
+        },
         {
           id: "1",
           name: "task 1",
@@ -267,21 +382,46 @@ export default {
           details: "deeeeeeeeeeeeetaaaaaaaaaaillllllls",
           creation_date: " 2 minutes",
           worker_found: true,
+          worker_name: "worker name",
+          worker_id: "123123",
+          worker_phone: "9999999",
         },
       ],
       ads: [
         {
-          id: "1",
-          name: "ad 1",
+          id: "2",
+          title: "ad 2",
           price: "1 $",
+          place: "place hey",
+          date: " 12-12-2012",
           details: "deeeeeeeeeeeeetaaaaaaaaaaillllllls",
           creation_date: " 1 day",
           worker_found: false,
+          worker_name: "worker name",
+          worker_id: "123123",
+          worker_phone: "9999999",
+        },
+        {
+          id: "1",
+          title: "ad 1",
+          price: "1 $",
+          place: "place hey",
+          date: " 12-12-2012",
+          details: "deeeeeeeeeeeeetaaaaaaaaaaillllllls",
+          creation_date: " 1 day",
+          worker_found: false,
+          worker_name: "worker name",
+          worker_id: "123123",
+          worker_phone: "9999999",
         },
       ],
     };
   },
   created() {
+    /*  if (!this.$session.exists() || localStorage.type == "worker") {
+      this.$router.push("/");
+  
+    }*/
     axios
       .get(
         "http://localhost/TaskMeBack/public/api/tasks/client/" + localStorage.id
@@ -309,7 +449,34 @@ export default {
     hide_done() {
       this.$modal.hide("Done");
     },
-
+    viewPost(
+      id,
+      title,
+      category,
+      price,
+      date,
+      place,
+      details,
+      worker_found,
+      name,
+      cin,
+      phone
+    ) {
+      this.post = {
+        id: id,
+        title: title,
+        category: category,
+        price: price,
+        date: date,
+        place: place,
+        details: details,
+        worker_found: worker_found,
+        worker_name: "hey hi",
+        worker_id: cin,
+        worker_phone: phone,
+      };
+      this.$modal.show("View");
+    },
     cancel(id, client, worker, creation_date, post_type) {
       //popup
       this.id = id;
@@ -384,5 +551,19 @@ button {
   margin: 7px;
   width: 59px;
   height: 31px;
+}
+.color-me {
+  background-color: lavender;
+  color: rgb(78, 75, 75);
+  padding: 1px 5px 1px 5px;
+  margin: 5px;
+}
+.view {
+  margin: 10px;
+  padding: 10px;
+  padding-top: 0px;
+  text-align: left;
+  /*border: 1px solid lightskyblue;*/
+  background-color: #ffffff;
 }
 </style>

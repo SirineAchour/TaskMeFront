@@ -1,6 +1,6 @@
 <template>
   <span>
-    <button type="button" class="btn logg" @click="show" >Login</button>
+    <button type="button" class="btn logg" @click="show">Login</button>
 
     <modal
       name="Login"
@@ -15,13 +15,13 @@
 
         <span>
           <label class="sr-only" for="userr">
-            Id :
+            Email :
           </label>
           <input
             id="userr"
             type="text"
             name="username"
-            v-model="input.id"
+            v-model="input.email"
             placeholder="Email"
             class="form-control"
           />
@@ -60,7 +60,7 @@ export default {
   data() {
     return {
       input: {
-        id: "",
+        email: "",
         password: "",
       },
     };
@@ -74,8 +74,8 @@ export default {
     },
     login(e) {
       e.preventDefault();
-      this.input.id = this.input.id.trim();
-      if (this.input.id == "" || this.input.password.trim() == "") {
+      this.input.email = this.input.email.trim();
+      if (this.input.email == "" || this.input.password.trim() == "") {
         document.getElementsByClassName("wrong_login")[1].style.display =
           "block";
         return;
@@ -84,7 +84,7 @@ export default {
           "none";
       }
       var user = {
-        user_id: this.input.id,
+        user_email: this.input.email,
         password: this.input.password,
       };
 
@@ -94,13 +94,19 @@ export default {
           JSON.stringify(user)
         )
         .then((response) => {
+          if (response.status === 200 && "token" in response.body) {
+            this.$session.start();
+            this.$session.set("jwt", response.body.token);
+            Vue.http.headers.common["Authorization"] =
+              "Bearer " + response.body.token;
+
+            localStorage.id = response["data"]["data"]["id"]; // please return  id
+            localStorage.type = response["data"]["data"]["type"]; //assuming li trajja3li info
+            this.$router.push("/" + localStorage.type);
+          }
           if (response["data"]["data"] == "") {
             document.getElementsByClassName("wrong_login")[0].style.display =
               "block";
-          } else {
-            localStorage.id = this.input.id;
-            localStorage.type = response["data"]["data"]["type"]; //assuming li trajja3li info
-            this.$router.push("/" + localStorage.type);
           }
         })
         .catch(function(error) {
@@ -155,8 +161,8 @@ button:hover {
   margin-bottom: 0;
   margin-right: 0;
 }
-.logg:hover{
+.logg:hover {
   color: white;
-  background-color: rgba(238, 174, 202, 0.8687674899061186) ;
+  background-color: rgba(238, 174, 202, 0.8687674899061186);
 }
 </style>

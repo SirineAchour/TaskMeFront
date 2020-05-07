@@ -64,6 +64,11 @@ export default {
       else 
         this.dynamic_comp="AdHistory";
     }
+  },
+  created(){
+  /*  if (!this.$session.exists()) {
+      this.$router.push('/');
+    }*/
   }
 };
 </script>

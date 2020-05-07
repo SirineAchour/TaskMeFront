@@ -3,9 +3,6 @@ import DashboardLayout from "@/pages/Layout/DashboardLayout.vue";
 import DashboardClient from "@/pages/client/DashboardClient.vue";
 import UserProfile from "@/pages/UserProfile.vue";
 import History from "@/pages/history/History.vue";
-import playground from "@/pages/playground.vue";
-//import Maps from "@/pages/Maps.vue";
-//import Notifications from "@/pages/Notifications.vue";
 import NewTask from "@/pages/client/NewTask.vue";
 import PostAdd from "@/pages/client/PostAdd.vue";
 import Homepage from "@/pages/Homepage.vue";
@@ -17,10 +14,6 @@ const routes = [
   {
     path: "/",
     component: Homepage,
-  },
-  {
-    path: "/playground",
-    component: playground,
   },
   {
     path: "/client",
@@ -53,20 +46,7 @@ const routes = [
         path: "/client/history",
         name: "History",
         component: History,
-      } /*
-      {
-        path: "maps",
-        name: "Maps",
-        meta: {
-          hideFooter: true
-        },
-        component: Maps
       },
-      {
-        path: "notifications",
-        name: "Notifications",
-        component: Notifications
-      }*/,
     ],
   },
   {

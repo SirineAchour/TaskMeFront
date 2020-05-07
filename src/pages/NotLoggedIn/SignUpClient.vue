@@ -137,7 +137,6 @@
           >
           <input id="dob_worker" type="date" required v-model="birth_date" />
         </div>
-
         <div
           class="md-layout-item md-small-size-15 md-size-15 stuff"
           style="padding-top:7px;"
@@ -177,7 +176,6 @@ export default {
       password: "",
       check_valid_email: true,
       check_valid_password: true,
-      check_valid_username: true,
       pass: "",
       con_pass: "",
     };
@@ -216,11 +214,7 @@ export default {
     },
     signup(e) {
       e.preventDefault();
-      if (
-        this.check_valid_password &&
-        this.check_valid_email &&
-        this.check_valid_username
-      ) {
+      if (this.check_valid_password && this.check_valid_email) {
         var gender = "";
         var ele = document.getElementsByName("gender");
         for (var i = 0; i < ele.length; i++) {
@@ -235,31 +229,28 @@ export default {
           birth_date: this.birth_date,
           email: this.email,
           password: this.password,
-          //"password_confirmation":"ccc",
           photo_link: "",
           type_user: "client",
           cin: this.id,
           phone_number: this.phone,
-         // gender: gender,
+          gender: gender,
         };
-        
+
         var this_var = this;
         axios
           .post(
             "http://localhost/TaskMeBack/public/api/register",
             JSON.stringify(client),
-            {headers: {
-              'Content-Type':'application/json',
-              }
+            {
+              headers: {
+                "Content-Type": "application/json",
+              },
             }
           )
           .then((response) => {
             if (response["data"]["data"] != "") {
-              //localStorage.id = response["data"]["data"];
-              localStorage.type = "client";
-              this_var.$router.push("/client");
+              this_var.$router.push("/");
             }
-            return;
           })
           .catch(function(error) {
             console.log(error);
@@ -289,9 +280,6 @@ export default {
 .stuff {
   margin-bottom: 10px;
   margin-top: 10px;
-}
-.contract-worker {
-  color: gray;
 }
 .displayed {
   display: block;

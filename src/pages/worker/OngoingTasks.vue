@@ -24,7 +24,7 @@
               {{ task.date }} <br />
               {{ task.place }} <br />
               {{ task.price }} <br /><br />
-              {{ task.details }} <br>
+              {{ task.details }} <br />
               <button
                 data-background-color="purple"
                 class="btn btn-sm"
@@ -37,12 +37,17 @@
                 data-background-color="purple"
                 class="btn btn-sm"
                 @click="
-                  report(task.id, task.client, task.worker, task.creation_date, 'task')
+                  report(
+                    task.id,
+                    task.client,
+                    task.worker,
+                    task.creation_date,
+                    'task'
+                  )
                 "
               >
                 report
               </button>
-
 
               <button
                 data-background-color="purple"
@@ -65,9 +70,9 @@
 
       <div class="md-layout-item md-small-size-100 md-size-100">
         <div class="white-box">
-        ad space
+          ad space
+        </div>
       </div>
-    </div>
     </div>
     <modal
       name="Done"
@@ -138,7 +143,7 @@ export default {
     ChartCard,
     Done,
     Cancel,
-    Report
+    Report,
   },
   data() {
     return {
@@ -146,7 +151,7 @@ export default {
       client: "client",
       post_type: "",
       id: "",
-      creation_date:"",
+      creation_date: "",
       tasks: [
         {
           id: "1",
@@ -181,8 +186,10 @@ export default {
           .get('http://localhost/TaskMeBack/public/api/ads'+id) //mafammech l route
           .then(response => (this.ads = response["data"]["data"]))*/
   },
-  created() {
-    // check session stuff
+  created() {/*
+    if (!this.$session.exists() || localStorage.type == "client") {
+      this.$router.push("/");
+    }*/
   },
   methods: {
     done(id, type) {
@@ -205,7 +212,7 @@ export default {
     hide_cancel() {
       this.$modal.hide("Cancel");
     },
-        report(id, client, worker, creation_date, post_type) {
+    report(id, client, worker, creation_date, post_type) {
       // pop up
       this.id = id;
       this.post_type = post_type;
@@ -239,7 +246,6 @@ h4 {
 i {
   margin-left: 5px;
 }
-
 
 button {
   margin: 7px;

@@ -92,7 +92,7 @@
           @mouseout="icon_color_out(4)"
         >
           <i style="color: #2c3e50ce;" class="fas  fa-user fa-xs "></i>
-          <p>Edit Profile</p>
+          <p> Profile</p>
         </div>
       </sidebar-link>
       <sidebar-link v-else to="/worker/user">
@@ -102,23 +102,15 @@
           @mouseout="icon_color_out(4)"
         >
           <i style="color: #2c3e50ce;" class="fas  fa-user fa-xs "></i>
-          <p>Edit Profile</p>
+          <p> Profile</p>
         </div>
       </sidebar-link>
 
           <div class="side-bottom">
-        <button class=" btn logout-profile">
-          <i
-            style="color: #2c3e50ce; margin-right:2px;"
-            class="fas fa-user fa-xs"
-          ></i>
+    <!--    <button class="btn logout-profile">
           Profile
-        </button>
+        </button>-->
         <button class="btn logout-profile" @click="logout">
-          <i
-            style="color: #2c3e50ce;margin-right:2px;"
-            class="fas fa-sign-out-alt fa-xs"
-          ></i>
           Logout
         </button>
     </div>
@@ -249,7 +241,14 @@ p {
 }
 
 .logout-profile{
+  margin-left: 25px;
+  margin-bottom: 4px;
   margin-right: 15px;
+  font-size: 15px;
+  padding-left: 0px;
+  padding-right: 0px;
+  width: 75px;
+  border: 1px solid white;
 }
 
 .logout-profile:hover{

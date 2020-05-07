@@ -1,14 +1,20 @@
-
 <template>
   <div class="wrap">
     <div class="div1">
       <div class="md-layout">
-        <span class=" md-layout-item md-medium-size-50 md-xsmall-size-50 md-size-50" style="text-align:left;">
-      <a href="#steps" class="btn sss" style="color: #414141;">
-        Step-by-Step Guide
-      </a>
+        <span
+          class=" md-layout-item md-medium-size-50 md-xsmall-size-50 md-size-50"
+          style="text-align:left;"
+        >
+          <a href="#steps" class="btn sss" style="color: #414141;">
+            Step-by-Step Guide
+          </a>
         </span>
-      <span class="md-layout-item md-medium-size-50 md-xsmall-size-50 md-size-50" style="text-align:right;"><Login /></span>
+        <span
+          class="md-layout-item md-medium-size-50 md-xsmall-size-50 md-size-50"
+          style="text-align:right;"
+          ><Login
+        /></span>
       </div>
       <img :src="imgLogo" alt="logo" height="300" width="300" />
       <br />
@@ -22,7 +28,7 @@
     <div id="steps" class="div2 md-layout">
       <div class="client">
         <div style="font-size:30px;">Client</div>
-        
+
         <div class="flip-card ">
           <div class="flip-card-inner">
             <div class="flip-card-front">
@@ -43,7 +49,7 @@
             </div>
           </div>
         </div>
-        
+
         <div class="flip-card">
           <div class="flip-card-inner">
             <div class="flip-card-front">
@@ -172,15 +178,16 @@ export default {
       imgLogo: require("@/assets/img/logo-2.png"),
     };
   },
-
   mounted() {
-    if (localStorage.id != "" && false) {
-      this.$router.push("/" + localStorage.type);
-    }
     document.getElementsByTagName("body")[0].classList.add("bg");
   },
   destroyed() {
     document.getElementsByTagName("body")[0].classList.remove("bg");
+  },
+  created() {
+    if (this.$session.exists()) {
+      this.$router.push("/" + localStorage.type);
+    }
   },
 };
 </script>

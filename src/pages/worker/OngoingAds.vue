@@ -169,8 +169,10 @@ export default {
 
     
   },
-  created() {
-    // check session stuff
+  created(){/*
+    if (!this.$session.exists() || localStorage.type=="client") {
+      this.$router.push('/')
+    }*/
   },
   methods: {
     done(id, type) {
