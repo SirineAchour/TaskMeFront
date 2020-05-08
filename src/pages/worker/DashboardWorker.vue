@@ -9,26 +9,41 @@
       </h3>
 
       <div
-        class="md-layout-item md-medium-size-50 md-xsmall-size-100 md-size-30"
+        class="md-layout-item md-medium-size-33 md-xsmall-size-100 md-size-33"
         v-for="task in tasks"
         :key="task.id"
       >
         <chart-card :chart-type="'Line'" icon="person">
           <template slot="content">
             <center class="title">
-              <h3><md-icon> directions_run </md-icon> {{ task["subject"] }}</h3>
+              <h3><md-icon> directions_run </md-icon> {{ task.name }}</h3>
             </center>
             <center class="category">
               <h4>category</h4>
 
               {{ task.date }} <br />
               {{ task.place }} <br />
-              {{ task.price }} <br /><br />
-              <p>{{task.details}}</p>
+              {{ task.price }} <br />
+              <input
+                type="button"
+                value="view details"
+                class="btn color-me btn-sm"
+                @click="
+                  viewPost(
+                    task.id,
+                    task.name,
+                    task.category,
+                    task.price,
+                    task.date,
+                    task.place,
+                    task.details,
+                  )
+                "
+              /><br />
             </center>
             <div></div>
             <center>
-              
+              <br />
               <button
                 data-background-color="blue"
                 class="btn btn-sm"
@@ -55,6 +70,15 @@
           </template>
         </chart-card>
       </div>
+      <div
+        class="md-layout-item md-medium-size-33 md-xsmall-size-100 md-size-33"
+        style="margin-top:150px;"
+        v-if="still_more_tasks"
+      >
+        <button class="btn more">
+          more
+        </button>
+      </div>
     </div>
     <hr class="dashed" />
     <!-- ADS -->
@@ -66,21 +90,35 @@
         Ads :
       </h3>
       <div
-        class="md-layout-item md-medium-size-50 md-xsmall-size-100 md-size-30"
+        class="md-layout-item md-medium-size-33 md-xsmall-size-100 md-size-33"
         v-for="ad in ads"
         :key="ad.id"
       >
         <chart-card>
           <template slot="content">
             <center class="title">
-              <h3><md-icon> local_play </md-icon> {{ ad.name }}</h3>
+              <h3><md-icon> local_play </md-icon> {{ ad.title }}</h3>
             </center>
             <center class="category">
-              <h4>{{ ad.date }}</h4>
-              <h4>{{ ad.place }}</h4>
               <h4>{{ ad.price }}</h4>
-              
-              {{ ad.details }}
+
+              {{ ad.date }} <br />
+              {{ ad.place }} <br />
+              <input
+                type="button"
+                value="view details"
+                class="btn color-me btn-sm"
+                @click="
+                  viewPost(
+                    ad.id,
+                    ad.title,
+                    '',
+                    ad.price,
+                    ad.date,
+                    ad.place,
+                    ad.details,
+                  )
+                "/>
               <br /><br />
               <center>
                 <button
@@ -90,8 +128,6 @@
                 >
                   do it!
                 </button>
-
-
 
                 <button
                   data-background-color="blue"
@@ -111,6 +147,15 @@
             </div>
           </template>
         </chart-card>
+      </div>
+      <div
+        v-if="still_more_ads"
+        class="md-layout-item md-medium-size-33 md-xsmall-size-100 md-size-33"
+        style="margin-top:150px;"
+      >
+        <button class="btn more">
+          more
+        </button>
       </div>
     </div>
 
@@ -154,6 +199,19 @@
       >
       </doit>
     </modal>
+
+    <modal
+      name="View"
+      height="auto"
+      :scrollable="true"
+      :draggable="false"
+      width="350px"
+      :adaptive="true"
+    >
+      <Details type='worker' :post="post">
+      </Details>
+    </modal>
+
   </div>
 </template>
 
@@ -161,20 +219,68 @@
 import { ChartCard } from "@/components";
 import  Cancel  from "../../components/Cancel.vue";
 import  Doit  from "../../components/Doit.vue";
+import Details from "../../components/Details.vue";
+
 export default {
   components: {
     ChartCard,
     Cancel,
-    Doit
+    Doit,
+    Details
   },
   data() {
     return {
+      still_more_tasks: true,
+      still_more_ads: false,
       id: "",
       post_type: "",
       client: "",
       worker: "",
       creation_date: "",
+      post: {},
       tasks: [
+        {
+          id: "5",
+          name: "task 1",
+          category: "task category",
+          date: "task date",
+          place: "task place",
+          price: "2 $",
+          details:
+            "deeeeeeeeeeeeetaaaaaaaaaaillllllls deeeeeeeeeeeeetaaaaaaaaaaillllllls \n deeeeeeeeeeeeetaaaaaaaaaaillllllls deeeeeeeeeeeeetaaaaaaaaaaillllllls",
+          creation_date: " 2 minutes",
+        },
+        {
+          id: "4",
+          name: "task 1",
+          category: "task category",
+          date: "task date",
+          place: "task place",
+          price: "2 $",
+          details:
+            "deeeeeeeeeeeeetaaaaaaaaaaillllllls deeeeeeeeeeeeetaaaaaaaaaaillllllls \n deeeeeeeeeeeeetaaaaaaaaaaillllllls deeeeeeeeeeeeetaaaaaaaaaaillllllls",
+          creation_date: " 2 minutes",
+        },
+        {
+          id: "2",
+          name: "task 1",
+          category: "task category",
+          date: "task date",
+          place: "task place",
+          price: "2 $",
+          details: "deeeeeeeeeeeeetaaaaaaaaaaillllllls",
+          creation_date: " 2 minutes",
+        },
+        {
+          id: "3",
+          name: "task 1",
+          category: "task category",
+          date: "task date",
+          place: "task place",
+          price: "2 $",
+          details: "deeeeeeeeeeeeetaaaaaaaaaaillllllls",
+          creation_date: " 2 minutes",
+        },
         {
           id: "1",
           name: "task 1",
@@ -188,9 +294,20 @@ export default {
       ],
       ads: [
         {
-          id: "1",
-          name: "ad 1",
+          id: "2",
+          title: "ad 2",
           price: "1 $",
+          place: "place hey",
+          date: " 12-12-2012",
+          details: "deeeeeeeeeeeeetaaaaaaaaaaillllllls",
+          creation_date: " 1 day",
+        },
+        {
+          id: "1",
+          title: "ad 1",
+          price: "1 $",
+          place: "place hey",
+          date: " 12-12-2012",
           details: "deeeeeeeeeeeeetaaaaaaaaaaillllllls",
           creation_date: " 1 day",
         },
@@ -206,6 +323,26 @@ export default {
       .then((response) => (this.ads = response["data"]["data"]));
   },
   methods:{
+    viewPost(
+      id,
+      title,
+      category,
+      price,
+      date,
+      place,
+      details,
+    ) {
+      this.post = {
+        id: id,
+        title: title,
+        category: category,
+        price: price,
+        date: date,
+        place: place,
+        details: details,
+      };
+      this.$modal.show("View");
+    },
     remove(id, client, worker, creation_date, post_type) {
       //popup
       this.id = id;
@@ -275,5 +412,14 @@ button {
   margin-left: 5px;
   margin-right: 5px;
 }
-
+.color-me {
+  background-color: lavender;
+  color: rgb(78, 75, 75);
+  padding: 1px 5px 1px 5px;
+  margin: 5px;
+}
+.more{
+  border: 1px solid darkslategray;
+  color: darkslategray;
+}
 </style>

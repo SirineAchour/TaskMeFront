@@ -19,12 +19,30 @@
               <h3><md-icon> directions_run </md-icon> {{ task.name }}</h3>
             </center>
             <center class="category">
-              <h4>{{ task.category }}</h4>
+              <h4>category</h4>
 
               {{ task.date }} <br />
               {{ task.place }} <br />
-              {{ task.price }} <br /><br />
-              {{ task.details }} <br />
+              {{ task.price }} <br />
+              <input
+                type="button"
+                value="view details"
+                class="btn color-me btn-sm"
+                @click="
+                  viewPost(
+                    task.id,
+                    task.name,
+                    task.category,
+                    task.price,
+                    task.date,
+                    task.place,
+                    task.details,
+                    task.client_name,
+                    task.client_id,
+                    task.client_phone
+                  )
+                "
+              /><br /><br />
               <button
                 data-background-color="purple"
                 class="btn btn-sm"
@@ -129,6 +147,17 @@
       >
       </report>
     </modal>
+    <modal
+      name="View"
+      height="auto"
+      :scrollable="true"
+      :draggable="false"
+      width="350px"
+      :adaptive="true"
+    >
+      <Details type='worker' :post="post">
+      </Details>
+    </modal>
   </div>
 </template>
 
@@ -137,6 +166,7 @@ import { ChartCard } from "@/components";
 import Done from "../../components/Done.vue";
 import Cancel from "../../components/Cancel.vue";
 import Report from "../../components/Report.vue";
+import Details from "../../components/Details.vue";
 
 export default {
   components: {
@@ -144,6 +174,7 @@ export default {
     Done,
     Cancel,
     Report,
+    Details
   },
   data() {
     return {
@@ -152,6 +183,7 @@ export default {
       post_type: "",
       id: "",
       creation_date: "",
+      post: {},
       tasks: [
         {
           id: "1",
@@ -162,7 +194,9 @@ export default {
           price: "2 $",
           details: "deeeeeeeeeeeeetaaaaaaaaaaillllllls",
           creation_date: " 2 minutes",
-          worker_found: true,
+          client_name: "hey hi",
+          client_id: "1535",
+          client_phone: "9999999",
         },
       ],
       ads: [
@@ -172,7 +206,9 @@ export default {
           price: "1 $",
           details: "deeeeeeeeeeeeetaaaaaaaaaaillllllls",
           creation_date: " 1 day",
-          worker_found: false,
+          client_name: "hey hi",
+          client_id: "1535",
+          client_phone: "9999999",
         },
       ],
     };
@@ -192,6 +228,32 @@ export default {
     }*/
   },
   methods: {
+        viewPost(
+      id,
+      title,
+      category,
+      price,
+      date,
+      place,
+      details,
+      name,
+      cin,
+      phone
+    ) {
+      this.post = {
+        id: id,
+        title: title,
+        category: category,
+        price: price,
+        date: date,
+        place: place,
+        details: details,
+        client_name: name,
+        client_id: cin,
+        client_phone: phone,
+      };
+      this.$modal.show("View");
+    },
     done(id, type) {
       this.id = id;
       this.post_type = type;
@@ -267,5 +329,11 @@ button {
   -ms-border-radius: 5px;
   -o-border-radius: 5px;
   border-radius: 5px;
+}
+.color-me {
+  background-color: lavender;
+  color: rgb(78, 75, 75);
+  padding: 1px 5px 1px 5px;
+  margin: 5px;
 }
 </style>

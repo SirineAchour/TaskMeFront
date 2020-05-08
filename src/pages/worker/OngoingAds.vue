@@ -18,12 +18,28 @@
               <h3><md-icon> local_play </md-icon> {{ ad.name }}</h3>
             </center>
             <center class="category">
-              
-              <h4>{{ ad.date }}</h4>
-              <h4>{{ ad.place }}</h4>
               <h4>{{ ad.price }}</h4>
-              {{ ad.details }}
 
+              {{ ad.date }} <br />
+              {{ ad.place }} <br />
+              <input
+                type="button"
+                value="view details"
+                class="btn color-me btn-sm"
+                @click="
+                  viewPost(
+                    ad.id,
+                    ad.title,
+                    '',
+                    ad.price,
+                    ad.date,
+                    ad.place,
+                    ad.details,
+                    ad.client_name,
+                    ad.client_id,
+                    ad.client_phone
+                  )
+                "/>
               <br /><br />
               <button
                 data-background-color="red"
@@ -123,6 +139,17 @@
       >
       </report>
     </modal>
+    <modal
+      name="View"
+      height="auto"
+      :scrollable="true"
+      :draggable="false"
+      width="350px"
+      :adaptive="true"
+    >
+      <Details type='worker' :post="post">
+      </Details>
+    </modal>
   </div>
 </template>
 
@@ -131,13 +158,15 @@ import { ChartCard } from "@/components";
 import Done from "../../components/Done.vue";
 import Cancel from "../../components/Cancel.vue";
 import Report from "../../components/Report.vue";
+import Details from "../../components/Details.vue";
 
 export default {
   components: {
     ChartCard,
     Done,
     Cancel,
-    Report
+    Report,
+    Details
   },
   data() {
     return {
@@ -146,14 +175,31 @@ export default {
       post_type: "",
       id: "",
       creation_date:"",
+      post :{},
       ads: [
         {
-          id: "1",
-          name: "ad 1",
+          id: "2",
+          title: "ad 2",
           price: "1 $",
-          details: "deeeeeeeeeeeeetaa aaaaaaaaaaaaaaaaaaaaaaaaaa aaaaaaaaaaillllllls",
+          place: "place hey",
+          date: " 12-12-2012",
+          details: "deeeeeeeeeeeeetaaaaaaaaaaillllllls",
           creation_date: " 1 day",
-          worker_found: false,
+          client_name: "hey hi",
+          client_id: "1535",
+          client_phone: "9999999",
+        },
+        {
+          id: "1",
+          title: "ad 1",
+          price: "1 $",
+          place: "place hey",
+          date: " 12-12-2012",
+          details: "deeeeeeeeeeeeetaaaaaaaaaaillllllls",
+          creation_date: " 1 day",
+          client_name: "hey hi",
+          client_id: "1535",
+          client_phone: "9999999",
         },
       ],
     };
@@ -175,6 +221,32 @@ export default {
     }*/
   },
   methods: {
+    viewPost(
+      id,
+      title,
+      category,
+      price,
+      date,
+      place,
+      details,
+      name,
+      cin,
+      phone
+    ) {
+      this.post = {
+        id: id,
+        title: title,
+        category: category,
+        price: price,
+        date: date,
+        place: place,
+        details: details,
+        client_name: name,
+        client_id: cin,
+        client_phone: phone,
+      };
+      this.$modal.show("View");
+    },
     done(id, type) {
       this.id = id;
       this.post_type = type;
@@ -195,7 +267,7 @@ export default {
     hide_cancel() {
       this.$modal.hide("Cancel");
     },
-        report(id, client, worker, creation_date, post_type) {
+    report(id, client, worker, creation_date, post_type) {
       // pop up
       this.id = id;
       this.post_type = post_type;
@@ -250,5 +322,11 @@ button {
   -ms-border-radius: 5px;
   -o-border-radius: 5px;
   border-radius: 5px;
+}
+.color-me {
+  background-color: lavender;
+  color: rgb(78, 75, 75);
+  padding: 1px 5px 1px 5px;
+  margin: 5px;
 }
 </style>
