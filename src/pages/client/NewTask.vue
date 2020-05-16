@@ -14,22 +14,17 @@
           <div class="md-layout">
             <div class="md-layout-item md-small-size-50 md-size-33">
               <br />
-              <select
-                class="form-control form-control-lg"
-                name="category"
+              
+              <v-select 
+                :options="categories"
+                placeholder="Categories"
                 id="validationCustom03"
-                @change="ChangecatList()"
+                :value="selCat"
+                v-model="selCat"
+                v-on:input="ChangecatList"
                 required
-                style="border : 1px solid grey;"
-              >
-                <option value="" disabled selected>Category </option>
-                <option
-                  v-for="category in categories_tasks"
-                  :key="category.name"
-                  :value="category.name"
-                  >{{ category.name }}</option
-                >
-              </select>
+              ></v-select>
+
               <div class="invalid-feedback">
                 <i
                   class="fas fa-exclamation-triangle fa-xs"
@@ -41,16 +36,19 @@
 
             <div class="md-layout-item md-small-size-50 md-size-33">
               <br />
-              <select
-                class="form-control form-control-lg"
+
+<v-select 
+:options="tasks"
+                label="name"
+                placeholder="Tasks"
                 id="validationCustom04"
                 name="activity"
+                :value="selTask"
+                v-model="selTask"
+                v-on:input="taskId"
                 required
-                @change="taskId"
-                style="border : 1px solid grey;"
-              >
-                <option value="" disabled selected> Task </option>
-              </select>
+              ></v-select>
+
             </div>
 
             <div class="md-layout-item md-small-size-100 md-size-33">
@@ -135,7 +133,6 @@
               </md-field>
             </div>
 
-
             <div class="md-layout-item md-small-size-100 md-size-100">
               <br />
               <textarea
@@ -177,6 +174,8 @@
 export default {
   data() {
     return {
+      selCat: "",
+      selTask: "",
       date: "",
       country: "",
       city : "",
@@ -184,6 +183,8 @@ export default {
       house_number : "",
       postal_code : "",
       pay: "",
+      categories: [],
+      tasks: [],
       categories_tasks: [],
       selected_task_id: "",
     };
@@ -286,20 +287,17 @@ export default {
           });
       }
     },
-    taskId() {
-      
+    taskId() { 
       var select_task = document.getElementById("validationCustom04");
       var select_category = document.getElementById("validationCustom03");
-      var opt = select_task.options[select_task.selectedIndex];
+      var opt = this.selTask;
       for (let i = 0; i != this.categories_tasks.length; i++) {
         if (
-          select_category.options[select_category.selectedIndex].text ==
-          this.categories_tasks[i].name
+          this.selCat == this.categories_tasks[i].name
         ) {
           for (let j = 0; j != this.categories_tasks[i].tasks.length; j++) {
             if (
-              select_task.options[select_task.selectedIndex].text ==
-              this.categories_tasks[i].tasks[j].subject
+              opt == this.categories_tasks[i].tasks[j].subject
             ) {
               this.selected_task_id = this.categories_tasks[i].tasks[j].id;
             }
@@ -308,27 +306,22 @@ export default {
       }
     },
     ChangecatList() {
-      //done
+
       var catList = document.getElementById("validationCustom03");
-      var actList = document.getElementById("validationCustom04");
-      var selCat = catList.options[catList.selectedIndex].value;
-      while (actList.options.length) {
-        actList.remove(0);
-      }
-      for (i = 0; i != this.categories_tasks.length; i++) {
-        if (this.categories_tasks[i].name == selCat)
+
+     
+      for (let i = 0; i != this.categories_tasks.length; i++) {
+        if (this.categories_tasks[i].name == this.selCat)
           var tas = this.categories_tasks[i].tasks;
       }
-
       if (tas) {
-        var i;
-        for (i = 0; i < tas.length; i++) {
-          var ta = new Option(tas[i].subject, i);
-          actList.options.add(ta);
+        for (let j=0; j < tas.length; j++) {
+          var ta = new Option(tas[j].subject,j);
+          this.tasks.push(ta.text);
         }
       }
-      this.taskPrice();
-    },
+      this.selTask=this.tasks[0]
+    }
   },
   created() {
  /*   if (!this.$session.exists() || localStorage.type=="worker") {
@@ -341,6 +334,7 @@ export default {
         this.categories_tasks = [];
         var categories = response["data"]["data"];
         categories.forEach((category) => {
+          this.categories.push(category.name);
           axios
             .get(
               "http://localhost/TaskMeBack/public/api/tasks_by_category/" +

@@ -16,8 +16,11 @@
           ><Login
         /></span>
       </div>
-      <img :src="imgLogo" alt="logo" height="300" width="300" />
-      <br />
+      <img :src="imgLogo" alt="logo" height="100" width="100" />
+      <br><br>
+      <span style="font-family: 'Permanent Marker';font-size:60px;">
+          Task Me 
+      </span>
       <br />
       <About />
 
@@ -27,15 +30,15 @@
 
     <div id="steps" class="div2 md-layout">
       <div class="client">
-        <div style="font-size:30px;">Client</div>
-
+        <div style="font-size:27px;">Client</div>
+<br>
         <div class="flip-card ">
           <div class="flip-card-inner">
             <div class="flip-card-front">
               <img
                 src="../assets/img/stepa.jpg"
                 alt="Avatar"
-                style="width:200px;height:200px;border-radius: 50%;"
+                style="width:180px;height:180px;border-radius: 50%;"
               />
             </div>
             <div class="flip-card-back">
@@ -49,14 +52,14 @@
             </div>
           </div>
         </div>
-
+<br>
         <div class="flip-card">
           <div class="flip-card-inner">
             <div class="flip-card-front">
               <img
                 src="../assets/img/stepb.jpg"
                 alt="Avatar"
-                style="width:200px;height:200px;border-radius: 50%;"
+                style="width:180px;height:180px;border-radius: 50%;"
               />
             </div>
             <div class="flip-card-back">
@@ -69,14 +72,14 @@
             </div>
           </div>
         </div>
-
+<br>
         <div class="flip-card">
           <div class="flip-card-inner">
             <div class="flip-card-front">
               <img
                 src="../assets/img/stepc.jpg"
                 alt="Avatar"
-                style="width:200px;height:200px;border-radius: 50%;"
+                style="width:180px;height:180px;border-radius: 50%;"
               />
             </div>
             <div class="flip-card-back">
@@ -92,15 +95,15 @@
       </div>
 
       <div class="worker">
-        <div style="font-size:30px;">Worker</div>
-
+        <div style="font-size:27px;">Worker</div>
+<br>
         <div class="flip-card">
           <div class="flip-card-inner">
             <div class="flip-card-front">
               <img
                 src="../assets/img/stepab.jpg"
                 alt="Avatar"
-                style="width:200px;height:200px;border-radius: 50%;"
+                style="width:180px;height:180px;border-radius: 50%;"
               />
             </div>
             <div class="flip-card-back">
@@ -113,14 +116,14 @@
             </div>
           </div>
         </div>
-
+<br>
         <div class="flip-card">
           <div class="flip-card-inner">
             <div class="flip-card-front">
               <img
                 src="../assets/img/stepbb.jpg"
                 alt="Avatar"
-                style="width:200px;height:200px;border-radius: 50%;"
+                style="width:180px;height:180px;border-radius: 50%;"
               />
             </div>
             <div class="flip-card-back">
@@ -135,14 +138,14 @@
             </div>
           </div>
         </div>
-
+<br>
         <div class="flip-card">
           <div class="flip-card-inner">
             <div class="flip-card-front">
               <img
                 src="../assets/img/stepcb.jpg"
                 alt="Avatar"
-                style="width:200px;height:200px;border-radius: 50%;"
+                style="width:180px;height:180px;border-radius: 50%;"
               />
             </div>
             <div class="flip-card-back">
@@ -175,7 +178,7 @@ export default {
   },
   data() {
     return {
-      imgLogo: require("@/assets/img/logo-2.png"),
+      imgLogo: require("@/assets/img/mini-logo.png"),
     };
   },
   mounted() {
@@ -279,10 +282,10 @@ export default {
 
 .flip-card {
   background-color: transparent;
-  width: 200px;
-  height: 200px;
+  width: 180px;
+  height: 180px;
   perspective: 1000px;
-  margin: 10px;
+  /*margin: 10px;*/
   display: block;
   margin-left: auto;
   margin-right: auto;
@@ -331,18 +334,19 @@ export default {
 }
 
 .step_p {
-  padding: 20px;
-  padding-top: 5px;
+  padding: 11px;
+  padding-top: 1px;
   margin-top: 0;
+  font-size: 12px;
+  margin: 0;
 }
 
 strong {
   font-weight: bold;
-  font-size: 15px;
+  font-size: 13px;
 }
 
 html {
   scroll-behavior: smooth;
 }
 </style>
-*/

@@ -48,7 +48,7 @@
    }
 
   code {
-    font-family: Menlo, Monaco, Consolas, Courier, monospace;
+    font-family: 'Jaldi',Menlo, Monaco, Consolas, Courier, monospace;
   }
 
   .demo-button {
