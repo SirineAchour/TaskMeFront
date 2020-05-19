@@ -1,7 +1,6 @@
 <template>
   <span>
-    <button type="button" class="btn logg" @click="show">Login</button>
-
+    <div class="cr cr-top cr-right" @click="show">Login</div>
     <modal
       name="Login"
       height="auto"

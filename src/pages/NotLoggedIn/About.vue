@@ -4,9 +4,9 @@
     <p>An easy to use plateforme for odd job workers and seekers</p>
     <p>
       Get tasks done, Post ads, Make money performing easy jobs no competence
-      needed
+      needed  
     </p>
-    <p>idk what to write f description</p>
+    <p>idk what to write f description heyy heyy heyy heyy heyy heyy heyy heyy heyy heyy heyy heyy heyy heyy heyy heyy heyy heyy heyy heyy</p>
   </div>
 </template>
 
@@ -18,16 +18,16 @@ export default {
 
 <style scoped>
 * {
-  text-align: center;
+  text-align: left;
   color: #414141;
 }
 #first-p {
   font-weight: bold;
 }
-p {
+p, h3 {
   font-size: 19px;
-  margin-left: 150px;
-  margin-right: 150px;
+  margin-left: 20px;
+  margin-right: 20px;
 
   margin-bottom: 1 px;
   margin-top: 1 px;

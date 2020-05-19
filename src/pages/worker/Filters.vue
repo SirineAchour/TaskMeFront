@@ -1,12 +1,12 @@
 <template>
   <div class="md-layout" >
       <div
-        class="md-layout-item md-medium-size-15 md-xsmall-size-0 md-size-15"
+        class="md-layout-item md-medium-size-10 md-xsmall-size-0 md-size-10"
       ></div>
-    <div class="filter-wrapper md-layout-item md-medium-size-70 md-xsmall-size-100 md-size-70">
+    <div class="filter-wrapper md-layout-item md-medium-size-80 md-xsmall-size-100 md-size-80">
       <div class="md-layout">
         <div
-          class="filter-input md-layout-item md-medium-size-13 md-xsmall-size-13 md-size-1"
+          class="filter-input md-layout-item md-medium-size-13 md-xsmall-size-13 md-size-13"
         >
         <v-select :options="countries" placeholder="Country" class="white-it-out"></v-select>
         
@@ -17,6 +17,7 @@
           <v-select :options="cities" placeholder="City" class="white-it-out"></v-select>
         </div>
         <div
+          v-if="this.task"
           class="filter-input md-layout-item md-medium-size-13 md-xsmall-size-13 md-size-13"
         >
           <v-select :options="categories" placeholder="Categories" class="white-it-out"></v-select>
@@ -29,7 +30,7 @@
         <div
           class="filter-input md-layout-item md-medium-size-13 md-xsmall-size-13 md-size-13"
         >
-          Date
+          <input type="date" style="margin-top: 6px;" />
         </div>
 
         <div
@@ -45,14 +46,20 @@
       </div>
     </div>
     <div
-        class="md-layout-item md-medium-size-15 md-xsmall-size-0 md-size-15"
+        class="md-layout-item md-medium-size-10 md-xsmall-size-0 md-size-10"
       ></div>
       <div class="md-layout-item md-medium-size-100 md-xsmall-size-100 md-size-100"><br> </div>
   </div>
 </template>
 
 <script>
-export default {};
+export default {
+  props:{
+    task:{
+      type : Boolean,
+    },
+  }
+};
 </script>
 
 <style scoped>
@@ -73,5 +80,8 @@ export default {};
 .white-it-out{
   background-color:white;
   border-radius: 5px;
+}
+.filter-input{
+  padding: 5px;
 }
 </style>

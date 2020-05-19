@@ -1,5 +1,6 @@
 <template>
   <div class="wrapper back" :class="{ 'nav-open': $sidebar.showSidebar }">
+    
     <side-bar class="sidebar-nav">
       <sidebar-link v-if="client" to="/client">
         <div
@@ -107,9 +108,7 @@
       </sidebar-link>
 
           <div class="side-bottom">
-    <!--    <button class="btn logout-profile">
-          Profile
-        </button>-->
+
         <button class="btn logout-profile" @click="logout">
           Logout
         </button>
@@ -132,6 +131,7 @@ import DashboardContent from "./Content.vue";
 export default {
   components: {
     DashboardContent,
+    
     // ContentFooter,
   },
   props: {
@@ -244,7 +244,7 @@ p {
   margin-left: 25px;
   margin-bottom: 4px;
   margin-right: 15px;
-  font-size: 15px;
+  font-size: 17px;
   padding-left: 0px;
   padding-right: 0px;
   width: 75px;

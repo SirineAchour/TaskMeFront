@@ -1,28 +1,7 @@
 <template>
   <div class="content" style="padding-top:2px;">
     <div class="md-layout">
-      <h3
-        class="md-layout-item md-medium-size-85 md-xsmall-size-85 md-size-85"
-        style="text-align: left;margin-bottom:3px;"
-      >
-        &nbsp; Tasks :
-      </h3>
-      <h3 
-        class="md-layout-item md-medium-size-10 md-xsmall-size-10 md-size-10"
-        >
-        <button
-          class="btn more"
-          style="width: 120px; height: auto;"
-          @click="showFilters"
-        >
-         {{filters}}
-        </button>
-      </h3>
-      <component 
-        v-bind:is="filterComp" 
-        class="md-layout-item md-medium-size-100 md-xsmall-size-100 md-size-100"
-        style="text-align:center;"
-      ></component>
+      <title-filter-bar title="Tasks :" class="md-layout-item md-medium-size-100 md-xsmall-size-100 md-size-100"> </title-filter-bar>
       <div
         class="md-layout-item md-medium-size-33 md-xsmall-size-100 md-size-33"
         v-for="task in tasks"
@@ -52,8 +31,7 @@
                     task.date,
                     task.place,
                     task.details,
-                  )
-                "
+                  )"
               /><br />
             </center>
             <div></div>
@@ -98,12 +76,7 @@
     <hr class="dashed" />
     <!-- ADS -->
     <div class="md-layout scrolling-wrapper">
-      <h3
-        class="md-layout-item md-layout-item md-medium-size-100 md-xsmall-size-100 md-size-100"
-        style="text-align: left;"
-      >
-        Ads :
-      </h3>
+      <title-filter-bar title="Ads :" class="md-layout-item md-medium-size-100 md-xsmall-size-100 md-size-100"> </title-filter-bar>
       <div
         class="md-layout-item md-medium-size-33 md-xsmall-size-100 md-size-33"
         v-for="ad in ads"
@@ -235,7 +208,7 @@ import { ChartCard } from "@/components";
 import  Cancel  from "../../components/Cancel.vue";
 import  Doit  from "../../components/Doit.vue";
 import Details from "../../components/Details.vue";
-import Filters from "./Filters.vue";
+import TitleFilterBar from "./TitleFilterBar.vue";
 
 export default {
   components: {
@@ -243,12 +216,10 @@ export default {
     Cancel,
     Doit,
     Details,
-    Filters
+    TitleFilterBar
   },
   data() {
     return {
-      filterComp : "",
-      filters : "show filters",
       still_more_tasks: true,
       still_more_ads: false,
       id: "",
@@ -394,16 +365,6 @@ export default {
         }
       }
     },
-    showFilters(){
-      if(this.filters=="show filters"){
-        this.filterComp="Filters"
-        this.filters="hide filters"
-      }
-      else{
-        this.filterComp=""
-        this.filters="show filters"
-      }
-    }
   },
   created(){/*
     if (!this.$session.exists() || localStorage.type=="client") {
@@ -414,9 +375,7 @@ export default {
 </script>
 
 <style scoped>
-*{
-  font-family: Cabin, Avenir, Helvetica, Arial, sans-serif;
-}
+
 hr {
   border: 1px dashed rgb(202, 201, 201);
   margin: 0px;

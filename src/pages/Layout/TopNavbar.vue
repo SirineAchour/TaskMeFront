@@ -39,4 +39,8 @@ export default {
 </script>
 
 <style lang="css">
+*{
+  font-family: Inconsolata,Cabin, Avenir, Helvetica, Arial, sans-serif;
+  font-size: 17px;
+}
 </style>

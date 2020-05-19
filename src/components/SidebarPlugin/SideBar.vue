@@ -4,7 +4,7 @@
       <div class="logo-img simple-text logo-mini">
         <img :src="imgLogo" alt="" height="30" width="30" />
       </div>
-      <span class="simple-text logo-normal" style="text-align : left;font-family : 'Permanent Marker'; font-size:25px;">
+      <span class="simple-text logo-normal" style="text-align : left;font-family : 'Permanent Marker', sans-serif; font-size:25px;">
         {{ title }}
       </span>
     </div>

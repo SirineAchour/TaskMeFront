@@ -1,37 +1,36 @@
 <template>
   <div class="wrap">
     <div class="div1">
-      <div class="md-layout">
-        <span
-          class=" md-layout-item md-medium-size-50 md-xsmall-size-50 md-size-50"
-          style="text-align:left;"
-        >
-          <a href="#steps" class="btn sss" style="color: #414141;">
-            Step-by-Step Guide
-          </a>
-        </span>
-        <span
-          class="md-layout-item md-medium-size-50 md-xsmall-size-50 md-size-50"
-          style="text-align:right;"
-          ><Login
-        /></span>
-      </div>
-      <img :src="imgLogo" alt="logo" height="100" width="100" />
-      <br><br>
-      <span style="font-family: 'Permanent Marker';font-size:60px;">
-          Task Me 
-      </span>
-      <br />
-      <About />
+      <particles/>
+      <div class="cr cr-top cr-left" @click="goToSteps">Guide</div>
+      <Login />
+      <br /><br /><br /><br />
+      <div class="stufff">
+        <div class="popout">
+          <span>T</span>
+          <span>A</span>
+          <span>S</span>
+          <span>K</span><br />
 
-      <br />
-      <SignUp />
+          <div style="padding-top:50px;">
+            <span>M</span>
+            <span>E</span>
+          </div>
+        </div>
+        <About />
+
+        <br />
+        <SignUp />
+<br>
+        
+      </div>
     </div>
 
     <div id="steps" class="div2 md-layout">
+      <particles/>
       <div class="client">
         <div style="font-size:27px;">Client</div>
-<br>
+        <br />
         <div class="flip-card ">
           <div class="flip-card-inner">
             <div class="flip-card-front">
@@ -52,7 +51,7 @@
             </div>
           </div>
         </div>
-<br>
+        <br />
         <div class="flip-card">
           <div class="flip-card-inner">
             <div class="flip-card-front">
@@ -66,13 +65,13 @@
               <br />
               <p class="step_p">
                 <strong>New task</strong> <br />
-                When you create a task, we'll match you with a worker. <br />
-                Once the work is done, a rating process takes place.
+                When you create a task, we'll match you with a worker. Once the
+                work is done, a rating process takes place.
               </p>
             </div>
           </div>
         </div>
-<br>
+        <br />
         <div class="flip-card">
           <div class="flip-card-inner">
             <div class="flip-card-front">
@@ -96,7 +95,7 @@
 
       <div class="worker">
         <div style="font-size:27px;">Worker</div>
-<br>
+        <br />
         <div class="flip-card">
           <div class="flip-card-inner">
             <div class="flip-card-front">
@@ -116,7 +115,7 @@
             </div>
           </div>
         </div>
-<br>
+        <br />
         <div class="flip-card">
           <div class="flip-card-inner">
             <div class="flip-card-front">
@@ -130,15 +129,14 @@
               <br />
               <p class="step_p">
                 <strong>Browse tasks</strong> <br />
-                While browsing tasks, you can choose which ones to take on.
-                <br />
-                You can then go to Current tasks to view the ones you're
-                currently working on.
+                While browsing tasks, you can choose which ones to take on. You
+                can then go to Current tasks to view the ones you're currently
+                working on.
               </p>
             </div>
           </div>
         </div>
-<br>
+        <br />
         <div class="flip-card">
           <div class="flip-card-inner">
             <div class="flip-card-front">
@@ -152,8 +150,8 @@
               <br />
               <p class="step_p">
                 <strong>Browse ads</strong> <br />
-                While browsing ads, you can choose which ones to take on. <br />
-                You can then go to Current Ads to view the ones you're currently
+                While browsing ads, you can choose which ones to take on. You
+                can then go to Current Ads to view the ones you're currently
                 working on.
               </p>
             </div>
@@ -168,6 +166,7 @@
 import Login from "./NotLoggedIn/Login.vue";
 import SignUp from "./NotLoggedIn/SignUp.vue";
 import About from "./NotLoggedIn/About.vue";
+import Particles from "./NotLoggedIn/Particles.vue";
 
 export default {
   name: "Homepage",
@@ -175,29 +174,68 @@ export default {
     Login,
     SignUp,
     About,
+    Particles
   },
   data() {
     return {
       imgLogo: require("@/assets/img/mini-logo.png"),
     };
   },
-  mounted() {
-    document.getElementsByTagName("body")[0].classList.add("bg");
-  },
-  destroyed() {
-    document.getElementsByTagName("body")[0].classList.remove("bg");
-  },
   created() {
     if (this.$session.exists()) {
       this.$router.push("/" + localStorage.type);
     }
   },
+  methods : {
+    goToSteps(){
+      window.location.hash="#steps";
+    }
+  }
 };
 </script>
 
-<style>
+<style lang="scss">
+.popout {
+  font-weight: 900;
+  font-size: 80px;
+  padding-top: 20px;
+  padding-bottom: 40px;
+  padding-left: 10px;
+  text-align: left;
+  @keyframes ani {
+    0% {
+      transform: translate3d(0, 0, 0);
+      text-shadow: 0em 0em 0 lightblue;
+      color: black;
+    }
+    30% {
+      transform: translate3d(0, 0, 0);
+      text-shadow: 0em 0em 0 lightblue;
+      color: black;
+    }
+    70% {
+      transform: translate3d(0.08em, -0.08em, 0);
+      text-shadow: -0.08em 0.08em lightblue;
+      color: black;
+    }
+    100% {
+      transform: translate3d(0.08em, -0.08em, 0);
+      text-shadow: -0.08em 0.08em lightblue;
+      color: black;
+    }
+  }
+  span {
+    position: relative;
+    display: inline-block;
+    animation: ani 1s infinite alternate cubic-bezier(0.86, 0, 0.07, 1);
+    @for $i from 1 through 3 {
+      &:nth-last-child(#{$i}n) {
+        animation-delay: -1s * $i/3/2;
+      }
+    }
+  }
+}
 * {
-  text-align: center;
   scrollbar-width: none; /* Firefox */
   -ms-overflow-style: none; /* IE 10+ */
 }
@@ -238,16 +276,12 @@ export default {
   width: 100%;
   height: 100%;
   min-height: 100vh;
+  text-align: center;
 }
 
 .div2 {
-  background: rgb(122, 139, 159);
-  background: linear-gradient(
-    180deg,
-    rgba(122, 139, 159, 0.8995798148360907) 0%,
-    rgba(51, 122, 183, 0.6026610473290879) 59%,
-    rgba(133, 190, 238, 0.8211484422870711) 100%
-  );
+ background: rgb(126,173,251);
+background: linear-gradient(0deg, rgba(126,173,251,0.5158263134355305) 0%, rgba(255,255,255,0) 100%); 
   width: 100%;
   height: 100%;
   overflow: auto;
@@ -260,7 +294,7 @@ export default {
   height: 100%;
   min-height: 100vh;
   text-align: center;
-  color: white;
+  color: #414141;
   font-size: 24px;
   padding-top: 20px;
   float: left;
@@ -289,14 +323,6 @@ export default {
   display: block;
   margin-left: auto;
   margin-right: auto;
-  /*  background-size: cover;
-  background-repeat: no-repeat;
-  background-position: center center;
-  -webkit-border-radius: 99em;
-  -moz-border-radius: 99em;
-  border-radius: 99em;
-  border: 5px solid #eee;
-  box-shadow: 0 3px 2px rgba(0, 0, 0, 0.3);*/
 }
 
 .flip-card-inner {
@@ -328,7 +354,7 @@ export default {
 }
 
 .flip-card-back {
-  background-color: rgba(51, 122, 183);
+  background-color: rgb(73, 132, 184);
   color: white;
   transform: rotateY(180deg);
 }
@@ -348,5 +374,42 @@ strong {
 
 html {
   scroll-behavior: smooth;
+}
+.stufff {
+  text-align: right;
+  width: 70%;
+  display: inline-block;
+  border-style: solid;
+  border-width: 1px;
+  border-image: url("../assets/img/borderr.png")  30 ;
+  padding: 20px;
+}
+.cr {
+  width: 200px;
+  padding: 16px;
+  position: absolute;
+  font-size: 20px;
+  text-align: center;
+  color: #f0f0f0;
+  background-color: rgba(238, 174, 202, 0.8687674899061186);
+  position: fixed;
+}
+.cr:hover {
+  cursor: pointer;
+}
+.cr-top {
+  top: 25px;
+}
+.cr-left {
+  left: -50px;
+}
+.cr-right {
+  right: -50px;
+}
+.cr-top.cr-left {
+  transform: rotate(-45deg);
+}
+.cr-top.cr-right {
+  transform: rotate(45deg);
 }
 </style>

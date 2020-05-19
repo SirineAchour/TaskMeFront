@@ -238,8 +238,8 @@ export default {
 
         var this_var = this;
         axios
-          .post(
-            "http://localhost/TaskMeBack/public/api/register",
+          .get(
+            "http://localhost/TaskMeBack/public/api/user",
             JSON.stringify(client),
             {
               headers: {
