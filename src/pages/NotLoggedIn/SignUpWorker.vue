@@ -11,7 +11,12 @@
           class="fas fa-exclamation-triangle fa-xs"
           style="color : rgba(223, 1, 1, 0.781);"
         ></i>
-        first name, last name and id fields are uneditable
+        first name, last name and id fields are uneditable <br>
+        <i
+          class="fas fa-exclamation-triangle fa-xs"
+          style="color : rgba(223, 1, 1, 0.781);"
+        ></i>
+        email will be used for logging in
       </span>
       <form class="md-layout" @submit="signup">
         <div class="md-layout-item md-small-size-100 md-size-50">
@@ -250,34 +255,54 @@ export default {
       if (this.check_valid_password && this.check_valid_email) {
         var gender = "";
         var ele = document.getElementsByName("gender");
+        var skillSetToSend= [];
         for (var i = 0; i < ele.length; i++) {
           if (ele[i].checked) gender = ele[i].getAttribute("id");
         }
         if (gender == "gridRadios3_worker") gender = "other";
         if (gender == "gridRadios2_worker") gender = "male";
         if (gender == "gridRadios1_worker") gender = "female";
+        this.skillSet.forEach(element => {
+          skillSetToSend.push(element.name)
+        });
         var worker = {
           firstname: this.first_name,
-          last_name: this.last_name,
-          gender: gender,
+          lastname: this.last_name,
           birth_date: this.birth_date,
-          phone: this.phone,
           email: this.email,
-          id: this.id, //cin
-          password: this.password,
-          skillset: this.skillSet,
+          password: this.password.toString(),
+          password_confirmation: this.password.toString(),
+          photo_link: "",
+          type_user: "worker",
+          cin: this.id.toString(),
+          phone_number: this.phone,
+          gender: gender,
+          skills: skillSetToSend,
+          country: this.country
         };
         var this_var = this;
+        console.log("worker :")
+        console.log(worker);
+        console.log("____________________________")
         axios
-          .get(
-            "http://localhost/TaskMeBack/public/api/worker/signup",
-            JSON.stringify(worker)
+          .post(
+            "http://localhost/TaskMeBack/public/api/register",
+            JSON.stringify(worker),
+            {
+              headers: {
+                "Content-Type": "application/json",
+              },
+            }
           )
           .then((response) => {
+            console.log(response)
+            localStorage.api_token = response["data"]["data"]["api_token"];
+            localStorage.type = "worker";
+            localStorage.id = response["data"]["data"]["info"]["user_id"];
             if (response["data"]["data"] != "") {
-              this_var.$router.push("/");
+              this_var.$router.push("/worker");
             }
-            return;
+            
           })
           .catch(function(error) {
             console.log(error);
@@ -294,9 +319,6 @@ export default {
     var email = document.getElementById("mail");
     email.addEventListener("input", this.valid_mail);
 
-    document
-      .getElementById("username")
-      .addEventListener("focusout", this.check_username);
 
     axios
       .get("http://localhost/TaskMeBack/public/api/categories")

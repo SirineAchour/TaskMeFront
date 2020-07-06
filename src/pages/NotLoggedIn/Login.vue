@@ -83,30 +83,25 @@ export default {
           "none";
       }
       var user = {
-        user_email: this.input.email,
-        password: this.input.password,
+        email: this.input.email.trim(),
+        password: this.input.password.toString(),
       };
-
+console.log(user)
       axios
-        .get(
+        .post(
           "http://localhost/TaskMeBack/public/api/login",
-          JSON.stringify(user)
+          JSON.stringify(user),
+          {
+              headers: {
+                "Content-Type": "application/json",
+              },
+            }
         )
         .then((response) => {
-          if (response.status === 200 && "token" in response.body) {
-            this.$session.start();
-            this.$session.set("jwt", response.body.token);
-            Vue.http.headers.common["Authorization"] =
-              "Bearer " + response.body.token;
-
-            localStorage.id = response["data"]["data"]["id"]; // please return  id
-            localStorage.type = response["data"]["data"]["type"]; //assuming li trajja3li info
-            this.$router.push("/" + localStorage.type);
-          }
-          if (response["data"]["data"] == "") {
-            document.getElementsByClassName("wrong_login")[0].style.display =
-              "block";
-          }
+          localStorage.api_token = response["data"]["data"]["api_token"];
+          localStorage.type = response["data"]["data"]["user_type"];
+          localStorage.id = response["data"]["data"]["info"]["user_id"];
+          this.$router.push("/" + localStorage.type);
         })
         .catch(function(error) {
           console.log(error);

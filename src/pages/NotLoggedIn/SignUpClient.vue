@@ -12,6 +12,12 @@
           style="color : rgba(223, 1, 1, 0.781);"
         ></i>
         first name, last name and id fields are uneditable
+        <br>
+        <i
+          class="fas fa-exclamation-triangle fa-xs"
+          style="color : rgba(223, 1, 1, 0.781);"
+        ></i>
+        email will be used for logging in
       </span>
       <form class="md-layout" @submit="signup">
         <div class="md-layout-item md-small-size-100 md-size-50">
@@ -224,22 +230,24 @@ export default {
         if (gender == "gridRadios2_worker") gender = "male";
         if (gender == "gridRadios1_worker") gender = "female";
         var client = {
-          firstname: this.first_name,
-          lastname: this.last_name,
-          birth_date: this.birth_date,
-          email: this.email,
-          password: this.password,
-          photo_link: "",
+          firstname: this.first_name, //
+          lastname: this.last_name, //
+          birth_date: this.birth_date, //
+          email: this.email, //
+          password: this.password.toString(), //
+          password_confirmation: this.password.toString(),
+          photo_link: "", //
           type_user: "client",
-          cin: this.id,
-          phone_number: this.phone,
-          gender: gender,
+          cin: this.id.toString(), //
+          phone_number: this.phone, //
+          gender: gender, //
+          country: "test_country"
         };
-
+        console.log(client);
         var this_var = this;
         axios
-          .get(
-            "http://localhost/TaskMeBack/public/api/user",
+          .post(
+            "http://localhost/TaskMeBack/public/api/register",
             JSON.stringify(client),
             {
               headers: {
@@ -248,9 +256,13 @@ export default {
             }
           )
           .then((response) => {
+            localStorage.api_token = response["data"]["data"]["api_token"];
+            localStorage.type = "client";
+            localStorage.id = response["data"]["data"]["info"]["user_id"];
             if (response["data"]["data"] != "") {
-              this_var.$router.push("/");
+              this_var.$router.push("/client");
             }
+            console.log(response);
           })
           .catch(function(error) {
             console.log(error);

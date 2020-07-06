@@ -1,12 +1,18 @@
 <template>
   <div>
     <h3 id="first-p">Odd jobs for everyone</h3>
-    <p>An easy to use plateforme for odd job workers and seekers</p>
+    <p>An easy to use plateform that acts as a mediator between clients* and odd job workers*.</p>
     <p>
       Get tasks done, Post ads, Make money performing easy jobs no competence
-      needed  
+      needed.
     </p>
-    <p>idk what to write f description heyy heyy heyy heyy heyy heyy heyy heyy heyy heyy heyy heyy heyy heyy heyy heyy heyy heyy heyy heyy</p>
+    <br>
+<p>
+*clients : people who are looking for someone to accomplish a specific task for them.
+</p>
+<p>
+*odd job workers : people who are capable of accomplishing certain tasks that do not require diplomas or certificates.
+</p>
   </div>
 </template>
 

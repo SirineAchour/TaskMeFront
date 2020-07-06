@@ -37,7 +37,7 @@
                     task.price,
                     task.date,
                     task.place,
-                    task.details,
+                    task.description,
                     task.worker_found,
                     task.worker_name,
                     task.worker_id,
@@ -282,8 +282,8 @@
       width="350px"
       :adaptive="true"
     >
-    <Details type='client' :post="post">
-      </Details>
+    <View type='client' :post="post">
+      </View>
     </modal>
   </div>
 </template>
@@ -293,7 +293,7 @@ import { ChartCard } from "@/components";
 import Done from "../../components/Done.vue";
 import Cancel from "../../components/Cancel.vue";
 import Report from "../../components/Report.vue";
-import Details from "../../components/Details.vue";
+import View from "../../components/View.vue";
 
 export default {
   components: {
@@ -301,7 +301,7 @@ export default {
     Done,
     Cancel,
     Report,
-    Details
+    View
   },
 
   data() {
@@ -313,7 +313,7 @@ export default {
       creation_date: "",
       post: {},
       tasks: [
-        {
+      /*  {
           id: "4",
           name: "task 1",
           category: "task category",
@@ -369,10 +369,10 @@ export default {
           worker_name: "worker name",
           worker_id: "123123",
           worker_phone: "9999999",
-        },
+        },*/
       ],
       ads: [
-        {
+      /*  {
           id: "2",
           title: "ad 2",
           price: "1 $",
@@ -397,28 +397,34 @@ export default {
           worker_name: "worker name",
           worker_id: "123123",
           worker_phone: "9999999",
-        },
+        },*/
       ],
     };
   },
   created() {
-    /*  if (!this.$session.exists() || localStorage.type == "worker") {
+    if (localStorage.id=="" || localStorage.type == "worker") {
       this.$router.push("/");
   
-    }*/
+    }
     axios
       .get(
-        "http://localhost/TaskMeBack/public/api/tasks/client/" + localStorage.id
+        "http://localhost/TaskMeBack/public/api/posts_by_user/" + localStorage.id
       )
       .then((response) => {
+        console.log("tasks :");
+        console.log(response["data"]["data"]);
         this.tasks = response["data"]["data"];
       });
     axios
       .get(
-        "http://localhost/TaskMeBack/public/api/ads/client/" + localStorage.id
-      ) //mafammech l route
+        "http://localhost/TaskMeBack/public/api/ads_by_user/" + localStorage.id
+      )
       .then((response) => {
+        console.log("ads :");
         this.ads = response["data"]["data"];
+      })
+      .catch((error)=>{
+        console.log("in error")
       });
   },
   methods: {

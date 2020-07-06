@@ -8,7 +8,7 @@
         :key="task.id"
       >
         <chart-card :chart-type="'Line'" icon="person">
-          <template slot="content">
+          <template slot="content" >
             <center class="title">
               <h3><md-icon> directions_run </md-icon> {{ task.name }}</h3>
             </center>
@@ -63,7 +63,7 @@
           </template>
         </chart-card>
       </div>
-      <div
+      <center
         class="md-layout-item md-medium-size-33 md-xsmall-size-100 md-size-33"
         style="margin-top:150px;"
         v-if="still_more_tasks"
@@ -71,7 +71,7 @@
         <button class="btn more">
           more
         </button>
-      </div>
+      </center>
     </div>
     <hr class="dashed" />
     <!-- ADS -->
@@ -136,7 +136,7 @@
           </template>
         </chart-card>
       </div>
-      <div
+      <center
         v-if="still_more_ads"
         class="md-layout-item md-medium-size-33 md-xsmall-size-100 md-size-33"
         style="margin-top:150px;"
@@ -144,7 +144,7 @@
         <button class="btn more">
           more
         </button>
-      </div>
+      </center>
     </div>
 
   <modal
@@ -196,8 +196,8 @@
       width="350px"
       :adaptive="true"
     >
-      <Details type='worker' :post="post">
-      </Details>
+      <View type='worker' :post="post">
+      </View>
     </modal>
 
   </div>
@@ -207,7 +207,7 @@
 import { ChartCard } from "@/components";
 import  Cancel  from "../../components/Cancel.vue";
 import  Doit  from "../../components/Doit.vue";
-import Details from "../../components/Details.vue";
+import View from "../../components/View.vue";
 import TitleFilterBar from "./TitleFilterBar.vue";
 
 export default {
@@ -215,7 +215,7 @@ export default {
     ChartCard,
     Cancel,
     Doit,
-    Details,
+    View,
     TitleFilterBar
   },
   data() {
@@ -412,7 +412,7 @@ button {
 .more{
   border: 1px solid darkslategray;
   color: darkslategray;
-
+text-align: center;
   
 }
 

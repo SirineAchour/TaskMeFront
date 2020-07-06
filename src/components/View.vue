@@ -38,7 +38,7 @@
 
 <script>
 export default {
-  name: "details",
+  name: "view",
   props: {
     post: {
       type: Object,

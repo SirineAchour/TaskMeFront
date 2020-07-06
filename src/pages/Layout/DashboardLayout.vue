@@ -117,8 +117,9 @@
     </side-bar>
 
     <div class="main-panel">
+      
       <dashboard-content> </dashboard-content>
-
+      
       <!-- <content-footer v-if="!$route.meta.hideFooter"></content-footer>-->
     </div>
   </div>
@@ -130,7 +131,7 @@ import DashboardContent from "./Content.vue";
 
 export default {
   components: {
-    DashboardContent,
+    DashboardContent
     
     // ContentFooter,
   },
@@ -154,6 +155,7 @@ export default {
     logout(){
       localStorage.id="";
       localStorage.type="";
+      localStorage.api_token="";
       this.$router.push("/" );
     }
   },
@@ -254,4 +256,5 @@ p {
 .logout-profile:hover{
   background-color: white;
 }
+
 </style>

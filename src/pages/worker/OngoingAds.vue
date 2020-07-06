@@ -147,8 +147,8 @@
       width="350px"
       :adaptive="true"
     >
-      <Details type='worker' :post="post">
-      </Details>
+      <View type='worker' :post="post">
+      </View>
     </modal>
   </div>
 </template>
@@ -158,7 +158,7 @@ import { ChartCard } from "@/components";
 import Done from "../../components/Done.vue";
 import Cancel from "../../components/Cancel.vue";
 import Report from "../../components/Report.vue";
-import Details from "../../components/Details.vue";
+import View from "../../components/View.vue";
 
 export default {
   components: {
@@ -166,7 +166,7 @@ export default {
     Done,
     Cancel,
     Report,
-    Details
+    View
   },
   data() {
     return {

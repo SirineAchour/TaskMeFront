@@ -44,9 +44,8 @@
               <br />
               <p class="step_p">
                 <strong>Sign up as a Client</strong> <br />
-                Creating a client account allows you to look for people to
-                accomplish certain tasks for you as well as post ads to be
-                answered by workers.
+                - Look for people to accomplish certain tasks for you <br>
+                - Post ads to be answered by workers.
               </p>
             </div>
           </div>
@@ -65,8 +64,8 @@
               <br />
               <p class="step_p">
                 <strong>New task</strong> <br />
-                When you create a task, we'll match you with a worker. Once the
-                work is done, a rating process takes place.
+                - Get matched you with a worker <br>
+                - Once the work is done, a rating process takes place.
               </p>
             </div>
           </div>
@@ -109,8 +108,7 @@
               <br />
               <p class="step_p">
                 <strong>Sign up as a worker</strong> <br />
-                Creating a worker account allows you to take on jobs posted by
-                client accounts.
+                Take on jobs posted by client accounts.
               </p>
             </div>
           </div>
@@ -129,8 +127,8 @@
               <br />
               <p class="step_p">
                 <strong>Browse tasks</strong> <br />
-                While browsing tasks, you can choose which ones to take on. You
-                can then go to Current tasks to view the ones you're currently
+                - Choose which tasks to take on. <br>
+                - Go to Current tasks to view the ones you're currently
                 working on.
               </p>
             </div>
@@ -150,9 +148,8 @@
               <br />
               <p class="step_p">
                 <strong>Browse ads</strong> <br />
-                While browsing ads, you can choose which ones to take on. You
-                can then go to Current Ads to view the ones you're currently
-                working on.
+                - Choose which ads to take on. <br>
+                - Go to Current Ads to view the ones you're currently working on.
               </p>
             </div>
           </div>
@@ -182,13 +179,15 @@ export default {
     };
   },
   created() {
-    if (this.$session.exists()) {
+    //check
+    if (localStorage.id!="" && localStorage.id!="undefined" && localStorage.api_token!="" && localStorage.api_token!="undefined") {
       this.$router.push("/" + localStorage.type);
     }
   },
   methods : {
     goToSteps(){
       window.location.hash="#steps";
+      window.history.pushState("object or string", "Title", "/#/");
     }
   }
 };
@@ -227,7 +226,7 @@ export default {
   span {
     position: relative;
     display: inline-block;
-    animation: ani 1s infinite alternate cubic-bezier(0.86, 0, 0.07, 1);
+    animation: ani 2s infinite alternate cubic-bezier(0.86, 0, 0.07, 1);
     @for $i from 1 through 3 {
       &:nth-last-child(#{$i}n) {
         animation-delay: -1s * $i/3/2;
@@ -363,8 +362,9 @@ background: linear-gradient(0deg, rgba(126,173,251,0.5158263134355305) 0%, rgba(
   padding: 11px;
   padding-top: 1px;
   margin-top: 0;
-  font-size: 12px;
+  font-size: 13px;
   margin: 0;
+  
 }
 
 strong {
