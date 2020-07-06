@@ -28,16 +28,17 @@
 <script>
 export default {
     name : "done",
+     data() {
+    return {
+        rating : "5"
+    }
+    },
     props:{
         type :{
             type: String,
         },
         id:{
-            type : String,
-        },
-        rating :{
-            type : String,
-            default : "5"
+            type : Number,
         },
         client_worker:{
             type: String,

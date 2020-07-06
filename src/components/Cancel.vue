@@ -38,7 +38,7 @@ export default {
             type : String,
         },
         id : {
-            type :String
+            type :Number
         },
         delete_remove :{
             type: String,
@@ -67,6 +67,9 @@ export default {
                 if(this.post=="task"){
                     axios.delete('http://localhost/TaskMeBack/public/api/post/'+this.id);
                 }
+            }
+            else{
+                console.log("cancel task mn chiret l worker")
             }
             this.$emit("delete_thing",this.id,this.post);
             this.hide();

@@ -254,8 +254,7 @@ export default {
         ] = "none";
       }
 
-      var cat = document.getElementsByTagName("select")[0].value;
-
+      var cat = document.getElementById("validationCustom03").innerText;
       if (cat == "") {
         document.getElementsByClassName("invalid-feedback")[0].style[
           "display"
@@ -267,20 +266,34 @@ export default {
         ] = "none";
       }
       if (ok) {
-        axios
-          .post(
-            "http://localhost/TaskMeBack/public/api/post",
-            JSON.stringify({
+        console.log(this.country.trim());
+        var desc = document.getElementsByClassName("txtarea")[0].value;
+        var pp = {
               task_id: this.selected_task_id, // task number in list
               client_id: localStorage.id,
               date: this.date,
-              description: document.getElementsByClassName("txtarea")[0].value,
+              description: desc,
               country: this.country.trim(),
               city: this.city.trim(),
               postal_code: this.postal_code.trim(),
               street: this.street.trim(),
               house_number: this.house_number.trim(),
-            })
+              price: this.pay.trim()
+            };
+        console.log(pp)
+        axios
+          .post(
+            "http://localhost/TaskMeBack/public/api/post",
+            JSON.stringify(
+              pp,
+            {
+              headers: {
+                "Content-Type": "application/json",
+                "Access-Control-Allow-Headers": "Content-Type, X-Auth-Token, Origin",
+                "Access-Control-Allow-Origin": "*"
+              },
+            }
+            )
           )
           .catch(function(error) {
             console.log(error);
@@ -295,6 +308,7 @@ export default {
         if (
           this.selCat == this.categories_tasks[i].name
         ) {
+          
           for (let j = 0; j != this.categories_tasks[i].tasks.length; j++) {
             if (
               opt == this.categories_tasks[i].tasks[j].subject
@@ -306,9 +320,8 @@ export default {
       }
     },
     ChangecatList() {
-
       var catList = document.getElementById("validationCustom03");
-
+      this.tasks=[];
      
       for (let i = 0; i != this.categories_tasks.length; i++) {
         if (this.categories_tasks[i].name == this.selCat)
@@ -320,14 +333,10 @@ export default {
           this.tasks.push(ta.text);
         }
       }
-      this.selTask=this.tasks[0]
+     // this.selTask=this.tasks[0]
     }
   },
   created() {
- /*   if (!this.$session.exists() || localStorage.type=="worker") {
-      this.$router.push('/');
-      return;
-    }*/
     axios
       .get("http://localhost/TaskMeBack/public/api/categories")
       .then((response) => {
@@ -340,10 +349,10 @@ export default {
               "http://localhost/TaskMeBack/public/api/tasks_by_category/" +
                 category.name
             )
-            .then((response) => {
+            .then((rsp) => {
               this.categories_tasks.push({
                 name: category.name,
-                tasks: response["data"]["data"],
+                tasks: rsp["data"]["data"],
               });
             });
         });

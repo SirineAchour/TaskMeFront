@@ -282,8 +282,7 @@
       width="350px"
       :adaptive="true"
     >
-    <View type='client' :post="post">
-      </View>
+      <Details type="client" :post="post"> </Details>
     </modal>
   </div>
 </template>
@@ -293,7 +292,7 @@ import { ChartCard } from "@/components";
 import Done from "../../components/Done.vue";
 import Cancel from "../../components/Cancel.vue";
 import Report from "../../components/Report.vue";
-import View from "../../components/View.vue";
+import Details from "../../components/Details.vue";
 
 export default {
   components: {
@@ -301,7 +300,7 @@ export default {
     Done,
     Cancel,
     Report,
-    View
+    Details
   },
 
   data() {
@@ -372,7 +371,7 @@ export default {
         },*/
       ],
       ads: [
-      /*  {
+        /*{
           id: "2",
           title: "ad 2",
           price: "1 $",
@@ -404,16 +403,38 @@ export default {
   created() {
     if (localStorage.id=="" || localStorage.type == "worker") {
       this.$router.push("/");
-  
+
     }
     axios
       .get(
         "http://localhost/TaskMeBack/public/api/posts_by_user/" + localStorage.id
       )
       .then((response) => {
-        console.log("tasks :");
-        console.log(response["data"]["data"]);
-        this.tasks = response["data"]["data"];
+        response["data"]["data"].forEach(post => {
+          axios
+            .get(
+              "http://localhost/TaskMeBack/public/api/task/" + post["task_id"]
+            )
+            .then((rps) => {
+var ta = {
+                    "id": post["id"],
+                    "name": rps["data"]["data"]["subject"],
+                    "category" : rps["data"]["data"]["categories"]["name"],
+                    "price": "2 $$",//post["price"],
+                    "date" : post["date"],
+                    "place" : post["address_id"],
+                    "description" :  post["description"],
+                    "worker_found" : post["worker_found"],
+                    "worker_name" : "",
+                    "worker_id" : post["worker_id"],
+                    "worker_phone" : "",
+                    "creation_date" : post["created_at"]
+          };
+          this.tasks.push(
+            ta
+          )
+          });
+        });
       });
     axios
       .get(
@@ -548,5 +569,4 @@ button {
   padding: 1px 5px 1px 5px;
   margin: 5px;
 }
-
 </style>

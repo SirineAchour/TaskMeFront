@@ -196,8 +196,8 @@
       width="350px"
       :adaptive="true"
     >
-      <View type='worker' :post="post">
-      </View>
+      <Details type='worker' :post="post">
+      </Details>
     </modal>
 
   </div>
@@ -207,7 +207,7 @@
 import { ChartCard } from "@/components";
 import  Cancel  from "../../components/Cancel.vue";
 import  Doit  from "../../components/Doit.vue";
-import View from "../../components/View.vue";
+import Details from "../../components/Details.vue";
 import TitleFilterBar from "./TitleFilterBar.vue";
 
 export default {
@@ -215,7 +215,7 @@ export default {
     ChartCard,
     Cancel,
     Doit,
-    View,
+    Details,
     TitleFilterBar
   },
   data() {

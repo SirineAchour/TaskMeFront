@@ -38,7 +38,7 @@
 
 <script>
 export default {
-  name: "view",
+  name: "details",
   props: {
     post: {
       type: Object,
@@ -47,6 +47,11 @@ export default {
       type: String,
     },
   },
+  created(){
+    console.log("in Details.vue");
+    console.log(this.post);
+    console.log(this.type);
+  }
 };
 </script>
 
