@@ -36,7 +36,7 @@ export default {
             type : String,
         },
         id : {
-            type :String
+            type :Number
         },
         client:{
             type : String,
@@ -56,7 +56,18 @@ export default {
                 "worker" : this.worker,
                 "creation_date" : this.creation_date,
             }
-            //axios.delete('http://localhost/TaskMeBack/public/api/'+this.type+'/'+this.id,JSON.stringify(info));
+            axios.post(
+                "http://localhost/TaskMeBack/public/api/editAdWorker",
+                JSON.stringify({
+                    id: this.id,
+                    worker_id: parseInt(localStorage.id)
+                }),
+                {
+                    headers: {
+                        "Content-Type": "application/json",
+                    }
+                }
+            );
             
             
             this.$emit("delete_thing",this.id,this.post);

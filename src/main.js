@@ -36,6 +36,9 @@ import MaterialDashboard from "./material-dashboard";
 
 import Chartist from "chartist";
 
+import FileUpload from 'v-file-upload';
+
+
 
 // configure router
 const router = new VueRouter({
@@ -60,6 +63,8 @@ Vue.use(VueSession);
 
 Vue.component('VueStar', VueStar);
 Vue.component("v-select", vSelect);
+
+Vue.use(FileUpload);
 
 /* eslint-disable no-new */
 new Vue({

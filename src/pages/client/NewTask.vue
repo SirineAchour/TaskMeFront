@@ -269,6 +269,7 @@ export default {
         console.log(this.country.trim());
         var desc = document.getElementsByClassName("txtarea")[0].value;
         var pp = {
+              title : "ti",
               task_id: this.selected_task_id, // task number in list
               client_id: parseInt(localStorage.id),
               date: this.date,
@@ -292,7 +293,9 @@ export default {
               }
             }
             
-          )
+          ).then((response)=>{
+            this.$router.push("/" + localStorage.type);
+          })
           .catch(function(error) {
             console.log(error);
           });

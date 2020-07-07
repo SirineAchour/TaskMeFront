@@ -219,6 +219,9 @@ export default {
     };
   },
   methods: {
+    onFileChange(files){
+      console.log(files);
+    },
     valid_mail(e) {
       var mail = e.target.value;
       var mail_input = document.getElementById("mail");
@@ -278,7 +281,8 @@ export default {
           phone_number: this.phone,
           gender: gender,
           skills: skillSetToSend,
-          country: this.country
+          country: this.country,
+          city: this.city
         };
         var this_var = this;
         console.log("worker :")

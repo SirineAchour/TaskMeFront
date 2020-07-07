@@ -1,14 +1,18 @@
 <template>
   <div class="content" style="padding-top:2px;">
     <div class="md-layout">
-      <title-filter-bar title="Tasks :" class="md-layout-item md-medium-size-100 md-xsmall-size-100 md-size-100"> </title-filter-bar>
+      <title-filter-bar
+        title="Tasks :"
+        class="md-layout-item md-medium-size-100 md-xsmall-size-100 md-size-100"
+      >
+      </title-filter-bar>
       <div
         class="md-layout-item md-medium-size-33 md-xsmall-size-100 md-size-33"
         v-for="task in tasks"
         :key="task.id"
       >
         <chart-card :chart-type="'Line'" icon="person">
-          <template slot="content" >
+          <template slot="content">
             <center class="title">
               <h3><md-icon> directions_run </md-icon> {{ task.name }}</h3>
             </center>
@@ -31,7 +35,9 @@
                     task.date,
                     task.place,
                     task.details,
-                  )"
+                    task.client_id
+                  )
+                "
               /><br />
             </center>
             <div></div>
@@ -40,7 +46,9 @@
               <button
                 data-background-color="blue"
                 class="btn btn-sm"
-                @click="doit(task.id, task.client, '', task.creation_date, 'task')"
+                @click="
+                  doit(task.id, task.client, '', task.creation_date, 'task')
+                "
               >
                 do it!
               </button>
@@ -48,7 +56,9 @@
               <button
                 data-background-color="blue"
                 class="btn btn-sm"
-                @click="remove(task.id, task.client, '', task.creation_date, 'task')"
+                @click="
+                  remove(task.id, task.client, '', task.creation_date, 'task')
+                "
               >
                 remove
               </button>
@@ -58,12 +68,12 @@
           <template slot="footer">
             <span class="stats">
               <md-icon>access_time</md-icon>
-              created {{ task.creation_date }} ago
+              created {{ task.creation_date }}
             </span>
           </template>
         </chart-card>
       </div>
-      <center
+      <!--<center
         class="md-layout-item md-medium-size-33 md-xsmall-size-100 md-size-33"
         style="margin-top:150px;"
         v-if="still_more_tasks"
@@ -71,12 +81,16 @@
         <button class="btn more">
           more
         </button>
-      </center>
+      </center>-->
     </div>
     <hr class="dashed" />
     <!-- ADS -->
     <div class="md-layout scrolling-wrapper">
-      <title-filter-bar title="Ads :" class="md-layout-item md-medium-size-100 md-xsmall-size-100 md-size-100"> </title-filter-bar>
+      <title-filter-bar
+        title="Ads :"
+        class="md-layout-item md-medium-size-100 md-xsmall-size-100 md-size-100"
+      >
+      </title-filter-bar>
       <div
         class="md-layout-item md-medium-size-33 md-xsmall-size-100 md-size-33"
         v-for="ad in ads"
@@ -85,34 +99,45 @@
         <chart-card>
           <template slot="content">
             <center class="title">
-              <h3><md-icon> local_play </md-icon> {{ ad.title }}</h3>
+              <h3><md-icon> local_play </md-icon> {{ ad.ad.title }}</h3>
             </center>
             <center class="category">
-              <h4>{{ ad.price }}</h4>
+              <h4>{{ ad.ad.price }}</h4>
 
-              {{ ad.date }} <br />
-              {{ ad.place }} <br />
+              {{ ad.ad.date }} <br />
+              {{ ad.address.country }}, {{ ad.address.city }}, {{ ad.address.street }},
+              {{ ad.address.postal_code }}, {{ ad.address.house_number }} <br />
               <input
                 type="button"
                 value="view details"
                 class="btn color-me btn-sm"
                 @click="
                   viewPost(
-                    ad.id,
-                    ad.title,
+                    ad.ad.id,
+                    ad.ad.title,
                     '',
-                    ad.price,
-                    ad.date,
-                    ad.place,
-                    ad.details,
+                    ad.ad.price,
+                    ad.ad.date,
+                    ad.address.country +
+                      ', ' +
+                      ad.address.city +
+                      ', ' +
+                      ad.address.street +
+                      ', ' +
+                      ad.address.postal_code +
+                      ', ' +
+                      ad.address.house_number,
+                    ad.ad.description,
+                    ad.ad.client_id
                   )
-                "/>
+                "
+              />
               <br /><br />
               <center>
                 <button
                   data-background-color="blue"
                   class="btn btn-sm"
-                  @click="doit(ad.id, ad.client, '', ad.creation_date, 'ad')"
+                  @click="doit(ad.ad.id, ad.client, '', ad.ad.created_at, 'ad')"
                 >
                   do it!
                 </button>
@@ -120,7 +145,9 @@
                 <button
                   data-background-color="blue"
                   class="btn btn-sm"
-                  @click="remove(ad.id, ad.client, '', ad.creation_date, 'ad')"
+                  @click="
+                    remove(ad.ad.id, ad.client, '', ad.ad.created_at, 'ad')
+                  "
                 >
                   remove
                 </button>
@@ -131,12 +158,12 @@
           <template slot="footer">
             <div class="stats">
               <md-icon>access_time</md-icon>
-              posted {{ ad.creation_date }} ago
+              posted {{ ad.ad.created_at }}
             </div>
           </template>
         </chart-card>
       </div>
-      <center
+      <!--      <center
         v-if="still_more_ads"
         class="md-layout-item md-medium-size-33 md-xsmall-size-100 md-size-33"
         style="margin-top:150px;"
@@ -144,10 +171,10 @@
         <button class="btn more">
           more
         </button>
-      </center>
+      </center>-->
     </div>
 
-  <modal
+    <modal
       name="Cancel"
       height="auto"
       :scrollable="true"
@@ -161,6 +188,7 @@
         :client="client"
         :worker="worker"
         :creation_date="creation_date"
+        check_worker_dashboard="yes"
         client_worker="worker"
         @hide="hide_remove"
         @delete_thing="deletee"
@@ -196,17 +224,15 @@
       width="350px"
       :adaptive="true"
     >
-      <Details type='worker' :post="post">
-      </Details>
+      <Details type="worker" :post="post"> </Details>
     </modal>
-
   </div>
 </template>
 
 <script>
 import { ChartCard } from "@/components";
-import  Cancel  from "../../components/Cancel.vue";
-import  Doit  from "../../components/Doit.vue";
+import Cancel from "../../components/Cancel.vue";
+import Doit from "../../components/Doit.vue";
 import Details from "../../components/Details.vue";
 import TitleFilterBar from "./TitleFilterBar.vue";
 
@@ -216,7 +242,7 @@ export default {
     Cancel,
     Doit,
     Details,
-    TitleFilterBar
+    TitleFilterBar,
   },
   data() {
     return {
@@ -228,109 +254,55 @@ export default {
       worker: "",
       creation_date: "",
       post: {},
-      tasks: [
-        {
-          id: "5",
-          name: "task 1",
-          category: "task category",
-          date: "task date",
-          place: "task place",
-          price: "2 $",
-          details:
-            "deeeeeeeeeeeeetaaaaaaaaaaillllllls deeeeeeeeeeeeetaaaaaaaaaaillllllls \n deeeeeeeeeeeeetaaaaaaaaaaillllllls deeeeeeeeeeeeetaaaaaaaaaaillllllls",
-          creation_date: " 2 minutes",
-        },
-        {
-          id: "4",
-          name: "task 1",
-          category: "task category",
-          date: "task date",
-          place: "task place",
-          price: "2 $",
-          details:
-            "deeeeeeeeeeeeetaaaaaaaaaaillllllls deeeeeeeeeeeeetaaaaaaaaaaillllllls \n deeeeeeeeeeeeetaaaaaaaaaaillllllls deeeeeeeeeeeeetaaaaaaaaaaillllllls",
-          creation_date: " 2 minutes",
-        },
-        {
-          id: "2",
-          name: "task 1",
-          category: "task category",
-          date: "task date",
-          place: "task place",
-          price: "2 $",
-          details: "deeeeeeeeeeeeetaaaaaaaaaaillllllls",
-          creation_date: " 2 minutes",
-        },
-        {
-          id: "3",
-          name: "task 1",
-          category: "task category",
-          date: "task date",
-          place: "task place",
-          price: "2 $",
-          details: "deeeeeeeeeeeeetaaaaaaaaaaillllllls",
-          creation_date: " 2 minutes",
-        },
-        {
-          id: "1",
-          name: "task 1",
-          category: "task category",
-          date: "task date",
-          place: "task place",
-          price: "2 $",
-          details: "deeeeeeeeeeeeetaaaaaaaaaaillllllls",
-          creation_date: " 2 minutes",
-        },
-      ],
-      ads: [
-        {
-          id: "2",
-          title: "ad 2",
-          price: "1 $",
-          place: "place hey",
-          date: " 12-12-2012",
-          details: "deeeeeeeeeeeeetaaaaaaaaaaillllllls",
-          creation_date: " 1 day",
-        },
-        {
-          id: "1",
-          title: "ad 1",
-          price: "1 $",
-          place: "place hey",
-          date: " 12-12-2012",
-          details: "deeeeeeeeeeeeetaaaaaaaaaaillllllls",
-          creation_date: " 1 day",
-        },
-      ],
+      tasks: [],
+      ads: [],
     };
   },
   mounted() {
     axios
-      .get("http://localhost/TaskMeBack/public/api/tasks/"+localStorage.id)
+      .get(
+        "http://localhost/TaskMeBack/public/api/posts_by_user/" +
+          localStorage.id
+      )
       .then((response) => (this.tasks = response["data"]["data"]));
+
     axios
-      .get("http://localhost/TaskMeBack/public/api/ads/"+localStorage.id)
-      .then((response) => (this.ads = response["data"]["data"]));
+      .get("http://localhost/TaskMeBack/public/api/getUser/" + localStorage.id)
+      .then((response) => {
+        console.log(response["data"]["data"]["country"]);
+        axios
+          .get(
+            "http://localhost/TaskMeBack/public/api/ads_by_city/" +
+              response["data"]["data"]["city"]
+          )
+          .then((rsp) => {
+            this.ads = rsp["data"]["data"];
+          });
+      });
   },
-  methods:{
-    viewPost(
-      id,
-      title,
-      category,
-      price,
-      date,
-      place,
-      details,
-    ) {
-      this.post = {
-        id: id,
-        title: title,
-        category: category,
-        price: price,
-        date: date,
-        place: place,
-        details: details,
-      };
+  methods: {
+    viewPost(id, title, category, price, date, place, details, client) {
+      console.log(client)
+      axios
+        .get("http://localhost/TaskMeBack/public/api/getUser/" + client)
+        .then((response) => {
+          this.post = {
+            id: id,
+            title: title,
+            category: category,
+            price: price,
+            date: date,
+            place: place,
+            details: details,
+            client_name:
+              response["data"]["data"]["lastname"] +
+              " " +
+              response["data"]["data"]["firstname"],
+            client_id: response["data"]["data"]["info"]["cin"],
+            client_phone: "" + response["data"]["data"]["info"]["phone_number"],
+          };
+        });
+
       this.$modal.show("View");
     },
     remove(id, client, worker, creation_date, post_type) {
@@ -357,16 +329,24 @@ export default {
     hide_doit() {
       this.$modal.hide("Doit");
     },
-    deletee(id,type){
-      var tt=type+'s';
-      for( var i = 0; i < this[tt].length; i++){ 
-        if ( this[tt][i].id === id) {
-          this[tt].splice(i, 1); 
+    deletee(id, type) {
+      var tt = type + "s";
+      for (var i = 0; i < this[tt].length; i++) {
+        if(type == 'ad'){
+          if (this[tt][i].ad.id === id) {
+          this[tt].splice(i, 1);
+          }
+        }
+        else{
+          if (this[tt][i].id === id) {
+          this[tt].splice(i, 1);
+          }
         }
       }
     },
   },
-  created(){/*
+  created() {
+    /*
     if (!this.$session.exists() || localStorage.type=="client") {
       this.$router.push('/')
     }*/
@@ -375,7 +355,6 @@ export default {
 </script>
 
 <style scoped>
-
 hr {
   border: 1px dashed rgb(202, 201, 201);
   margin: 0px;
@@ -409,11 +388,9 @@ button {
   padding: 1px 5px 1px 5px;
   margin: 5px;
 }
-.more{
+.more {
   border: 1px solid darkslategray;
   color: darkslategray;
-text-align: center;
-  
+  text-align: center;
 }
-
 </style>

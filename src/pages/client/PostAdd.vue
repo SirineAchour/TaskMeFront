@@ -277,6 +277,7 @@ if (country == "") {
               street: this.street.trim(),
               house_number: this.house_number.trim(),
               price: price,
+              title: this.title
             }
             ),
             {
@@ -284,7 +285,9 @@ if (country == "") {
                 "Content-Type": "application/json"
               }
             }
-          )
+          ).then((response)=>{
+            this.$router.push("/" + localStorage.type);
+          })
           .catch(function(error) {
             console.log(error);
           });

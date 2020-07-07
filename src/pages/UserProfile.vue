@@ -31,22 +31,23 @@
               </md-field>
             </div>
 
-            <div v-if="this.type=='worker'" class="md-layout-item md-small-size-100 md-size-50">
+            <div class="md-layout-item md-small-size-100 md-size-50">
             <md-field>
-                <label>Country: {{ user.country }}</label>
-                <md-input type="text" v-model="country"></md-input>
+                <label>Country: </label>
+                <md-input type="text" v-model="user.country"></md-input>
               </md-field>
           </div>
-          <div v-if="this.type=='worker'" class="md-layout-item md-small-size-100 md-size-50">
+          <div class="md-layout-item md-small-size-100 md-size-50">
             <md-field>
-                <label>City: {{ user.city }}</label>
-                <md-input type="text" v-model="city"></md-input>
+                <label>City:</label>
+                <md-input type="text" v-model="user.city"></md-input>
               </md-field>
           </div>
             <div class="md-layout-item md-small-size-100 md-size-50">
               <md-field>
                 <label>Email Address</label>
                 <md-input
+                disabled
                   v-model="email_update"
                   type="email"
                   :placeholder="user.email"
@@ -68,10 +69,10 @@
               Phone :
             </div>
             <div class="md-layout-item md-small-size-80 md-size-80 stuff">
-              <vue-tel-input :placeholder="user.phone" v-model="tel_update">
+              <vue-tel-input :placeholder="user.phone" v-model="user.phone">
               </vue-tel-input>
             </div>
-
+<!--
             <div class="md-layout-item md-small-size-100 md-size-100 stuff">
               <label
                 for="dob_client"
@@ -80,7 +81,7 @@
                 >Birth date :</label
               >
               <input id="dob_client" type="date" :value="user.birthday" />
-            </div>
+            </div>-->
             <div class="md-layout-item md-small-size-100 md-size-67">
               <span style="margin-right:20px;" class="padd">Gender : </span>
               <label
@@ -164,9 +165,9 @@
     <div class="md-layout-item md-medium-size-30 md-xsmall-size-100 md-size-30">
       <br />
       <md-card class="md-card-profile">
-        <div class="md-card-avatar">
+<!--        <div class="md-card-avatar">
           <img class="img" :src="user.cardUserImage" />
-        </div>
+        </div>-->
 
         <md-card-content>
           <h6
@@ -213,38 +214,27 @@ export default {
       password_update: "",
       tel_update: "",
       birthday_update: "",
-      user: {
-        cardUserImage: require("@/assets/img/faces/marc.jpg"),
-        rating: "3",
-        prenom: "Name",
-        nom: "Lastname",
-        verified: true,
-        cin: "12556321",
-        email: "",
-        phone: "12345678",
-        birthday: "1998-12-03",
-        city : "",
-        country : "",
-      },
+      user: {},
     };
   },
   mounted() {
     axios
-      .get("http://localhost/TaskMeBack/public/api/user" + localStorage.id)
-      .then((response) => (this.user = response["data"]["data"]));
-    this.nom = "Lastname";
-    this.prenom = "Firstname";
-    this.verified = "true";
-    this.cin = "125456321";
-    this.rating = "3";
-    this.cardUserImage = require("@/assets/img/faces/marc.jpg");
-    this.email = "emaiiil@email.email";
-    this.phone = "87654321";
-    this.birthday = "1998-12-03"; 
-    this.country="";
-    this.city="";
-    var gender = "male";
-    document.getElementById(gender + "_client_edit").checked = true;
+      .get("http://localhost/TaskMeBack/public/api/getUser/" + localStorage.id)
+      .then((response) => {
+        this.user = {
+        rating: response["data"]["data"]["info"]["rating"],
+        prenom: response["data"]["data"]["firstname"],
+        nom: response["data"]["data"]["lastname"],
+        verified: response["data"]["data"]["info"]["verified"],
+        cin: response["data"]["data"]["info"]["cin"],
+        email: response["data"]["data"]["email"],
+        phone: ""+response["data"]["data"]["info"]["phone_number"],
+        birthday: response["data"]["data"]["birth_date"],
+        city : response["data"]["data"]["city"],
+        country : response["data"]["data"]["country"],
+      }
+        });
+    //document.getElementById(gender + "_client_edit").checked = true;
     this.type=localStorage.type;
     if(this.type=="worker"){
     axios
@@ -269,15 +259,23 @@ export default {
       else gender = "other";
       var update_info = {
         id: localStorage.id,
-        email: this.email_update,
-        password: this.password_update,
-        phone: this.tel_update,
-        birthday: this.birthday_update,
+        phone_number: parseInt(this.user.phone),
+        country: this.user.country,
+        city: this.user.city,
+        gender: gender,
       };
+      console.log(update_info)
       axios.post(
-        "http://localhost/TaskMeBack/public/api/user_update/" + localStorage.id,
-        this.user
-      );
+        "http://localhost/TaskMeBack/public/api/modifyUser",
+        JSON.stringify(update_info),
+        {
+              headers: {
+                "Content-Type": "application/json",
+              }
+        }
+      ).then((response)=>{
+        this.$router.push("/" + localStorage.type);
+      });
     },
   },
   created(){

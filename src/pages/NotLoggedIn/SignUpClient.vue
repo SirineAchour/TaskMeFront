@@ -69,6 +69,18 @@
             >
           </md-field>
         </div>
+        <div class="md-layout-item md-small-size-100 md-size-50">
+          <md-field>
+            <label>Country</label>
+            <md-input type="text" required v-model="country"></md-input>
+          </md-field>
+        </div>
+        <div class="md-layout-item md-small-size-100 md-size-50">
+          <md-field>
+            <label>City</label>
+            <md-input type="text" required v-model="city"></md-input>
+          </md-field>
+        </div>
         <div class="md-layout-item md-small-size-100 md-size-100">
           <md-field>
             <label>Password</label>
@@ -184,9 +196,14 @@ export default {
       check_valid_password: true,
       pass: "",
       con_pass: "",
+      country:"",
+      city: ""
     };
   },
   methods: {
+    onFileChange(){
+      console.log(this.idkurl);
+    },
     valid_mail(e) {
       var mail = e.target.value;
       var mail_input = document.getElementById("mail");
@@ -241,7 +258,8 @@ export default {
           cin: this.id.toString(), //
           phone_number: this.phone, //
           gender: gender, //
-          country: "test_country"
+          country: this.country,
+          city: this.city,
         };
         console.log(client);
         var this_var = this;

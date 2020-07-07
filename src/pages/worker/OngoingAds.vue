@@ -15,7 +15,7 @@
         <chart-card>
           <template slot="content">
             <center class="title">
-              <h3><md-icon> local_play </md-icon> {{ ad.ad.name }}</h3>
+              <h3><md-icon> local_play </md-icon> {{ ad.ad.title }}</h3>
             </center>
             <center class="category">
               <h4>{{ ad.ad.price }}</h4>
@@ -33,18 +33,16 @@
                     '',
                     ad.ad.price,
                     ad.ad.date,
-                    ad.address.country+', '+ad.address.city+', '+ad.address.streen+', '+ad.address.postal_code+', '+ad.address.house_number,
+                    ad.address.country+', '+ad.address.city+', '+ad.address.street+', '+ad.address.postal_code+', '+ad.address.house_number,
                     ad.ad.description,
-                    '',//ad.client.client_name,
-                    '',//ad.client.client_id,
-                    '',//ad.client.client_phone
+                    ad.ad.client_id
                   )
                 "/>
               <br /><br />
               <button
                 data-background-color="red"
                 class="btn btn-sm"
-                @click="done(ad.id, 'ad')"
+                @click="done(ad.ad.id, ad.ad.client_id, 'ad')"
               >
                 done
               </button>
@@ -96,6 +94,7 @@
         v-on:hide="hide_done"
         :id="id"
         :type="post_type"
+        :client="client_id"
         :client_worker="client"
         color="#ed2f75"
       ></done>
@@ -175,12 +174,13 @@ export default {
       post_type: "",
       id: "",
       creation_date:"",
+      client_id :"",
       post :{},
       ads: [],
     };
   },
   created(){
-    axios.get('http://localhost/TaskMeBack/public/api/ads_by_user/'+localStorage.id)
+    axios.get('http://localhost/TaskMeBack/public/api/ads_user_current/'+localStorage.id)
     .then((response) => {
       this.ads = response["data"]["data"];
       });
@@ -194,10 +194,12 @@ export default {
       date,
       place,
       details,
-      name,
-      cin,
-      phone
+      client
     ) {
+      console.log(client)
+      axios
+        .get("http://localhost/TaskMeBack/public/api/getUser/" + client)
+        .then((response) => {
       this.post = {
         id: id,
         title: title,
@@ -206,14 +208,20 @@ export default {
         date: date,
         place: place,
         details: details,
-        client_name: name,
-        client_id: cin,
-        client_phone: phone,
+        client_name:
+              response["data"]["data"]["lastname"] +
+              " " +
+              response["data"]["data"]["firstname"],
+            client_id: response["data"]["data"]["info"]["cin"],
+            client_phone: "" + response["data"]["data"]["info"]["phone_number"],
       };
+        });
       this.$modal.show("View");
     },
-    done(id, type) {
+    done(id, client, type) {
+      console.log(id)
       this.id = id;
+      this.client_id=client;
       this.post_type = type;
       this.$modal.show("Done");
     },

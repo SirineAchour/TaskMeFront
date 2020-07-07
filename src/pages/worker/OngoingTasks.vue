@@ -190,7 +190,7 @@ export default {
   created() {
     axios
       .get(
-        "http://localhost/TaskMeBack/public/api/posts_by_user/" +
+        "http://localhost/TaskMeBack/public/api/posts_user_current/" +
           localStorage.id
       )
       .then((response) => {

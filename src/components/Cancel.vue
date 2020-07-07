@@ -49,9 +49,15 @@ export default {
       type: String,
       default: "#337ab7",
     },
+    check_worker_dashboard: {
+      type: String,
+      default: ""
+    }
   },
   methods: {
     yess() {
+      
+      if(this.check_worker_dashboard!="yes"){
       var info = {
         id: this.id,
         state: 2,
@@ -63,6 +69,11 @@ export default {
     
       if(localStorage.type== "worker"){
           info.state = 0;
+          if(this.post=='ad'){
+          axios.get("http://localhost/TaskMeBack/public/api/deleteAdWorker/"+info.id)
+          }else{
+            axios.get("http://localhost/TaskMeBack/public/api/deletePostWorker/"+info.id)
+          }
       }
       axios.post(
             url,
@@ -72,9 +83,12 @@ export default {
                 "Content-Type": "application/json",
               }
             }
-          );
+          );}
       this.$emit("delete_thing", this.id, this.post);
       this.hide();
+      if(localStorage.type=="worker"){
+         location.reload(); 
+      }
     },
     hide() {
       this.$emit("hide");
