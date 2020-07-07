@@ -10,34 +10,34 @@
       <div
         class="md-layout-item md-medium-size-50 md-xsmall-size-100 md-size-30"
         v-for="ad in ads"
-        :key="ad.id"
+        :key="ad.ad.id"
       >
         <chart-card>
           <template slot="content">
             <center class="title">
-              <h3><md-icon> local_play </md-icon> {{ ad.name }}</h3>
+              <h3><md-icon> local_play </md-icon> {{ ad.ad.name }}</h3>
             </center>
             <center class="category">
-              <h4>{{ ad.price }}</h4>
+              <h4>{{ ad.ad.price }}</h4>
 
-              {{ ad.date }} <br />
-              {{ ad.place }} <br />
+              {{ ad.ad.date }} <br />
+              {{ad.address.country}}, {{ad.address.city}}, {{ad.address.street}}, {{ad.address.postal_code}}, {{ad.address.house_number}} <br />
               <input
                 type="button"
                 value="view details"
                 class="btn color-me btn-sm"
                 @click="
                   viewPost(
-                    ad.id,
-                    ad.title,
+                    ad.ad.id,
+                    ad.ad.title,
                     '',
-                    ad.price,
-                    ad.date,
-                    ad.place,
-                    ad.details,
-                    ad.client_name,
-                    ad.client_id,
-                    ad.client_phone
+                    ad.ad.price,
+                    ad.ad.date,
+                    ad.address.country+', '+ad.address.city+', '+ad.address.streen+', '+ad.address.postal_code+', '+ad.address.house_number,
+                    ad.ad.description,
+                    '',//ad.client.client_name,
+                    '',//ad.client.client_id,
+                    '',//ad.client.client_phone
                   )
                 "/>
               <br /><br />
@@ -53,7 +53,7 @@
                 data-background-color="red"
                 class="btn btn-sm"
                 @click="
-                  report(ad.id, ad.client, ad.worker, ad.creation_date, 'ad')
+                  report(ad.ad.id, '', '', ad.ad.creation_date, 'ad')
                 "
               >
                 report
@@ -62,7 +62,7 @@
               <button
                 data-background-color="red"
                 class="btn btn-sm"
-                @click="cancel(ad.id, 'ad')"
+                @click="cancel(ad.ad.id, 'ad')"
               >
                 cancel
               </button>
@@ -72,7 +72,7 @@
           <template slot="footer">
             <div class="stats">
               <md-icon>access_time</md-icon>
-              posted {{ ad.creation_date }} ago
+              posted {{ ad.ad.creation_date }} ago
             </div>
           </template>
         </chart-card>
@@ -176,49 +176,14 @@ export default {
       id: "",
       creation_date:"",
       post :{},
-      ads: [
-        {
-          id: "2",
-          title: "ad 2",
-          price: "1 $",
-          place: "place hey",
-          date: " 12-12-2012",
-          details: "deeeeeeeeeeeeetaaaaaaaaaaillllllls",
-          creation_date: " 1 day",
-          client_name: "hey hi",
-          client_id: "1535",
-          client_phone: "9999999",
-        },
-        {
-          id: "1",
-          title: "ad 1",
-          price: "1 $",
-          place: "place hey",
-          date: " 12-12-2012",
-          details: "deeeeeeeeeeeeetaaaaaaaaaaillllllls",
-          creation_date: " 1 day",
-          client_name: "hey hi",
-          client_id: "1535",
-          client_phone: "9999999",
-        },
-      ],
+      ads: [],
     };
   },
-  mounted() {
-    /* var id=""   // idk how this is gonna work yet 
-    axios
-          .get('http://localhost/TaskMeBack/public/api/tasks'+id)
-          .then(response => (this.tasks = response["data"]["data"]))
-    axios
-          .get('http://localhost/TaskMeBack/public/api/ads'+id) //mafammech l route
-          .then(response => (this.ads = response["data"]["data"]))*/
-
-    
-  },
-  created(){/*
-    if (!this.$session.exists() || localStorage.type=="client") {
-      this.$router.push('/')
-    }*/
+  created(){
+    axios.get('http://localhost/TaskMeBack/public/api/ads_by_user/'+localStorage.id)
+    .then((response) => {
+      this.ads = response["data"]["data"];
+      });
   },
   methods: {
     viewPost(

@@ -60,17 +60,26 @@
             <center>
               <br />
               <button
+                v-if="task.worker_found"
                 data-background-color="blue"
                 class="btn btn-sm"
                 @click="
                   done(
                     task.id,
                     task.client,
-                    task.worker,
+                    task.worker_id,
                     task.creation_date,
                     'task'
                   )
                 "
+              >
+                done
+              </button>
+              <button
+                v-else
+                disabled
+                data-background-color="blue"
+                class="btn btn-sm"
               >
                 done
               </button>
@@ -80,8 +89,8 @@
                 @click="
                   report(
                     task.id,
-                    task.client,
-                    task.worker,
+                    '',
+                    '',
                     task.creation_date,
                     'task'
                   )
@@ -110,7 +119,7 @@
           <template slot="footer">
             <span class="stats">
               <md-icon>access_time</md-icon>
-              created {{ task.creation_date }} ago
+              created {{ task.creation_date }} 
             </span>
           </template>
         </chart-card>
@@ -128,39 +137,61 @@
       <div
         class="md-layout-item md-medium-size-33 md-xsmall-size-100 md-size-33"
         v-for="ad in ads"
-        :key="ad.id"
+        :key="ad.ad.id"
       >
         <chart-card>
           <template slot="content">
             <center class="title">
-              <h3><md-icon> local_play </md-icon> {{ ad.title }}</h3>
+              <h3><md-icon> local_play </md-icon> {{ ad.ad.title }}</h3>
             </center>
             <center class="category">
-              <h4>{{ ad.price }}</h4>
+              <h4>{{ ad.ad.price }}</h4>
 
-              {{ ad.date }} <br />
-              {{ ad.place }} <br />
+              {{ ad.ad.date }} <br />
+              {{ad.address.country}}, {{ad.address.city}}, {{ad.address.street}}, {{ad.address.postal_code}}, {{ad.address.house_number}} <br />
               <input
+                v-if="ad.worker != undefined"
                 type="button"
                 value="view details"
                 class="btn color-me btn-sm"
                 @click="
                   viewPost(
-                    ad.id,
-                    ad.title,
+                    ad.ad.id,
+                    '',//ad.ad.title,
                     '',
-                    ad.price,
-                    ad.date,
-                    ad.place,
-                    ad.details,
-                    ad.worker_found,
-                    ad.worker_name,
-                    ad.worker_id,
-                    ad.worker_phone
+                    ad.ad.price,
+                    ad.ad.date,
+                    ad.address.country+', '+ad.address.city+', '+ad.address.streen+', '+ad.address.postal_code+', '+ad.address.house_number,
+                    ad.ad.description,
+                    ad.ad.worker_found,
+                    ad.worker.worker_name,
+                    ad.worker.worker_id,
+                    ad.worker.worker_phone
+
                   )
-                "
-              /><br />
-              <div v-if="ad.worker_found" class="worker_found">
+                "/>
+                <input
+                v-else
+                type="button"
+                value="view details"
+                class="btn color-me btn-sm"
+                @click="
+                  viewPost(
+                    ad.ad.id,
+                    '',//ad.ad.title,
+                    '',
+                    ad.ad.price,
+                    ad.ad.date,
+                    ad.address.country+', '+ad.address.city+', '+ad.address.streen+', '+ad.address.postal_code+', '+ad.address.house_number,
+                    ad.ad.description,
+                    ad.ad.worker_found,
+                    '',
+                    '',
+                    ''
+                  )
+                "/>
+                <br />
+              <div v-if="ad.ad.worker_found" class="worker_found">
                 <i class=" fas fa-exclamation-circle fa-sm worker_found"></i>
                 worker found
               </div>
@@ -172,32 +203,38 @@
               </div>
               <br />
               <button
+              v-if="ad.worker != undefined"
+                data-background-color="blue"
+                class="btn btn-sm"
+                @click="done(ad.ad.id, '', ad.worker.worker_id, ad.ad.creation_date, 'ad')"
+              >
+                done
+              </button>
+              <button
+                v-else
+                disabled
+                data-background-color="blue"
+                class="btn btn-sm"
+                
+              >
+                done
+              </button>
+              <button
                 data-background-color="blue"
                 class="btn btn-sm"
                 @click="
-                  done(ad.id, ad.client, ad.worker, ad.creation_date, 'ad')
+                  report(ad.ad.id, ''/*ad.client*/, ''/*ad.worker*/, ad.ad.creation_date, 'ad')
                 "
               >
-                done
+                report
               </button>
 
               <button
                 data-background-color="blue"
                 class="btn btn-sm"
-                @click="
-                  report(ad.id, ad.client, ad.worker, ad.creation_date, 'ad')
-                "
+                @click="cancel(ad.ad.id, ''/*ad.client*/, ''/*ad.worker*/, ad.ad.creation_date, 'ad')"
               >
-                report
-              </button>
-              <button
-                data-background-color="blue"
-                class="btn btn-sm"
-                @click="
-                  cancel(ad.id, ad.client, ad.worker, ad.creation_date, 'ad')
-                "
-              >
-                delete
+                cancel
               </button>
             </center>
           </template>
@@ -205,7 +242,7 @@
           <template slot="footer">
             <div class="stats">
               <md-icon>access_time</md-icon>
-              posted {{ ad.creation_date }} ago
+              posted {{ ad.ad.creation_date }}
             </div>
           </template>
         </chart-card>
@@ -249,7 +286,7 @@
         :creation_date="creation_date"
         client_worker="client"
         @hide="hide_cancel"
-        @delete_thing="deletee"
+        @delete_thing="donee"
       >
       </cancel>
     </modal>
@@ -300,7 +337,7 @@ export default {
     Done,
     Cancel,
     Report,
-    Details
+    Details,
   },
 
   data() {
@@ -311,148 +348,70 @@ export default {
       worker: "",
       creation_date: "",
       post: {},
-      tasks: [
-      /*  {
-          id: "4",
-          name: "task 1",
-          category: "task category",
-          date: "task date",
-          place: "task place",
-          price: "2 $",
-          details:
-            "deeeeeeeeeeeeetaaaaaaaaaaillllllls deeeeeeeeeeeeetaaaaaaaaaaillllllls \n deeeeeeeeeeeeetaaaaaaaaaaillllllls deeeeeeeeeeeeetaaaaaaaaaaillllllls",
-          creation_date: " 2 minutes",
-          worker_found: true,
-          worker_name: "worker name",
-          worker_id: "123123",
-          worker_phone: "9999999",
-        },
-        {
-          id: "2",
-          name: "task 1",
-          category: "task category",
-          date: "task date",
-          place: "task place",
-          price: "2 $",
-          details: "deeeeeeeeeeeeetaaaaaaaaaaillllllls",
-          creation_date: " 2 minutes",
-          worker_found: true,
-          worker_name: "worker name",
-          worker_id: "123123",
-          worker_phone: "9999999",
-        },
-        {
-          id: "3",
-          name: "task 1",
-          category: "task category",
-          date: "task date",
-          place: "task place",
-          price: "2 $",
-          details: "deeeeeeeeeeeeetaaaaaaaaaaillllllls",
-          creation_date: " 2 minutes",
-          worker_found: true,
-          worker_name: "worker name",
-          worker_id: "123123",
-          worker_phone: "9999999",
-        },
-        {
-          id: "1",
-          name: "task 1",
-          category: "task category",
-          date: "task date",
-          place: "task place",
-          price: "2 $",
-          details: "deeeeeeeeeeeeetaaaaaaaaaaillllllls",
-          creation_date: " 2 minutes",
-          worker_found: true,
-          worker_name: "worker name",
-          worker_id: "123123",
-          worker_phone: "9999999",
-        },*/
-      ],
-      ads: [
-        /*{
-          id: "2",
-          title: "ad 2",
-          price: "1 $",
-          place: "place hey",
-          date: " 12-12-2012",
-          details: "deeeeeeeeeeeeetaaaaaaaaaaillllllls",
-          creation_date: " 1 day",
-          worker_found: false,
-          worker_name: "worker name",
-          worker_id: "123123",
-          worker_phone: "9999999",
-        },
-        {
-          id: "1",
-          title: "ad 1",
-          price: "1 $",
-          place: "place hey",
-          date: " 12-12-2012",
-          details: "deeeeeeeeeeeeetaaaaaaaaaaillllllls",
-          creation_date: " 1 day",
-          worker_found: false,
-          worker_name: "worker name",
-          worker_id: "123123",
-          worker_phone: "9999999",
-        },*/
-      ],
+      tasks: [],
+      ads: [],
     };
   },
-  created() {
-    if (localStorage.id=="" || localStorage.type == "worker") {
+  mounted() {
+    if (localStorage.id == "" || localStorage.type == "worker") {
       this.$router.push("/");
-
     }
     axios
       .get(
-        "http://localhost/TaskMeBack/public/api/posts_by_user/" + localStorage.id
+        "http://localhost/TaskMeBack/public/api/posts_user_current/" +
+          localStorage.id
       )
       .then((response) => {
-        response["data"]["data"].forEach(post => {
+        response["data"]["data"].forEach((post) => {
           axios
             .get(
-              "http://localhost/TaskMeBack/public/api/task/" + post["task_id"]
+              "http://localhost/TaskMeBack/public/api/task/" + post["post"]["task_id"]
             )
             .then((rps) => {
-var ta = {
-                    "id": post["id"],
-                    "name": rps["data"]["data"]["subject"],
-                    "category" : rps["data"]["data"]["categories"]["name"],
-                    "price": "2 $$",//post["price"],
-                    "date" : post["date"],
-                    "place" : post["address_id"],
-                    "description" :  post["description"],
-                    "worker_found" : post["worker_found"],
-                    "worker_name" : "",
-                    "worker_id" : post["worker_id"],
-                    "worker_phone" : "",
-                    "creation_date" : post["created_at"]
-          };
-          this.tasks.push(
-            ta
-          )
-          });
+              if(post["worker"] == undefined){
+                post["worker"] = {
+                  worker_name: "",
+                  worker_id: "",
+                  worker_number : "",
+                }
+              }
+              var ta = {
+                id: post["post"]["id"],
+                name: rps["data"]["data"]["subject"],
+                category: rps["data"]["data"]["categories"]["name"],
+                price: post["post"]["price"]+"$",
+                date: post["post"]["date"],
+                client: localStorage,
+                place: post["address"]["country"]+", "+post["address"]["city"]+", "+post["address"]["street"]+", "+post["address"]["postal_code"]+", "+post["address"]["house_number"],
+                description: post["post"]["description"],
+                worker_found: post["post"]["worker_found"],
+                worker_name: post["worker"]["worker_name"],
+                worker_id: post["worker"]["worker_id"],
+                worker_phone: post["worker"]["worker_number"],
+                creation_date: post["post"]["created_at"],
+                state: post["post"]["state"]
+              };
+              this.tasks.push(ta);
+            });
         });
       });
     axios
       .get(
-        "http://localhost/TaskMeBack/public/api/ads_by_user/" + localStorage.id
+        "http://localhost/TaskMeBack/public/api/ads_user_current/" +
+          localStorage.id
       )
       .then((response) => {
-        console.log("ads :");
         this.ads = response["data"]["data"];
       })
-      .catch((error)=>{
-        console.log("in error")
+      .catch((error) => {
+        alert("Something went Wrong");
       });
   },
   methods: {
     done(id, client, worker, creation_date, post_type) {
       this.id = id;
       this.post_type = post_type;
-      this.client = client;
+      this.client = localStorage.id;
       this.worker = worker;
       this.creation_date = creation_date;
       this.$modal.show("Done");
@@ -512,19 +471,18 @@ var ta = {
     hide_report() {
       this.$modal.hide("Report");
     },
-    deletee(id, type) {
-      var tt = type + "s";
-      for (var i = 0; i < this[tt].length; i++) {
-        if (this[tt][i].id === id) {
-          this[tt].splice(i, 1);
-        }
-      }
-    },
     donee(id, type) {
       var tt = type + "s";
       for (var i = 0; i < this[tt].length; i++) {
-        if (this[tt][i].id === id) {
+        if(type == 'ad'){
+          if (this[tt][i].ad.id === id) {
           this[tt].splice(i, 1);
+          }
+        }
+        else{
+          if (this[tt][i].id === id) {
+          this[tt].splice(i, 1);
+          }
         }
       }
     },

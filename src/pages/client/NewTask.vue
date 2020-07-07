@@ -61,7 +61,7 @@
               <md-field>
                 <label>Date</label>
                 <md-input type="text" class="padd" v-model="date"></md-input>
-                <span class="md-helper-text">dd-mm-yyyy</span>
+                <span class="md-helper-text">yyyy-mm-dd</span>
               </md-field>
               <div class="invalid-feedback">
                 <i
@@ -270,30 +270,28 @@ export default {
         var desc = document.getElementsByClassName("txtarea")[0].value;
         var pp = {
               task_id: this.selected_task_id, // task number in list
-              client_id: localStorage.id,
+              client_id: parseInt(localStorage.id),
               date: this.date,
               description: desc,
               country: this.country.trim(),
               city: this.city.trim(),
-              postal_code: this.postal_code.trim(),
+              postal_code: parseInt(this.postal_code.trim()),
               street: this.street.trim(),
-              house_number: this.house_number.trim(),
-              price: this.pay.trim()
+              house_number: parseInt(this.house_number.trim()),
+              price: parseInt(this.pay.trim())
             };
         console.log(pp)
         axios
           .post(
             "http://localhost/TaskMeBack/public/api/post",
             JSON.stringify(
-              pp,
+              pp),
             {
               headers: {
-                "Content-Type": "application/json",
-                "Access-Control-Allow-Headers": "Content-Type, X-Auth-Token, Origin",
-                "Access-Control-Allow-Origin": "*"
-              },
+                "Content-Type": "application/json"
+              }
             }
-            )
+            
           )
           .catch(function(error) {
             console.log(error);

@@ -156,6 +156,7 @@ export default {
       localStorage.id="";
       localStorage.type="";
       localStorage.api_token="";
+      axios.post("http://localhost/TaskMeBack/public/api/logout");
       this.$router.push("/" );
     }
   },

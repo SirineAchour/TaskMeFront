@@ -45,11 +45,11 @@
                 &nbsp;Please specify the payment.
               </div>
             </div>
-            <div class="md-layout-item md-small-size-50 md-size-50">
+            <div class="md-layout-item md-small-size-33 md-size-33 ">
               <md-field>
                 <label>Date</label>
                 <md-input type="text" class="padd" v-model="date"></md-input>
-                <span class="md-helper-text">dd-mm-yyyy</span>
+                <span class="md-helper-text">yyyy-mm-dd</span>
               </md-field>
               <div class="invalid-feedback">
                 <i
@@ -59,18 +59,66 @@
                 &nbsp;Please specify a date.
               </div>
             </div>
-            <div class="md-layout-item md-small-size-50 md-size-50">
+            <div class="md-layout-item md-small-size-33 md-size-33">
               <md-field>
-                <label>Place</label>
-                <md-input type="text" class="padd" v-model="price"></md-input>
+                <label>Country</label>
+                <md-input type="text" class="padd" v-model="country"></md-input>
               </md-field>
               <div class="invalid-feedback">
                 <i
                   class="fas fa-exclamation-triangle fa-xs"
                   style="color : rgba(223, 1, 1, 0.781);"
                 ></i>
-                &nbsp;Please specify a place.
+                &nbsp;Please specify a country.
               </div>
+            </div>
+            <div class="md-layout-item md-small-size-33 md-size-33">
+              <md-field>
+                <label>City</label>
+                <md-input type="text" class="padd" v-model="city"></md-input>
+              </md-field>
+              <div class="invalid-feedback">
+                <i
+                  class="fas fa-exclamation-triangle fa-xs"
+                  style="color : rgba(223, 1, 1, 0.781);"
+                ></i>
+                &nbsp;Please specify a city.
+              </div>
+            </div>
+
+            <div class="md-layout-item md-small-size-33 md-size-33">
+              <md-field>
+                <label>Street</label>
+                <md-input type="text" class="padd" v-model="street"></md-input>
+              </md-field>
+              <div class="invalid-feedback">
+                <i
+                  class="fas fa-exclamation-triangle fa-xs"
+                  style="color : rgba(223, 1, 1, 0.781);"
+                ></i>
+                &nbsp;Please specify a street.
+              </div>
+            </div>
+
+            <div class="md-layout-item md-small-size-33 md-size-33">
+              <md-field>
+                <label>Postal Code </label>
+                <md-input type="text" class="padd" v-model="postal_code"></md-input>
+              </md-field>
+              <div class="invalid-feedback">
+                <i
+                  class="fas fa-exclamation-triangle fa-xs"
+                  style="color : rgba(223, 1, 1, 0.781);"
+                ></i>
+                &nbsp;Please specify a postal code.
+              </div>
+            </div>
+
+            <div class="md-layout-item md-small-size-33 md-size-33">
+              <md-field>
+                <label>House Number </label>
+                <md-input type="text" class="padd" v-model="house_number"></md-input>
+              </md-field>
             </div>
 
             <div class="md-layout-item md-small-size-100 md-size-100">
@@ -114,7 +162,11 @@ export default {
   data() {
     return {
       date: "",
-      place: "",
+      country: "",
+      city : "",
+      street : "",
+      house_number : "",
+      postal_code : "",
       price: "",
       title: "",
     };
@@ -128,17 +180,53 @@ export default {
   methods: {
     post() {
       var date = this.date.trim();
-      var place = this.place.trim();
+      var country = this.country.trim();
+      var city = this.city.trim();
+      var postal_code = this.postal_code.trim();
+      var street = this.street.trim();
       var price = this.price.trim();
       var title = this.title.trim();
       var ok = true;
-      if (place == "") {
+if (country == "") {
         document.getElementsByClassName("invalid-feedback")[3].style[
           "display"
         ] = "block";
         ok = false;
       } else {
         document.getElementsByClassName("invalid-feedback")[3].style[
+          "display"
+        ] = "none";
+      }
+
+      if (city == "") {
+        document.getElementsByClassName("invalid-feedback")[4].style[
+          "display"
+        ] = "block";
+        ok = false;
+      } else {
+        document.getElementsByClassName("invalid-feedback")[4].style[
+          "display"
+        ] = "none";
+      }
+
+      if (postal_code == "") {
+        document.getElementsByClassName("invalid-feedback")[5].style[
+          "display"
+        ] = "block";
+        ok = false;
+      } else {
+        document.getElementsByClassName("invalid-feedback")[5].style[
+          "display"
+        ] = "none";
+      }
+
+      if (street == "") {
+        document.getElementsByClassName("invalid-feedback")[6].style[
+          "display"
+        ] = "block";
+        ok = false;
+      } else {
+        document.getElementsByClassName("invalid-feedback")[6].style[
           "display"
         ] = "none";
       }
@@ -182,10 +270,20 @@ export default {
             JSON.stringify({
               client_id: localStorage.id,
               date: date,
-              details: document.getElementsByClassName("txtarea")[0].value,
-              address_id: place,
+              description: document.getElementsByClassName("txtarea")[0].value,
+              country: this.country.trim(),
+              city: this.city.trim(),
+              postal_code: this.postal_code.trim(),
+              street: this.street.trim(),
+              house_number: this.house_number.trim(),
               price: price,
-            })
+            }
+            ),
+            {
+              headers: {
+                "Content-Type": "application/json"
+              }
+            }
           )
           .catch(function(error) {
             console.log(error);

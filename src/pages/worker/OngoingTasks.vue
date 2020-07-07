@@ -36,7 +36,7 @@
                     task.price,
                     task.date,
                     task.place,
-                    task.details,
+                    task.description,
                     task.client_name,
                     task.client_id,
                     task.client_phone
@@ -57,8 +57,8 @@
                 @click="
                   report(
                     task.id,
-                    task.client,
-                    task.worker,
+                    '',
+                    '',
                     task.creation_date,
                     'task'
                   )
@@ -184,48 +184,41 @@ export default {
       id: "",
       creation_date: "",
       post: {},
-      tasks: [
-        {
-          id: "1",
-          name: "task 1",
-          category: "task category",
-          date: "task date",
-          place: "task place",
-          price: "2 $",
-          details: "deeeeeeeeeeeeetaaaaaaaaaaillllllls",
-          creation_date: " 2 minutes",
-          client_name: "hey hi",
-          client_id: "1535",
-          client_phone: "9999999",
-        },
-      ],
-      ads: [
-        {
-          id: "1",
-          name: "ad 1",
-          price: "1 $",
-          details: "deeeeeeeeeeeeetaaaaaaaaaaillllllls",
-          creation_date: " 1 day",
-          client_name: "hey hi",
-          client_id: "1535",
-          client_phone: "9999999",
-        },
-      ],
+      tasks: []
     };
   },
-  mounted() {
-    /* var id=""   // idk how this is gonna work yet 
+  created() {
     axios
-          .get('http://localhost/TaskMeBack/public/api/tasks'+id)
-          .then(response => (this.tasks = response["data"]["data"]))
-    axios
-          .get('http://localhost/TaskMeBack/public/api/ads'+id) //mafammech l route
-          .then(response => (this.ads = response["data"]["data"]))*/
-  },
-  created() {/*
-    if (!this.$session.exists() || localStorage.type == "client") {
-      this.$router.push("/");
-    }*/
+      .get(
+        "http://localhost/TaskMeBack/public/api/posts_by_user/" +
+          localStorage.id
+      )
+      .then((response) => {
+      response["data"]["data"].forEach((post) => {
+          axios
+            .get(
+              "http://localhost/TaskMeBack/public/api/task/" + post["post"]["task_id"]
+            )
+            .then((rps) => {
+              
+              var ta = {
+                id: post["post"]["id"],
+                name: rps["data"]["data"]["subject"],
+                category: rps["data"]["data"]["categories"]["name"],
+                price: post["post"]["price"]+"$",
+                date: post["post"]["date"],
+                place: post["address"]["country"]+", "+post["address"]["city"]+", "+post["address"]["street"]+", "+post["address"]["postal_code"]+", "+post["address"]["house_number"],
+                description: post["post"]["description"],
+                client_name: '', //client
+                client_id: '', //client 
+                client_phone: '', // client
+                creation_date: post["post"]["created_at"],
+                state: post["post"]["state"]
+              };
+              this.tasks.push(ta);
+            });
+      });
+      });
   },
   methods: {
         viewPost(

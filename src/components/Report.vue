@@ -28,7 +28,7 @@ export default {
       type: String
     },
     id: {
-      type: String
+      type: Number
     },
     client:{
             type : String,
@@ -50,14 +50,7 @@ export default {
   },
   methods: {
     report() {
-      var info={
-                "id" : this.id,
-                "client" : this.client,
-                "worker" : this.worker,
-                "creation_date" : this.creation_date,
-                "report" : document.getElementById("report_t").value,
-            }
-            axios.get('http://localhost/TaskMeBack/public/api/'+this.type+'/report/'+this.id,JSON.stringify(info));
+      // fake reporting oops
       this.hide();
     },
     hide() {
